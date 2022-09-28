@@ -10,7 +10,7 @@ G = nx.from_numpy_matrix(A)
 mapping = {0:'A',1:'B',2:'C',3:'D',4:'E'}
 G = nx.relabel_nodes(G,mapping)
 F = nx.erdos_renyi_graph(5,0.9)
-
+F = nx.relabel_nodes(F,mapping)
 #time1 = perf_counter()
 #nx.approximation.traveling_salesman_problem(G)
 #time2 = perf_counter()
