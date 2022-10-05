@@ -1,17 +1,9 @@
 '''This program impletments a  ery simple algorithm to infect a network, 
     selecting one node at random and then at a rate p, will attempt to infect other nodes 
 '''
-
-
-
-
-
-
-
 import networkx as nx #Adds the networkx package, used to create graph objects
 import numpy as np #Numpy is needed for matrix manipulation
 import random as rand #Random helps for random numbers
-
 
 class infection_graph(): #Creates a class based off the grapgh we are going to analyise and sorts important data about said graph
     def __init__(self,network):
@@ -46,9 +38,11 @@ def infect(infclass: infection_graph,p: float):#function to infect a vertex, p i
 
 
 def main():
-    labels = {0:'a',1:'b',2:'c'}
+    Letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     graph =  np.matrix('0 1 1; 1 0 0; 1 0 0')
     G = nx.from_numpy_matrix(graph)
+    Numbers = range(nx.number_of_nodes(G))
+    labels = dict(zip(Numbers,Letters))
     G = nx.relabel_nodes(G,labels)
     list_of_nodes = list(nx.nodes(G))
     A = infection_graph(G)
