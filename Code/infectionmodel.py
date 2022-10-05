@@ -39,8 +39,9 @@ def infect(infclass: infection_graph,p: float):#function to infect a vertex, p i
 
 def main():
     Letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    graph =  np.matrix('0 1 1; 1 0 0; 1 0 0')
-    G = nx.from_numpy_matrix(graph)
+    #graph =  np.matrix('0 1 1; 1 0 0; 1 0 0')
+   # G = nx.from_numpy_matrix(graph)
+    G = nx.barabasi_albert_graph(12,2)
     Numbers = range(nx.number_of_nodes(G))
     labels = dict(zip(Numbers,Letters))
     G = nx.relabel_nodes(G,labels)
@@ -55,6 +56,7 @@ def main():
         print(set(A.infected))
         if set(A.infected) == set(nx.nodes(A.graph)):
             print('INFECTED')
+            print(set(A.infected))
             break
         counter += 1
         print(counter)
