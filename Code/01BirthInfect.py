@@ -89,7 +89,7 @@ def random(node):
 
 
 
-def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
+def main(no_nodes: int, edges: int, p_i: float, p_r: float,b_r: float,enable_vis: bool):
     #Letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     #graph =  np.matrix('0 1 1; 1 0 0; 1 0 0')
     #G = nx.from_numpy_matrix(graph)
@@ -113,7 +113,7 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
                     print(A.die_or_recover(key,p_r))
             else:
                 A.daysinfected.update({key:0})
-        print(A.birth(0.6))
+        print(A.birth(b_r))
 
 
 
@@ -162,10 +162,10 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
 
 
 if __name__ == '__main__':
-    n,e,p_i,p_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:')
+    n,e,p_i,p_r,b_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:'),input('Birth Rate')
     enable_vis = input('Show Graphs?:')
-    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
-    main(n,e,p_i,p_r,enable_vis)
+    n,e,p_i,p_r,b_r = int(n),int(e),float(p_i),float(p_r),float(b_r)
+    main(n,e,p_i,p_r,b_r,enable_vis)
 
 
 
