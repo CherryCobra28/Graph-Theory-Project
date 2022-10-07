@@ -4,8 +4,8 @@
 import networkx as nx #Adds the networkx package, used to create graph objects
 import numpy as np #Numpy is needed for matrix manipulation
 import random as rand #Random helps for random numbers
-import matplotlib.pyplot as plt
-from copy import deepcopy
+import matplotlib.pyplot as plt #A library to plot graphs
+from copy import deepcopy #used to compare the starting graph with the end result
 
 class infection_graph(): #Creates a class based off the grapgh we are going to analyise and sorts important data about said graph
     def __init__(self,network):
