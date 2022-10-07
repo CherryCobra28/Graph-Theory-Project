@@ -5,7 +5,7 @@ import networkx as nx #Adds the networkx package, used to create graph objects
 import numpy as np #Numpy is needed for matrix manipulation
 import random as rand #Random helps for random numbers
 import matplotlib.pyplot as plt
-
+from copy import deepcopy
 
 class infection_graph(): #Creates a class based off the grapgh we are going to analyise and sorts important data about said graph
     def __init__(self,network):
@@ -52,31 +52,29 @@ def infect(infclass: infection_graph,p: float):#function to infect a vertex, p i
 
 
 
-def main():
+def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
     Letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     #graph =  np.matrix('0 1 1; 1 0 0; 1 0 0')
    # G = nx.from_numpy_matrix(graph)
-    G = nx.barabasi_albert_graph(10,1)
-    adj = nx.to_numpy_array(G)
+    G = nx.barabasi_albert_graph(no_nodes,edges)
     Numbers = range(nx.number_of_nodes(G))
     labels = dict(zip(Numbers,Letters))
     G = nx.relabel_nodes(G,labels)
-    cp_G = nx.from_numpy_array(adj)
-    cp_G = nx.relabel_nodes(cp_G,labels)
+    cp_G = deepcopy(G)
     list_of_nodes = list(nx.nodes(G))
     A = infection_graph(G)
 
 
     counter = 0
-    for i in range(100):
+    for i in range(100000):
         print(A.infected)
-        infect(A,0.5)
+        infect(A,p_i)
         print(A.daysinfected)
         for key in A.daysinfected:
             if key in A.infected:
                 A.daysinfected[key] += 1
                 if A.daysinfected[key] > 10:
-                    print(A.die_or_recover(key,0.5))
+                    print(A.die_or_recover(key,p_r))
 
 
 
@@ -94,16 +92,27 @@ def main():
         if len(A.infected) == 0:
             if len(nx.nodes(A.graph)) == 0:
                 print('Everyone died')
-                subax1 = plt.subplot(121)
-                nx.draw(cp_G,with_labels=True)
-                plt.show()
+                if enable_vis == 'True':
+                    f = plt.figure('Staring graph')
+                    subax1 = plt.subplot(121)
+                    nx.draw(cp_G,with_labels=True)
+                    f.show()
             else:
                 print('Everyone became immune')
                 surviors = list(nx.nodes(A.graph))
                 print(f'{surviors=}')
-                subax1 = plt.subplot(121)
-                nx.draw(cp_G,with_labels=True)
-                plt.show()
+                no_of_surviors = len(surviors)
+                print(f'{no_of_surviors=}')
+                if enable_vis == 'True':
+                    f = plt.figure('Starting Graph')
+                    subax1 = plt.subplot(121)
+                    nx.draw(cp_G,with_labels=True)
+                    f.show()
+                    g = plt.figure('The Surviors')
+                    subax1 = plt.subplot(121)
+                    nx.draw(A.graph,with_labels=True)
+                    g.show()
+                    input()
             print(counter)
             break
                 
@@ -114,7 +123,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    n,e,p_i,p_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:')
+    enable_vis = input('Show Graphs?:')
+    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+    main(n,e,p_i,p_r,enable_vis)
 
 
 
