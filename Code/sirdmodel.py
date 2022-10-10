@@ -11,18 +11,24 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
     def __init__(self,network):
         self.graph = network #Stores the graph we are studying 
         self.infected = set() #Initalises the empty list
+        self.degrees = dict(nx.degree(network))
+        self.colours = dict()
+        self.histogram = dict(enumerate(nx.degree_histogram(network)))
+        self.highestdegree = list(self.histogram)[-1]
+        self.diameter = nx.diameter(network)
         vertices = list(nx.nodes(self.graph))
         length = len(vertices)
         r_number = rand.randrange(0,length)
         self.infected.add(vertices[r_number]) #Picks a vertex at random to start the infection
         zeros = [0]*length
         self.daysinfected = dict(zip(vertices,zeros))
+        self.colour()
     def __repr__(self):
-        b = f'{self.infected}' #the __repr__ returns a readable version of the lsit of infected nodes
+        b = f'{self.degrees}\n{self.histogram=}\n{self.highestdegree=}\n{self.diameter=} ' #the __repr__ returns a readable version of the lsit of infected nodes
         return b
     def die_or_recover(self,node,r: float):
-        r_no = rand.randrange(0,101)
-        if r_no < 100*r:
+        r_no = rand.random()
+        if r_no < r:
             self.infected.discard(node)
             self.daysinfected.update({node:0})
             return(f'{node=} HAS RECOVERD')
@@ -30,9 +36,37 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
             self.infected.discard(node)
             self.graph.remove_node(node)
             self.daysinfected.update({node:0})
+            self.colours.pop(node)
             return(f'{node=} HAS DIED')
+    def colour(self):
+        for key in self.degrees:
+            if self.degrees[key] == self.highestdegree:
+                self.colours.update({key:'yellow'})
+            elif 5 < self.degrees[key] < self.highestdegree :
+                self.colours.update({key:'green'})
+            else:
+                self.colours.update({key:'blue'})
 
-
+class cgraph:
+    def __init__(self,network):
+        self.graph = network 
+        self.degrees = dict(nx.degree(network))
+        self.colours = []
+        self.histogram = dict(enumerate(nx.degree_histogram(network)))
+        self.highestdegree = list(self.histogram)[-1]
+        self.diameter = nx.diameter(network)
+        self.colour()
+    def __repr__(self):
+        return f'{self.degrees=}\n {self.histogram=}\n {self.highestdegree=}\n {self.diameter=}'
+    def colour(self):
+        for key in self.degrees:
+            if self.degrees[key] == self.highestdegree:
+                self.colours.append('yellow')
+            elif 5 < self.degrees[key] < self.highestdegree :
+                self.colours.append('green')
+            else:
+                self.colours.append('blue')
+        
 
 def infect(infclass: infection_graph,p: float):#function to infect a vertex, p is the probaility of infection use a float 
     spreaders = []
@@ -53,17 +87,12 @@ def infect(infclass: infection_graph,p: float):#function to infect a vertex, p i
 
 
 def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
-    Letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    #graph =  np.matrix('0 1 1; 1 0 0; 1 0 0')
-   # G = nx.from_numpy_matrix(graph)
     G = nx.barabasi_albert_graph(no_nodes,edges)
-    Numbers = range(nx.number_of_nodes(G))
-    labels = dict(zip(Numbers,Letters))
-    G = nx.relabel_nodes(G,labels)
     cp_G = deepcopy(G)
+    
     list_of_nodes = list(nx.nodes(G))
     A = infection_graph(G)
-
+    B = cgraph(cp_G)
 
     counter = 0
     for i in range(100000):
@@ -95,9 +124,10 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
                 print('Everyone died')
                 if enable_vis == 'True':
                     f = plt.figure('Staring graph')
-                    subax1 = plt.subplot(121)
-                    nx.draw(cp_G,with_labels=True)
+                    #subax1 = plt.subplot(121)
+                    nx.draw(B.graph,node_colours = B.colours,with_labels=True)
                     f.show()
+                    input()
             else:
                 print('Everyone became immune')
                 surviors = list(nx.nodes(A.graph))
@@ -106,21 +136,30 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
                 print(f'{no_of_surviors=}')
                 if enable_vis == 'True':
                     f = plt.figure('Starting Graph')
-                    subax1 = plt.subplot(121)
-                    nx.draw(cp_G,with_labels=True)
+                    #subax1 = plt.subplot(121)
+                    nx.draw_networkx(B.graph,node_color = B.colours ,with_labels=True)
                     f.show()
                     g = plt.figure('The Surviors')
-                    subax1 = plt.subplot(121)
-                    nx.draw(A.graph,with_labels=True)
+                    #subax1 = plt.subplot(121)
+                    nx.draw(A.graph,node_color = A.colours.values(),with_labels=True)
                     g.show()
                     input()
             print(counter)
+            data(B,A)
             break
                 
             
 
         counter += 1
         print(counter)
+
+
+def data(g1,g2):
+    print(f'Data on intital graph: \n {g1}')
+    print(f'Data on final graph: \n {g2}')
+
+
+
 
 
 if __name__ == '__main__':
