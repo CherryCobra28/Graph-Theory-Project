@@ -6,6 +6,10 @@ import numpy as np #Numpy is needed for matrix manipulation
 import random as rand #Random helps for random numbers
 import matplotlib.pyplot as plt #A library to plot graphs
 from copy import deepcopy #used to compare the starting graph with the end result
+import pandas as pd
+
+
+
 
 class infection_graph(): #Creates a class based off the grapgh we are going to analyise and sorts important data about said graph
     def __init__(self,network):
@@ -121,7 +125,8 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
         #    break
         if len(A.infected) == 0:
             if len(nx.nodes(A.graph)) == 0:
-                print('Everyone died')
+               #print('Everyone died')
+                no_of_surviors = 0
                 if enable_vis == 'True':
                     f = plt.figure('Staring graph')
                     #subax1 = plt.subplot(121)
@@ -129,11 +134,12 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
                     f.show()
                     input()
             else:
-                print('Everyone became immune')
+                #print('Everyone became immune')
                 surviors = list(nx.nodes(A.graph))
-                print(f'{surviors=}')
+                #print(f'{surviors=}')
                 no_of_surviors = len(surviors)
-                print(f'{no_of_surviors=}')
+                #print(f'{no_of_surviors=}')
+                
                 if enable_vis == 'True':
                     f = plt.figure('Starting Graph')
                     #subax1 = plt.subplot(121)
@@ -144,30 +150,44 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
                     nx.draw(A.graph,node_color = A.colours.values(),with_labels=True)
                     g.show()
                     input()
-            print(counter)
-            data(B,A)
-            break
+            #print(counter)
+            if no_of_surviors == 0:
+                total_death = True
+            else:
+                total_death = False
+            return {'n':no_nodes,'edges added': edges,'P_i': p_i,'P_r': p_r, 'Surviors': no_of_surviors,'Everyone die?':total_death}
                 
             
 
         counter += 1
-        print(counter)
+        #print(counter)
+
+def data():
+    d = pd.DataFrame()
+    for i in range(100):
+        dic = pd.DataFrame([main(100,5,0.6,0.5,'False')])
+        d = pd.concat([d,dic],ignore_index=True)
+    for i in range(100):
+        dic = pd.DataFrame([main(100,10,0.6,0.5,'False')])
+        d = pd.concat([d,dic],ignore_index=True)
+    for i in range(100):
+        dic = pd.DataFrame([main(100,50,0.6,0.5,'False')])
+        d = pd.concat([d,dic],ignore_index=True)
+    
+    print(d.head())
+    d.to_csv('.\data\data.csv',mode='a')
+    
 
 
-def data(g1,g2):
-    print(f'Data on intital graph: \n {g1}')
-    print(f'Data on final graph: \n {g2}')
 
 
-
-
-
+#if __name__ == '__main__':
+#    n,e,p_i,p_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:')
+#    enable_vis = input('Show Graphs?:')
+#    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+#    main(n,e,p_i,p_r,enable_vis)
 if __name__ == '__main__':
-    n,e,p_i,p_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:')
-    enable_vis = input('Show Graphs?:')
-    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
-    main(n,e,p_i,p_r,enable_vis)
-
+    data()
 
 
 
