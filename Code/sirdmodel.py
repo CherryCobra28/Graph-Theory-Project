@@ -155,39 +155,23 @@ def main(no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
                 total_death = True
             else:
                 total_death = False
-            return {'n':no_nodes,'edges added': edges,'P_i': p_i,'P_r': p_r, 'Surviors': no_of_surviors,'Everyone die?':total_death}
+            return {'n':no_nodes,'edges added': edges,'P_i': p_i,'P_r': p_r,'Days_Taken': counter, 'Surviors': no_of_surviors,'Everyone_Dead':total_death}
                 
             
 
         counter += 1
         #print(counter)
-
-def data():
-    d = pd.DataFrame()
-    for i in range(100):
-        dic = pd.DataFrame([main(100,5,0.6,0.5,'False')])
-        d = pd.concat([d,dic],ignore_index=True)
-    for i in range(100):
-        dic = pd.DataFrame([main(100,10,0.6,0.5,'False')])
-        d = pd.concat([d,dic],ignore_index=True)
-    for i in range(100):
-        dic = pd.DataFrame([main(100,50,0.6,0.5,'False')])
-        d = pd.concat([d,dic],ignore_index=True)
-    
-    print(d.head())
-    d.to_csv('.\data\data.csv',mode='a')
     
 
 
 
 
-#if __name__ == '__main__':
-#    n,e,p_i,p_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:')
-#    enable_vis = input('Show Graphs?:')
-#    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
-#    main(n,e,p_i,p_r,enable_vis)
 if __name__ == '__main__':
-    data()
+    n,e,p_i,p_r = input('Number of Nodes:'),input('Number of initial edges:'),input('Probaility of infection:'),input('Probability to Recover:')
+    enable_vis = input('Show Graphs?:')
+    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+    main(n,e,p_i,p_r,enable_vis)
+
 
 
 
