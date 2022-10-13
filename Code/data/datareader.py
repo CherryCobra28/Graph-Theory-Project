@@ -7,4 +7,4 @@ print(data.tail())
 print(data.dtypes)
 print(data.columns)
 death = data[data['Everyone_Dead'] == True]
-print(len(death))
+print(death)
