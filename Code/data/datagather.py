@@ -1,5 +1,4 @@
-import numpy as np; import pandas as pd; import sirdmodel
-from multiprocessing import Pool
+import numpy as np; import pandas as pd; import sirdmodel;import networkx as nx
 
 
 
@@ -7,26 +6,24 @@ from multiprocessing import Pool
 
 
 
-#from multiprocessing import Pool
-#def square(n):
-#    return n**2
-#if __name__=='__main__':
-#    numbers=[1,5,9]
-#    pool=Pool(processes=3)
-#    print(pool.map(square,numbers))   
-#
+
 #
 #
 #
 #
 
 def data():
+    virus = [0.6,0.5]
+    g = nx.complete_graph(5)
+    e = [1,2,3,4,5,1,2,3,4,5,1]
+    n = [50,100,150,200,250,300,350,400,450,500]
     d = pd.DataFrame()
     for _ in range(101):
-        A = [sirdmodel.main(100,5,0.6,0.5,enable_vis=False),sirdmodel.main(100,10,0.6,0.5,enable_vis=False),sirdmodel.main(100,50,0.6,0.5,enable_vis=False),sirdmodel.main(100,5,0.7,0.5,enable_vis=False),sirdmodel.main(100,10,0.7,0.5,enable_vis=False),sirdmodel.main(100,50,0.7,0.5,enable_vis=False),sirdmodel.main(100,5,0.6,0.6,enable_vis=False),sirdmodel.main(100,10,0.6,0.6,enable_vis=False),sirdmodel.main(100,50,0.6,0.6,enable_vis=False),sirdmodel.main(200,5,0.6,0.5,enable_vis=False),sirdmodel.main(200,10,0.6,0.5,enable_vis=False),sirdmodel.main(200,50,0.6,0.5,enable_vis=False),sirdmodel.main(1000,45,0.8,0.2,enable_vis=False),sirdmodel.main(123,15,0.2,0.8,enable_vis=False),sirdmodel.main(2000,100,0.9,0.01,enable_vis=False)]
-        for i in A:
-            a = pd.DataFrame.from_dict([i])
-            d = pd.concat([d,a],ignore_index=True)
+        for x in n:
+            A = [sirdmodel.main(g,x,e[0],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[1],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[2],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[3],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[4],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[5],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[6],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[7],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[7],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[8],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[9],virus[0],virus[1],enable_vis=False)[0],sirdmodel.main(g,x,e[10],virus[0],virus[1],enable_vis=False)[0]]
+            for i in A:
+                a = pd.DataFrame.from_dict([i])
+                d = pd.concat([d,a],ignore_index=True)
     
     return d
             
