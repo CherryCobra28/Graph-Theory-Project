@@ -167,20 +167,20 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
         #print(days_of_the_infcetion)
-def graphchoice():
+def graphchoice(m):
     '''Here we choose which graph we will be using a barabasi transform on'''
     choice = input('(W)heel, (C)ycle, (K)omplete, (S)tar, (R)andom')      
     match choice:
         case 'W':
-            return nx.wheel_graph(5)
+            return nx.wheel_graph(m+1)
         case 'C':
-            return nx.cycle_graph(5)
+            return nx.cycle_graph(m+1)
         case 'K':
-            return nx.complete_graph(5)
+            return nx.complete_graph(m+1)
         case 'S':
-            return nx.star_graph(5)
+            return nx.star_graph(m+1)
         case 'R':
-            return nx.erdos_renyi_graph(5,0.5)
+            return nx.erdos_renyi_graph(m+1,0.5)
         case _:
             graphchoice()  
 
@@ -191,8 +191,9 @@ if __name__ == '__main__':
     '''Here is where the actual code runs
     We ask the user for input for every parameter of the main function
     '''
-    graph = graphchoice()    
+        
     n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
+    graph = graphchoice(e)
     enable_vis = input('Show Graphs?:')
     n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
     tup = main(graph,n,e,p_i,p_r,enable_vis)
