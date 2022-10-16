@@ -1,4 +1,4 @@
-import networkx as nx; import numpy as np; import matplotlib.pyplot as plt; import pysnooper
+import networkx as nx; import numpy as np; import matplotlib.pyplot as plt; import math
 class colourgraph:
     def __init__(self,g):
         self.graph = g
@@ -43,14 +43,17 @@ def graphchoice():
 #@pysnooper.snoop()
 def main(): 
 
-    G = colourgraph(graphchoice())
-    print(repr(G))
-    F = colourgraph(nx.barabasi_albert_graph(30,5,initial_graph=G.graph))
-    print(repr(F))
+    G = graphchoice()
+    N = 100
+    F = nx.barabasi_albert_graph(N,4,initial_graph=G)
+    d = (math.log(N))/(math.log(math.log(N)))
+    print(f'{nx.diameter(F)},{d=},ratio = {d/nx.diameter(F)}')
+    c_bar = nx.average_clustering(F)
+    c_est = ((math.log(N))**2)/N
+    print(f'{c_bar=},{c_est=},ratio = {c_est/c_bar}')
+    print(nx.transitivity(F))
 
-
-
-
+    quit()
     f = plt.figure('Starting Graph')
     #subax1 = plt.subplot(111)
     nx.draw(G.graph,node_color = G.colours,with_labels=True)
