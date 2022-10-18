@@ -52,8 +52,6 @@ def main():
     c_est = ((math.log(N))**2)/N
     print(f'{c_bar=},{c_est=},ratio = {c_est/c_bar}')
     print(nx.transitivity(F))
-
-    quit()
     f = plt.figure('Starting Graph')
     #subax1 = plt.subplot(111)
     nx.draw(G.graph,node_color = G.colours,with_labels=True)
