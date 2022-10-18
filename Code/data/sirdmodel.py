@@ -7,7 +7,7 @@ import networkx as nx #Adds the networkx package, used to create graph objects
 import random as rand #Random helps for random numbers
 import matplotlib.pyplot as plt #A library to plot graphs
 from copy import deepcopy #used to compare the starting graph with the end result
-
+import PySimpleGUI as sg
 
 
 
@@ -135,7 +135,7 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
             if len(nx.nodes(infection_network.graph)) == 0:
                 no_of_surviors = 0 #Everyones dead, no survivors
                 total_death = True
-                if enable_vis == 'True':
+                if enable_vis is True:
                     '''We render the plot of the orginal graph to see how it looked and maybe why everyone died,
                     theres no point showing the final graph as itll just be empty'''
                     f = plt.figure('Staring graph')
@@ -150,7 +150,7 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
                 no_of_surviors = len(surviors)
                 
                 total_death = False
-                if enable_vis == 'True':
+                if enable_vis is True:
                     '''Here we render both the orginal grpah and a graph of all the survivors to compare the devasation or lack there of'''
                     f = plt.figure('Starting Graph')
                     nx.draw_networkx(origin_network.graph,node_color = origin_network.colours ,with_labels=True)
@@ -167,23 +167,22 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
         #print(days_of_the_infcetion)
-def graphchoice(m):
-    '''Here we choose which graph we will be using a barabasi transform on'''
-    choice = input('(W)heel, (C)ycle, (K)omplete, (S)tar, (R)andom')      
-    match choice:
-        case 'W':
-            return nx.wheel_graph(m+1)
-        case 'C':
-            return nx.cycle_graph(m+1)
-        case 'K':
-            return nx.complete_graph(m+1)
-        case 'S':
-            return nx.star_graph(m+1)
-        case 'R':
-            return nx.erdos_renyi_graph(m+1,0.5)
-        case _:
-            graphchoice()  
+def graphchoice(m,choice):
+    '''Here we choose which graph we will be using a barabasi transform on'''      
 
+    if choice == 'Wheel':
+        return nx.wheel_graph(m+1)
+    elif choice == 'Cycle' :
+        return nx.cycle_graph(m+1)
+    elif choice == 'Complete':
+        return nx.complete_graph(m+1)
+    elif choice == 'Star':
+        return nx.star_graph(m+1)
+    elif choice == 'Erdos-Renyi':
+        return nx.erdos_renyi_graph(m+1,0.5)
+    else:
+        graphchoice()  
+        
 
 
 
@@ -191,11 +190,44 @@ if __name__ == '__main__':
     '''Here is where the actual code runs
     We ask the user for input for every parameter of the main function
     '''
+    sg.theme('Green')
+    list_of_graphs = ['Wheel','Cycle','Complete','Star','Erdos-Renyi']   
+    layout = [[sg.Text('No of nodes')],
+              [sg.InputText()],
+              [sg.Text('Barabasi Edges')],
+              [sg.InputText()],
+              [sg.Text('P of infection')],
+              [sg.InputText()],
+              [sg.Text('P of Recovery')],
+              [sg.InputText()],
+              [sg.Listbox(values=list_of_graphs,size=(15,5), key='-LIST-', enable_events=True)],
+              [sg.Checkbox('Enable Graphs?',default = True, key= '-IN-' )],
+              [sg.Submit()],
+              [sg.Cancel()]]
+    
+    
+    window = sg.Window('SIRD Infection Model', layout)
+    while True:
         
-    n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
-    graph = graphchoice(e)
-    enable_vis = input('Show Graphs?:')
+        event, values = window.read()
+        if event in (sg.WIN_CLOSED, 'Exit'):
+            quit()
+        elif 'Submit' in event:
+            break
+        
+        
+    window.close()
+    if values['-IN-'] is  True:
+        enable_vis = True
+    else:
+        enable_vis = False
+    n,e,p_i,p_r = values[0],values[1],values[2],values[3]
     n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+    #n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
+    #enable_vis = input('Show Graphs?:')
+    graph = graphchoice(e,values['-LIST-'][0])
+    
+    
     tup = main(graph,n,e,p_i,p_r,enable_vis)
     '''Then we print out the results of the infection'''
     infection_data = tup[0]
