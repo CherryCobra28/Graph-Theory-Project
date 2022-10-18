@@ -21,19 +21,19 @@ class colourgraph:
         
 def graphchoice():
     choice = input('Wheel, Cycle, Komplete, Star, Random')      
-    match choice:
-        case 'W':
-            return nx.wheel_graph(5)
-        case 'C':
-            return nx.cycle_graph(5)
-        case 'K':
-            return nx.complete_graph(5)
-        case 'S':
-            return nx.star_graph(5)
-        case 'R':
-            return nx.erdos_renyi_graph(5,0.9)
-        case _:
-            graphchoice()    
+    
+    if choice == 'W':
+        return nx.wheel_graph(5)
+    elif choice == 'C':
+        return nx.cycle_graph(5)
+    elif choice == 'K':
+        return nx.complete_graph(5)
+    elif choice == 'S':
+        return nx.star_graph(5)
+    elif choice == 'R':
+        return nx.erdos_renyi_graph(5,0.9)
+    else:
+        graphchoice()    
         
         
         
