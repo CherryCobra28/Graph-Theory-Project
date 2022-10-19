@@ -29,7 +29,7 @@ def betterdiameter(G):
             #A = ne.evaluate('A>0').astype(np.uint8)
 
 if __name__ == '__main__':
-    K = nx.barabasi_albert_graph(100,7)
+    K = nx.barabasi_albert_graph(10,7)
     
     
     t = perf_counter()
