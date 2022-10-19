@@ -38,5 +38,5 @@ def dataobserve():
     
 if __name__ == '__main__':
     k = input('create or observe')
-    choice = 'data'+k+'()'
+    choice = f'data{k}()'
     eval(choice)
