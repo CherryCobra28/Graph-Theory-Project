@@ -1,5 +1,7 @@
 
-import numpy as np; import pandas as pd; import sirdmodel;import networkx as nx; from betterdiameter import betterdiameter; import math
+from ssl import ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION
+import numpy as np; import pandas as pd
+import sirdmodel;import networkx as nx; from betterdiameter import betterdiameter; import math
 
 from tqdm import tqdm
 
@@ -18,7 +20,7 @@ def datacreate():
     m = 5
     g = nx.complete_graph(m+1)
     e = m
-    n = [30,50,70,90,110,130,150]#170,190,200,300,400,500,1000,1500,2000,2500,10000]
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,10000]
     d = pd.DataFrame()
     index = 0
     for x in n:
@@ -39,8 +41,31 @@ def datacreate():
     d.to_csv('.\data.csv',index = False)
 
 def dataobserve():
-    a = pd.read_csv('.\data\data.csv')
-    print(a)
+    a = pd.read_csv('data.csv')
+    #print(a)
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,10000]
+    means = []
+    sdofreal = []
+    approxdiam = []
+    ratios = []
+    sdofdiams = []
+    for x in n:
+        
+        explore = a[a['Number_of_Nodes'] == x]
+        realdiams = explore['Real_Diameter']
+        means.append(realdiams.mean())
+        sdofreal.append(realdiams.std())
+        approx = list(explore['Aprrox Diameter'])[0]
+        approxdiam.append(approx)
+        ratios.append(approx/realdiams.mean())
+        sd = (realdiams.mean()-approx)**2
+        sd = math.sqrt(sd)
+        sdofdiams.append(sd)
+    B = {'N':n,'Average_Diam':means,'Standard_Deviation': sdofreal,'Aprrox_Diam':approxdiam,'Ratio_Between_Diams': ratios, 'Standard_deviation_Between_Real_approx':sdofdiams}
+    data = pd.DataFrame(B)  
+    print(data) 
+    
+    
     
     
     
