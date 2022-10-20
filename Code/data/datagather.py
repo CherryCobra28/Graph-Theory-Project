@@ -1,7 +1,7 @@
 
 import numpy as np; import pandas as pd; import sirdmodel;import networkx as nx; from betterdiameter import betterdiameter; import math
 
-
+from tqdm import tqdm
 
 
 
@@ -22,10 +22,11 @@ def datacreate():
     d = pd.DataFrame()
     index = 0
     for x in n:
+        print(f'{x=}')
         diam_approx = math.log(x)/math.log(math.log(x))
         
         
-        for i in range(101):
+        for i in tqdm(range(101)):
             G = nx.barabasi_albert_graph(x,5,initial_graph = g)
             #A = sirdmodel.main(g,n,e,virus[0],virus[1],enable_vis='False')[0]
 
