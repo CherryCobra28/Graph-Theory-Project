@@ -30,12 +30,13 @@ def betterdiameter(G):
             #A = ne.evaluate('A>0').astype(np.uint8)
 
 if __name__ == '__main__':
-    K = nx.barabasi_albert_graph(10,7)
+    K = nx.barabasi_albert_graph(1000,7)
     
     
     t = perf_counter()
     my = betterdiameter(K)
     print(f'My algoirthim took {perf_counter() - t},{my=}')
+    quit()
     t = perf_counter()
     network = nx.diameter(K)
     print(f'Netwrokx took {perf_counter()-t},{network=}')
