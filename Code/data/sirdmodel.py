@@ -118,7 +118,7 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
 
     days_of_the_infcetion = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
-    for i in range(100000):
+    for _ in range(100000):
         infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
         '''Here we look in daysinfected and increment the time a node has been infected by one then see if any node has been
         infected for more than 10 days if so the node will attempt to recover or die'''
