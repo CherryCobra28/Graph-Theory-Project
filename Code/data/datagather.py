@@ -20,7 +20,7 @@ def datacreate():
     m = 5
     g = nx.complete_graph(m+1)
     e = m
-    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,10000]
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
     d = pd.DataFrame()
     index = 0
     for x in n:
@@ -28,7 +28,7 @@ def datacreate():
         diam_approx = math.log(x)/math.log(math.log(x))
         cluster_approx = (math.log(x)**2)/x
         
-        for i in tqdm(range(101)):
+        for i in tqdm(range(200)):
             G = nx.barabasi_albert_graph(x,5,initial_graph = g)
             #A = sirdmodel.main(g,n,e,virus[0],virus[1],enable_vis='False')[0]
 
@@ -43,25 +43,41 @@ def datacreate():
 def dataobserve():
     a = pd.read_csv('data.csv')
     #print(a)
-    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,10000]
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
     means = []
     sdofreal = []
     approxdiam = []
     ratios = []
     sdofdiams = []
+    meanrcluster = []
+    sdofrcluster = []
+    approxcluster = []
+    ratioofclsuter = []
+    sdofcluster = []
     for x in n:
         
         explore = a[a['Number_of_Nodes'] == x]
         realdiams = explore['Real_Diameter']
         means.append(realdiams.mean())
         sdofreal.append(realdiams.std())
-        approx = list(explore['Aprrox Diameter'])[0]
+        approx = list(explore['Aprrox_Diameter'])[0]
         approxdiam.append(approx)
         ratios.append(approx/realdiams.mean())
         sd = (realdiams.mean()-approx)**2
         sd = math.sqrt(sd)
         sdofdiams.append(sd)
-    B = {'N':n,'Average_Diam':means,'Standard_Deviation': sdofreal,'Aprrox_Diam':approxdiam,'Ratio_Between_Diams': ratios, 'Standard_deviation_Between_Real_approx':sdofdiams}
+        clusters = explore['Average_Clustering']
+        meanrcluster.append(clusters.mean())
+        sdofrcluster.append(clusters.std())
+        approxC = list(explore['Approx_Clustering'])[0]
+        approxcluster.append(approxC)
+        ratioofclsuter.append(approxC/clusters.mean())
+        sdC = (clusters.mean()-approx)**2
+        sdC = math.sqrt(sdC)
+        sdofcluster.append(sdC)
+        
+        
+    B = {'N':n,'Average_Diam':means,'Standard_Deviation': sdofreal,'Aprrox_Diam':approxdiam,'Ratio_Between_Diams': ratios, 'Standard_deviation_Between_Real_approx':sdofdiams, 'Average_Clustering': meanrcluster,'S.D of Clsutering': sdofrcluster, 'Approx_Clustering':approxC,'Ratio_Between_Clustering':ratioofclsuter,'S.D_Between_Aprrox_and_Real': sdofcluster  }
     data = pd.DataFrame(B)  
     print(data) 
     
