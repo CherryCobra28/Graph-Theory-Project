@@ -1,20 +1,19 @@
 from time import perf_counter
 import networkx as nx
 import numpy as np
-import matplotlib.pyplot as plt
 from copy import copy
 
 
 
 def betterdiameter(G):
-    A = nx.to_numpy_matrix(G)
+    A = nx.to_numpy_array(G)
 
     dimensions = A.shape
     
     A += np.identity(dimensions[0],int)
     const_A = copy(A)
     t=1
-    while True:
+    for _ in range(100):
 
         x = np.count_nonzero(A)
         #print(A)
@@ -24,7 +23,7 @@ def betterdiameter(G):
             
         else:
             t += 1
-            A = np.matmul(A,const_A)
+            A = np.dot(A,const_A)
             A = (A>0).astype(np.uint8)
             #A = ne.evaluate('A>0').astype(np.uint8)
 
