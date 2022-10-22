@@ -9,13 +9,14 @@ import matplotlib.pyplot as plt #A library to plot graphs
 from copy import deepcopy #used to compare the starting graph with the end result
 import PySimpleGUI as sg
 from betterdiameter import betterdiameter
-
+from math import floor
 
 class infection_graph(): #Creates a class based off the grapgh we are going to analyise and sorts important data about said graph
     def __init__(self,network):
         self.graph = network #Stores the graph we are studying 
         self.infected = set() #Initalises the empty list
         self.degrees = dict(nx.degree(network)) #returns a dictionary with the nodes as keys and their degree as value
+        
         self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
         self.histogram = dict(enumerate(nx.degree_histogram(network)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
@@ -25,6 +26,7 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
         self.infected.add(vertices[r_number]) #Picks a vertex at random to start the infection
         zeros = [0]*len(vertices)
         self.daysinfected = dict(zip(vertices,zeros))#Keeps count of how long each node has been infected
+        self.timesrecovered = dict(zip(vertices,zeros))
         self.colour() #Colours the nodes
     def stats(self):
         '''returns readable info about the graph, here it gives the: degrees of each node,
@@ -35,10 +37,15 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
         '''This Method runs after a node has been infceted for k days and will attempt to allow the node to recover at p = r
         or die at p = 1-r'''
         r_no = rand.random()
+        if self.timesrecovered[node] > 0:
+             r += 0.05*(self.timesrecovered[node])
+             if r > 1:
+                 r = 1
         if r_no < r:
             '''if we succeed then the node is removed from the infceted list and the time its spent infected is put back to 0'''
             self.infected.discard(node)
             self.daysinfected.update({node:0})
+            self.timesrecovered[node] +=1 
             return(f'{node=} HAS RECOVERD')
         else:
             '''however if it fails the node is killed, being removed from the infceted list, removed from the graph, has its time infected
@@ -50,12 +57,14 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
             self.colours.pop(node)
             return(f'{node=} HAS DIED')
     def colour(self):
-        '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree > 5 
+        '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree greater than the median degree,
         super hubs are defined as nodes with the highest degrees in the graph'''
+        hubsize = floor(len(self.histogram)/2)
+        hub = list(self.histogram)[hubsize]
         for key in self.degrees:
             if self.degrees[key] == self.highestdegree:
                 self.colours.update({key:'yellow'})
-            elif 5 < self.degrees[key] < self.highestdegree :
+            elif hub < self.degrees[key] < self.highestdegree :
                 self.colours.update({key:'green'})
             else:
                 self.colours.update({key:'blue'})
@@ -73,10 +82,12 @@ class cgraph:
     def stats(self):
         return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter}
     def colour(self):
+        hubsize = floor(len(self.histogram)/2)
+        hub = list(self.histogram)[hubsize]
         for key in self.degrees:
             if self.degrees[key] == self.highestdegree:
                 self.colours.append('yellow')
-            elif 5 < self.degrees[key] < self.highestdegree :
+            elif hub < self.degrees[key] < self.highestdegree :
                 self.colours.append('green')
             else:
                 self.colours.append('blue')
@@ -90,7 +101,9 @@ def infect(infclass: infection_graph,p: float):#function to infect a vertex, p i
             spreaders.append(n)
     for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
         r_no = rand.random()
-        if r_no < p:
+        if infclass.timesrecovered[node] > 3:
+            pass
+        elif r_no < p:
             infclass.infected.add(node)
         else:
             pass
@@ -110,7 +123,11 @@ enable_vis: takes True or False, this decides if we render the plots of the grap
 '''
 def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
     '''G is our barabsi graph which we build off our init graph'''
-    G = nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
+    try:
+        G = nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
+    except nx.exception.NetworkXError:
+        print(f'Number of edges must be less that number of nodes, {edges}>{no_nodes}')
+        userpanel()
     cp_G = deepcopy(G) #Makes a copy of G so we can compare later
     
     infection_network = infection_graph(G) #Creates an instance of the infection_graph with G
@@ -186,10 +203,8 @@ def graphchoice(m,choice):
 
 
 
-if __name__ == '__main__':
-    '''Here is where the actual code runs
-    We ask the user for input for every parameter of the main function
-    '''
+def userpanel():
+    '''Here is where the actual code runs, We ask the user for input for every parameter of the main function'''
     sg.theme('Green')
     list_of_graphs = ['Wheel','Cycle','Complete','Star','Erdos-Renyi']   
     layout = [[sg.Text('No of nodes')],
@@ -205,11 +220,11 @@ if __name__ == '__main__':
               [sg.Checkbox('Enable Graphs?',default = True, key= '-IN-' )],
               [sg.Submit()],
               [sg.Cancel()]]
-    
-    
+
+
     window = sg.Window('SIRD Infection Model', layout)
     while True:
-        
+
         event, values = window.read()
         if event in (sg.WIN_CLOSED, 'Exit'):
             quit()
@@ -222,18 +237,32 @@ if __name__ == '__main__':
         enable_vis = True
     else:
         enable_vis = False
-    n,e,p_i,p_r = values[0],values[1],values[2],values[3]
-    n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+    try:
+        n,e,p_i,p_r = values[0],values[1],values[2],values[3]
+        n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+    except ValueError:
+        print('Please input the correct data types')
+        userpanel()
     #n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
     #enable_vis = input('Show Graphs?:')
     graph = graphchoice(e,values['-LIST-'][0])
-    
-    
+
+
     tup = main(graph,n,e,p_i,p_r,enable_vis)
     '''Then we print out the results of the infection'''
     infection_data,origin_graph = tup
     print(infection_data)
     print(origin_graph)
+     
+
+
+
+
+
+
+if __name__ == '__main__':
+   userpanel()
+   
     
 
 
