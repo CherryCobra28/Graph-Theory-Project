@@ -1,7 +1,7 @@
 
-from ssl import ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION
+
 import numpy as np; import pandas as pd
-import sirdmodel;import networkx as nx; from betterdiameter import betterdiameter; import math
+import networkx as nx; from betterdiameter import betterdiameter; import math
 
 from tqdm import tqdm
 
@@ -18,7 +18,7 @@ from tqdm import tqdm
 def datacreate():
     virus = [0.6,0.5]
     m = 5
-    g = nx.complete_graph(m+1)
+    
     e = m
     n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
     d = pd.DataFrame()
@@ -27,9 +27,9 @@ def datacreate():
         print(f'{x=}')
         diam_approx = math.log(x)/math.log(math.log(x))
         cluster_approx = (math.log(x)**2)/x
-        
+        g = nx.erdos_renyi_graph(int(x/2),0.5)
         for i in tqdm(range(200)):
-            G = nx.barabasi_albert_graph(x,5,initial_graph = g)
+            G = nx.barabasi_albert_graph(x,int(x/2 -1),initial_graph = g)
             #A = sirdmodel.main(g,n,e,virus[0],virus[1],enable_vis='False')[0]
 
             A = {'Number_of_Nodes':x,'Real_Diameter':betterdiameter(G),'Aprrox_Diameter':diam_approx,'Average_Clustering':nx.average_clustering(G),'Approx_Clustering':cluster_approx}
@@ -62,7 +62,7 @@ def dataobserve():
         sdofreal.append(realdiams.std())
         approx = list(explore['Aprrox_Diameter'])[0]
         approxdiam.append(approx)
-        ratios.append(approx/realdiams.mean())
+        ratios.append(realdiams.mean()/approx)
         sd = (realdiams.mean()-approx)**2
         sd = math.sqrt(sd)
         sdofdiams.append(sd)
@@ -71,7 +71,7 @@ def dataobserve():
         sdofrcluster.append(clusters.std())
         approxC = list(explore['Approx_Clustering'])[0]
         approxcluster.append(approxC)
-        ratioofclsuter.append(approxC/clusters.mean())
+        ratioofclsuter.append(clusters.mean()/approxC)
         sdC = (clusters.mean()-approx)**2
         sdC = math.sqrt(sdC)
         sdofcluster.append(sdC)
