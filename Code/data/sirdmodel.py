@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt #A library to plot graphs
 import PySimpleGUI as sg
 from betterdiameter import betterdiameter
 
-
 class infection_graph(): 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
     def __init__(self,network):
@@ -39,10 +38,6 @@ class infection_graph():
         '''This Method runs after a node has been infceted for k days and will attempt to allow the node to recover at p = r
         or die at p = 1-r'''
         r_no = rand.random()
-        if self.timesrecovered[node] > 0:
-             r += 0.05*(self.timesrecovered[node])
-             if r > 1:
-                 r = 1
         if r_no < r:
             """if we succeed then the node is removed from the infceted list and the time its spent infected is put back to 0"""
             self.infected.discard(node)
@@ -103,7 +98,7 @@ def infect(infclass: infection_graph,p: float) -> None:#function to infect a ver
             spreaders.append(n)
     for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
         r_no = rand.random()
-        if infclass.timesrecovered[node] > 3:
+        if infclass.timesrecovered[node] > 0:
             pass
         elif r_no < p:
             infclass.infected.add(node)
@@ -123,7 +118,7 @@ p_i: probability of infection
 p_r: probaility of recovery alternatively 1-p_r is the death rate
 enable_vis: takes True or False, this decides if we render the plots of the graphs at the end
 '''
-def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool) -> dict:
+def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool) -> tuple:
     '''G is our barabsi graph which we build off our init graph'''
     try:
         G = nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
@@ -261,7 +256,7 @@ def userpanel() -> None:
 
 
 if __name__ == '__main__':
-   userpanel()
+    userpanel()
    
     
 
