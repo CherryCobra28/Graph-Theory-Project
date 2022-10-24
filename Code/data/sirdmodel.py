@@ -14,6 +14,7 @@ from betterdiameter import betterdiameter
 class infection_graph(): 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
     def __init__(self,network):
+        #bepsi
         self.graph = network #Stores the graph we are studying 
         self.infected = set() #Initalises the empty list
         self.degrees = dict(nx.degree(network)) #returns a dictionary with the nodes as keys and their degree as value
