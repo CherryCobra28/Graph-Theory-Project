@@ -3,15 +3,17 @@ This program impletments an algorithm to infect a network,
 selecting one node at random and then at a rate p, will attempt to infect other nodes
  
 '''
-import networkx as nx #Adds the networkx package, used to create graph objects
-import random as rand #Random helps for random numbers
-import matplotlib.pyplot as plt #A library to plot graphs
 from copy import deepcopy #used to compare the starting graph with the end result
+import random as rand #Random helps for random numbers
+from math import floor
+import networkx as nx #Adds the networkx package, used to create graph objects
+import matplotlib.pyplot as plt #A library to plot graphs
 import PySimpleGUI as sg
 from betterdiameter import betterdiameter
-from math import floor
 
-class infection_graph(): #Creates a class based off the grapgh we are going to analyise and sorts important data about said graph
+
+class infection_graph(): 
+    '''Creates a clas that we use to control and store information using the graph chosen for infection'''
     def __init__(self,network):
         self.graph = network #Stores the graph we are studying 
         self.infected = set() #Initalises the empty list
@@ -28,12 +30,12 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
         self.daysinfected = dict(zip(vertices,zeros))#Keeps count of how long each node has been infected
         self.timesrecovered = dict(zip(vertices,zeros))
         self.colour() #Colours the nodes
-    def stats(self):
+    def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
         
         return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter} 
-    def die_or_recover(self,node,r: float):
+    def die_or_recover(self,node,r: float) -> str:
         '''This Method runs after a node has been infceted for k days and will attempt to allow the node to recover at p = r
         or die at p = 1-r'''
         r_no = rand.random()
@@ -42,7 +44,7 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
              if r > 1:
                  r = 1
         if r_no < r:
-            '''if we succeed then the node is removed from the infceted list and the time its spent infected is put back to 0'''
+            """if we succeed then the node is removed from the infceted list and the time its spent infected is put back to 0"""
             self.infected.discard(node)
             self.daysinfected.update({node:0})
             self.timesrecovered[node] +=1 
@@ -56,7 +58,7 @@ class infection_graph(): #Creates a class based off the grapgh we are going to a
             self.daysinfected.update({node:0})
             self.colours.pop(node)
             return(f'{node=} HAS DIED')
-    def colour(self):
+    def colour(self) -> None:
         '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree greater than the median degree,
         super hubs are defined as nodes with the highest degrees in the graph'''
         hubsize = floor(len(self.histogram)/2)
@@ -79,9 +81,9 @@ class cgraph:
         self.highestdegree = list(self.histogram)[-1]
         self.diameter = betterdiameter(network)
         self.colour()
-    def stats(self):
+    def stats(self) -> dict:
         return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter}
-    def colour(self):
+    def colour(self) -> None:
         hubsize = floor(len(self.histogram)/2)
         hub = list(self.histogram)[hubsize]
         for key in self.degrees:
@@ -93,7 +95,7 @@ class cgraph:
                 self.colours.append('blue')
         
 
-def infect(infclass: infection_graph,p: float):#function to infect a vertex, p is the probaility of infection use a float 
+def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
     spreaders = []
     for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
         k = nx.all_neighbors(infclass.graph, i)
@@ -121,7 +123,7 @@ p_i: probability of infection
 p_r: probaility of recovery alternatively 1-p_r is the death rate
 enable_vis: takes True or False, this decides if we render the plots of the graphs at the end
 '''
-def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool):
+def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool) -> dict:
     '''G is our barabsi graph which we build off our init graph'''
     try:
         G = nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
@@ -184,8 +186,8 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
         #print(days_of_the_infcetion)
-def graphchoice(m,choice):
-    '''Here we choose which graph we will be using a barabasi transform on'''      
+def graphchoice(m,choice) -> nx.Graph:
+    '''Here we choose which graph we will be using a barabasi transform on'''   
 
     if choice == 'Wheel':
         return nx.wheel_graph(m+1)
@@ -197,13 +199,11 @@ def graphchoice(m,choice):
         return nx.star_graph(m+1)
     elif choice == 'Erdos-Renyi':
         return nx.erdos_renyi_graph(m+1,0.5)
-    else:
-        graphchoice()  
         
 
 
 
-def userpanel():
+def userpanel() -> None:
     '''Here is where the actual code runs, We ask the user for input for every parameter of the main function'''
     sg.theme('Green')
     list_of_graphs = ['Wheel','Cycle','Complete','Star','Erdos-Renyi']   
