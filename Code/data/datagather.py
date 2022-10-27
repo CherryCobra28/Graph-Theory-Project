@@ -78,7 +78,7 @@ def dataobserve():
         sdofcluster.append(sdC)
         
         
-    B = {'N':n,'Average_Diam':means,'Standard_Deviation': sdofreal,'Aprrox_Diam':approxdiam,'Ratio_Between_Diams': ratios, 'Standard_deviation_Between_Real_approx':sdofdiams, 'Average_Clustering': meanrcluster,'S.D of Clsutering': sdofrcluster, 'Approx_Clustering':approxC,'Ratio_Between_Clustering':ratioofclsuter,'S.D_Between_Aprrox_and_Real': sdofcluster  }
+    B = {'N':n,'Average_Diam':means,'Standard_Deviation': sdofreal,'Aprrox_Diam':approxdiam,'Ratio_Between_Diams': ratios, 'Standard_deviation_Between_Real_approx':sdofdiams, 'Average_Clustering': meanrcluster,'S.D of Clsutering': sdofrcluster, 'Approx_Clustering':approxcluster,'Ratio_Between_Clustering':ratioofclsuter,'S.D_Between_Aprrox_and_Real': sdofcluster  }
     data = pd.DataFrame(B)  
     print(data.head())
     data.to_csv('datasum.csv') 
