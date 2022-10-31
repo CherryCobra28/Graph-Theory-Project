@@ -20,26 +20,25 @@ def datacreate():
     m = 5
     
     e = m
-    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000]#1500,2000,2500,5000,10000]
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
     d = pd.DataFrame()
     index = 0
+    SEED_GRAPH = [nx.fast_gnp_random_graph(10,0.5) for i in range(100)]
     for x in n:
         print(f'{x=}')
         diam_approx = math.log(x)/math.log(math.log(x))
         cluster_approx = (math.log(x)**2)/x
-        g = nx.fast_gnp_random_graph(int(x/2),0.5)
-        for i in tqdm(range(2)):
-            G = nx.barabasi_albert_graph(x,int(x/2 -1),initial_graph = g)
-            #A = sirdmodel.main(g,n,e,virus[0],virus[1],enable_vis='False')[0]
-            clusters = np.asarray(list(nx.clustering(G).values()))
-            av = np.mean(clusters)
-            A = {'Number_of_Nodes':x,'Real_Diameter':betterdiameter(G),'Aprrox_Diameter':diam_approx,'Average_Clustering':av,'Approx_Clustering':cluster_approx}
+        for i in tqdm(SEED_GRAPH):
+            G = nx.barabasi_albert_graph(x,5,initial_graph = i)
+
+
+            A = {'Number_of_Nodes':x,'Real_Diameter':betterdiameter(G),'Aprrox_Diameter':diam_approx,'Average_Clustering':nx.average_clustering(G),'Approx_Clustering':cluster_approx}
             a = pd.DataFrame(A, index = [index])
             d = pd.concat([d,a],ignore_index=True)
-            #print('Finished 1')
+
             index += 1
-    
-    d.to_csv('.\data.csv',index = False)
+
+    d.to_csv('data.csv',index = False)
 
 def dataobserve():
     a = pd.read_csv('data.csv')
