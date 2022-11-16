@@ -1,0 +1,6 @@
+ First Paper on Small World Graphs:
+ Watts DJ, Strogatz SH (June 1998). "Collective dynamics of 'small-world' networks". Nature. 393 (6684): 440–2. Bibcode:1998Natur.393..440W. doi:10.1038/30918. PMID 9623998. S2CID 4429113.
+Milgrams small world problem:
+Milgram, Stanley (1967). "The Small World Problem". Psychology Today. 2: 60–67.
+Scale Free Networks:
+ Barabási, Albert-László; Albert, Réka. (October 15, 1999). "Emergence of scaling in random networks". Science. 286 (5439): 509–512. arXiv:cond-mat/9910332. Bibcode:1999Sci...286..509B. doi:10.1126/science.286.5439.509. MR 2091634. PMID 10521342. S2CID 524106.
