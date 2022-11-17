@@ -23,6 +23,7 @@ class infection_graph():
         self.histogram = dict(enumerate(nx.degree_histogram(network)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
         self.diameter = betterdiameter(network) #Returns the furthest distance between nodes in the graph
+        self.average_path_length = nx.average_shortest_path_length(network)
         vertices = list(nx.nodes(self.graph))
         r_number = rand.randrange(0,len(vertices))
         self.infected.add(vertices[r_number]) #Picks a vertex at random to start the infection
@@ -34,7 +35,7 @@ class infection_graph():
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
         
-        return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter} 
+        return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length} 
     def die_or_recover(self,node,r: float) -> str:
         '''This Method runs after a node has been infceted for k days and will attempt to allow the node to recover at p = r
         or die at p = 1-r'''
@@ -76,9 +77,10 @@ class cgraph:
         self.histogram = dict(enumerate(nx.degree_histogram(network)))
         self.highestdegree = list(self.histogram)[-1]
         self.diameter = betterdiameter(network)
+        self.average_path_length = nx.average_shortest_path_length(network)
         self.colour()
     def stats(self) -> dict:
-        return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter}
+        return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length}
     def colour(self) -> None:
         hubsize = floor(len(self.histogram)/2)
         hub = list(self.histogram)[hubsize]
@@ -244,9 +246,9 @@ def userpanel() -> None:
     graph = graphchoice(e,values['-LIST-'][0])
 
 
-    tup = main(graph,n,e,p_i,p_r,enable_vis)
+    
     '''Then we print out the results of the infection'''
-    infection_data,origin_graph = tup
+    infection_data,origin_graph = main(graph,n,e,p_i,p_r,enable_vis)
     print(infection_data)
     print(origin_graph)
      
