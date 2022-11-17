@@ -3,7 +3,7 @@ from betterdiameter import betterdiameter
 import math
 G = nx.fast_gnp_random_graph(10,0.5)
 
-G = nx.barabasi_albert_graph(30,5,initial_graph = G)
+G = nx.barabasi_albert_graph(1500,5,initial_graph = G)
 
 
 N = len(G.nodes())
