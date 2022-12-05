@@ -112,16 +112,20 @@ def infect(infclass: infection_graph,p: float) -> None:#function to infect a ver
 
 
 
-'''
-Our main function takes a number of parameters:
-init_graph: This is the graph before using a barabasi-ablert transform to make it scale-free
-no_nodes: how many nodes we want the barabasi graph to have
-edges: the number of edges to add each barabasi iteration we go through
-p_i: probability of infection
-p_r: probaility of recovery alternatively 1-p_r is the death rate
-enable_vis: takes True or False, this decides if we render the plots of the graphs at the end
-'''
+
 def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool) -> tuple:
+    '''init_graph: The intial graph we grow from (nx.graph)
+       no_nodes: The total number of nodes our graph will have (int)
+       edges: The number of edges added for each node of the graph (int)
+       p_i: The infection rate (float)
+       p_r: The recovery tae (float)
+       enable_vis: Display imags of the graphs or not (boolean)
+       
+    '''
+    
+    
+    
+    
     '''G is our barabsi graph which we build off our init graph'''
     try:
         G = nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
