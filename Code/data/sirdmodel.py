@@ -3,6 +3,7 @@ This program impletments an algorithm to infect a network,
 selecting one node at random and then at a rate p, will attempt to infect other nodes
  
 '''
+from abc import ABC, abstractmethod
 from copy import deepcopy #used to compare the starting graph with the end result
 import random as rand #Random helps for random numbers
 from math import floor
@@ -82,28 +83,50 @@ class infection_graph():
             else:
                 colour.append('blue')
         return colour
+    def PersonalInfectionRates(self) -> dict:
+        pass
+        
     
-def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
-    spreaders = []
-    for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
-        k = nx.all_neighbors(infclass.graph, i)
-        for n in k:
-            spreaders.append(n)
-    for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
-        r_no = rand.random()
-        if infclass.timesrecovered[node] > 0:
-            pass
-        elif r_no < p:
-            infclass.infected.add(node)
-        else:
-            pass
+    
+    
+class infection_strat(ABC):
+    @abstractmethod
+    def infect(infclass: infection_graph, p: float) -> None:
+        pass
+    
+    
+class ConstantRateInfection(infection_strat):
+    def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
+        spreaders = []
+        for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
+            k = nx.all_neighbors(infclass.graph, i)
+            for n in k:
+                spreaders.append(n)
+        for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
+            r_no = rand.random()
+            if infclass.timesrecovered[node] > 0:
+                pass
+            elif r_no < p:
+                infclass.infected.add(node)
+            else:
+                pass
+class PersonalInfection(infection_strat):
+    def infect(infclass: infection_graph,p: float = 0) -> None:
+        pass
+class SkillCheckInfection(infection_strat):
+    def infect(infclass: infection_graph,p:float) -> None:
+        pass
+    
+    
+
     
 
 
 
 
 
-def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool) -> tuple:
+
+def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,enable_vis: bool,infection_type: infection_strat = ConstantRateInfection) -> tuple:
     '''init_graph: The intial graph we grow from (nx.graph)
        no_nodes: The total number of nodes our graph will have (int)
        edges: The number of edges added for each node of the graph (int)
@@ -129,7 +152,7 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
     days_of_the_infcetion = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
     for _ in range(100000):
-        infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
+        infection_type.infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
         '''Here we look in daysinfected and increment the time a node has been infected by one then see if any node has been
         infected for more than 10 days if so the node will attempt to recover or die'''
         for key in infection_network.daysinfected:
