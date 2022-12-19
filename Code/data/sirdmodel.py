@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt #A library to plot graphs
 import PySimpleGUI as sg
 from betterdiameter import betterdiameter
 
+
 class infection_graph(): 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
     def __init__(self,network):
@@ -18,8 +19,6 @@ class infection_graph():
         self.graph = network #Stores the graph we are studying 
         self.infected = set() #Initalises the empty list
         self.degrees = dict(nx.degree(network)) #returns a dictionary with the nodes as keys and their degree as value
-        
-        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
         self.histogram = dict(enumerate(nx.degree_histogram(network)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
         self.diameter = betterdiameter(network) #Returns the furthest distance between nodes in the graph
@@ -30,7 +29,10 @@ class infection_graph():
         zeros = [0]*len(vertices)
         self.daysinfected = dict(zip(vertices,zeros))#Keeps count of how long each node has been infected
         self.timesrecovered = dict(zip(vertices,zeros))
-        self.colour() #Colours the nodes
+        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
+        self.starting_colours = self.starting_colours()
+
+        self.colour() #Colours the node
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
@@ -55,6 +57,7 @@ class infection_graph():
             self.daysinfected.update({node:0})
             self.colours.pop(node)
             return(f'{node=} HAS DIED')
+        
     def colour(self) -> None:
         '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree greater than the median degree,
         super hubs are defined as nodes with the highest degrees in the graph'''
@@ -67,32 +70,19 @@ class infection_graph():
                 self.colours.update({key:'green'})
             else:
                 self.colours.update({key:'blue'})
-
-class cgraph:
-    '''This is just a copy of the above class to process the orginal graph before the infection '''
-    def __init__(self,network):
-        self.graph = network 
-        self.degrees = dict(nx.degree(network))
-        self.colours = []
-        self.histogram = dict(enumerate(nx.degree_histogram(network)))
-        self.highestdegree = list(self.histogram)[-1]
-        self.diameter = betterdiameter(network)
-        self.average_path_length = nx.average_shortest_path_length(network)
-        self.colour()
-    def stats(self) -> dict:
-        return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length}
-    def colour(self) -> None:
+    def starting_colours(self) -> list:
+        colour = []
         hubsize = floor(len(self.histogram)/2)
         hub = list(self.histogram)[hubsize]
         for key in self.degrees:
             if self.degrees[key] == self.highestdegree:
-                self.colours.append('yellow')
+                colour.append('yellow')
             elif hub < self.degrees[key] < self.highestdegree :
-                self.colours.append('green')
+                colour.append('green')
             else:
-                self.colours.append('blue')
-        
-
+                colour.append('blue')
+        return colour
+    
 def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
     spreaders = []
     for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
@@ -132,11 +122,10 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
     except nx.exception.NetworkXError:
         print(f'Number of edges must be less that number of nodes, {edges}>{no_nodes}')
         userpanel()
-    cp_G = deepcopy(G) #Makes a copy of G so we can compare later
     
     infection_network = infection_graph(G) #Creates an instance of the infection_graph with G
-    origin_network = cgraph(cp_G) #creates a instance of the cgraph class with the copy of G
-
+    #origin_network = cgraph(cp_G) #creates a instance of the cgraph class with the copy of G
+    origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
     for _ in range(100000):
@@ -161,7 +150,7 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
                     theres no point showing the final graph as itll just be empty'''
                     f = plt.figure('Staring graph')
                     #subax1 = plt.subplot(121)
-                    nx.draw(origin_network.graph,node_color = origin_network.colours,with_labels=True)
+                    nx.draw(origin_network.graph,node_color = origin_network.starting_colours,with_labels=True)
                     f.show()
                     input()
             else:
@@ -174,7 +163,7 @@ def main(init_graph: nx.graph,no_nodes: int, edges: int, p_i: float, p_r: float,
                 if enable_vis is True:
                     '''Here we render both the orginal grpah and a graph of all the survivors to compare the devasation or lack there of'''
                     f = plt.figure('Starting Graph')
-                    nx.draw_networkx(origin_network.graph,node_color = origin_network.colours ,with_labels=True)
+                    nx.draw_networkx(origin_network.graph,node_color = origin_network.starting_colours ,with_labels=True)
                     f.show()
                     g = plt.figure('The Surviors')
                     nx.draw(infection_network.graph,node_color = infection_network.colours.values(),with_labels=True)
