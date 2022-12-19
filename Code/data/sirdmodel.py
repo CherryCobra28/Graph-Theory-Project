@@ -2,6 +2,13 @@
 This program impletments an algorithm to infect a network, 
 selecting one node at random and then at a rate p, will attempt to infect other nodes
  
+ 
+ STRETCH GOALS:
+ 1. RUN PROGRAM ON RANDOM, WATTZ-STROGATZ, SCALE FREE AND ALBERT-BARABASI
+ 2. IMMPLEMENT MULTIPLE SIRD MODELS
+ 
+ 
+ 
 '''
 from abc import ABC, abstractmethod
 from copy import deepcopy #used to compare the starting graph with the end result
