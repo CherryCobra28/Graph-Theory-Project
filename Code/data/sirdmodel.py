@@ -165,17 +165,29 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
 
 
 
-def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool,infection_type: infection_strat = ConstantRateInfection) -> tuple:
-    '''init_graph: The intial graph we grow from (nx.graph)
-       no_nodes: The total number of nodes our graph will have (int)
-       edges: The number of edges added for each node of the graph (int)
-       p_i: The infection rate (float)
-       p_r: The recovery tae (float)
-       enable_vis: Display imags of the graphs or not (boolean)
-       
-    '''
+def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection) -> tuple:
+    """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
 
-    '''G is our barabsi graph which we build off our init graph'''
+    Parameters
+    ----------
+    graph : NetworkX graph
+        The graph that our model will be ran on.
+
+    p_i : float
+        The infection rate of the virus.
+    p_r : float
+        The recovery rate of the infcected
+    enable_vis : bool
+        Turns on or off the graph visuals
+        Default to False
+    infection_type : infection_strat
+        Decides how the virus will behave
+
+    Returns
+    -------
+    data : tuple
+        data frm the infection and the graphs supplied
+    """
  
     
     infection_network = infection_graph(graph) #Creates an instance of the infection_graph witnode
