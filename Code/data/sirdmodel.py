@@ -10,6 +10,7 @@ selecting one node at random and then at a rate p, will attempt to infect other 
  
  
 '''
+from dataclasses import dataclass
 from abc import ABC, abstractmethod
 from copy import deepcopy
  #used to compare the starting graph with the end result
@@ -48,20 +49,21 @@ class graph_constructer():
             userpanel()
 
 
-
-class infection_graph(): 
+@dataclass
+class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
-    def __init__(self,network):
+    graph: nx.Graph
+    
+    def __init__(self):
         #bepsi
-        self.graph = network #Stores the graph we are studying 
         self.no_nodes = nx.number_of_nodes(self.graph)
         self.infected = set() #Initalises the empty list
-        self.degrees = dict(nx.degree(network)) #returns a dictionary with the nodes as keys and their degree as value
-        self.histogram = dict(enumerate(nx.degree_histogram(network)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
+        self.degrees = dict(nx.degree(self.graph)) #returns a dictionary with the nodes as keys and their degree as value
+        self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
-        self.diameter = betterdiameter(network) #Returns the furthest distance between nodes in the graph
+        self.diameter = betterdiameter(self.graph) #Returns the furthest distance between nodes in the graph
         try:
-            self.average_path_length = nx.average_shortest_path_length(network)
+            self.average_path_length = nx.average_shortest_path_length(self.graph)
         except Exception:
             self.average_path_length = 0
         vertices = list(nx.nodes(self.graph))
@@ -72,6 +74,10 @@ class infection_graph():
         self.timesrecovered = dict(zip(vertices,zeros))
         self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
         self.colour() #Colours the node
+        
+        
+        
+        
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
