@@ -21,21 +21,31 @@ import PySimpleGUI as sg
 from betterdiameter import betterdiameter
 
 
-class sird_graph():
-    def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int):
+class graph_constructer():
+    def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int) -> nx.Graph:
         try:
             return nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
         except nx.exception.NetworkXError:
             print(f'Number of edges must be less that number of nodes, {edges}>{no_nodes}')
             userpanel()
         
-    def random_graph(no_nodes: int, Eedges: int):
+    def random_graph(no_nodes: int, Eedges: int) -> nx.Graph:
         p = Eedges/comb(no_nodes,2)
-        return nx.erdos_renyi_graph(no_nodes,p)
-    def watts():
-        pass
-    def scale_free():
-        pass
+        try:
+            return nx.erdos_renyi_graph(no_nodes,p)
+        except nx.exception.NetworkXErrror:
+            userpanel()
+    def watts(n:int, k:int,p: float)-> nx.Graph:
+        try:
+            return nx.watts_strogatz_graph(n,k,p)
+        except nx.exception.NetworkXErrror:
+            userpanel()
+        
+    def scale_free(n,a,b,c) -> nx.Graph:
+        try:
+            nx.scale_free_graph(n,a,b,c)
+        except nx.exception.NetworkXErrror:
+            userpanel()
 
 
 
@@ -50,7 +60,10 @@ class infection_graph():
         self.histogram = dict(enumerate(nx.degree_histogram(network)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
         self.diameter = betterdiameter(network) #Returns the furthest distance between nodes in the graph
-        self.average_path_length = nx.average_shortest_path_length(network)
+        try:
+            self.average_path_length = nx.average_shortest_path_length(network)
+        except Exception:
+            self.average_path_length = 0
         vertices = list(nx.nodes(self.graph))
         r_number = rand.randrange(0,len(vertices))
         self.infected.add(vertices[r_number]) #Picks a vertex at random to start the infection
@@ -152,7 +165,7 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
 
 
 
-def main(graph: sird_graph,p_i: float, p_r: float,enable_vis: bool,infection_type: infection_strat = ConstantRateInfection) -> tuple:
+def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool,infection_type: infection_strat = ConstantRateInfection) -> tuple:
     '''init_graph: The intial graph we grow from (nx.graph)
        no_nodes: The total number of nodes our graph will have (int)
        edges: The number of edges added for each node of the graph (int)
@@ -301,10 +314,8 @@ def userpanel() -> nx.Graph:
      #n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
      #enable_vis = input('Show Graphs?:')
         graph = graphchoice(e,values['-LIST-'][0])
-        user_graph = sird_graph.barabasi(graph,n,e)
-        infection_data,origin_graph = main(user_graph,p_i,p_r,enable_vis)
-        print(infection_data)
-        print(origin_graph)
+        user_graph = graph_constructer.barabasi(graph,n,e)
+        
    
 
     elif graph_type == 'Watts-Strogats':
@@ -313,7 +324,9 @@ def userpanel() -> nx.Graph:
         pass
     elif graph_type == 'Scale Free':
         pass  
-    #print(origin_graph)
+    infection_data,origin_graph = main(user_graph,p_i,p_r,enable_vis)
+    print(infection_data)
+    print(origin_graph)
    
 
 
