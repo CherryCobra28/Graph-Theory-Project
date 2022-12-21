@@ -10,7 +10,7 @@ selecting one node at random and then at a rate p, will attempt to infect other 
  
  
 '''
-from dataclasses import dataclass
+
 from abc import ABC, abstractmethod
 from copy import deepcopy
  #used to compare the starting graph with the end result
@@ -22,7 +22,7 @@ import PySimpleGUI as sg
 from betterdiameter import betterdiameter
 
 
-class graph_constructer():
+class graph_constructer:
     def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int) -> nx.Graph:
         try:
             return nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
@@ -49,15 +49,20 @@ class graph_constructer():
             userpanel()
 
 
-@dataclass
+
 class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
-    graph: nx.Graph
-    
-    def __init__(self):
+    def __init__(self,network):
         #bepsi
+        self.graph = network
+        self.graph_prop()
+        self.infection_props()
+        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
+        self.colour() #Colours the node
+        
+    def graph_prop(self) -> None:
+        self.vertices = list(nx.nodes(self.graph))
         self.no_nodes = nx.number_of_nodes(self.graph)
-        self.infected = set() #Initalises the empty list
         self.degrees = dict(nx.degree(self.graph)) #returns a dictionary with the nodes as keys and their degree as value
         self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
@@ -66,18 +71,15 @@ class infection_graph:
             self.average_path_length = nx.average_shortest_path_length(self.graph)
         except Exception:
             self.average_path_length = 0
-        vertices = list(nx.nodes(self.graph))
-        r_number = rand.randrange(0,len(vertices))
-        self.infected.add(vertices[r_number]) #Picks a vertex at random to start the infection
-        zeros = [0]*len(vertices)
-        self.daysinfected = dict(zip(vertices,zeros))#Keeps count of how long each node has been infected
-        self.timesrecovered = dict(zip(vertices,zeros))
-        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
-        self.colour() #Colours the node
-        
-        
-        
-        
+
+    def infection_props(self) -> None:
+        self.infected = set() #Initalises the empty list
+        zeros = [0]*len(self.vertices)
+        r_number = rand.randrange(0,len(self.vertices))
+        self.infected.add(self.vertices[r_number]) #Picks a vertex at random to start the infection
+        self.daysinfected = dict(zip(self.vertices,zeros))#Keeps count of how long each node has been infected
+        self.timesrecovered = dict(zip(self.vertices,zeros))
+
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
@@ -115,6 +117,7 @@ class infection_graph:
                 self.colours.update({key:'green'})
             else:
                 self.colours.update({key:'blue'})
+                
     def PersonalInfectionRates(self) -> dict:
         pass
     
@@ -149,13 +152,7 @@ class PersonalInfection(infection_strat):
 class SkillCheckInfection(infection_strat):
     def infect(infclass: infection_graph,p:float) -> None:
         pass
-    
-
-
-    
-    
-    
-    
+       
 def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int = 10 ) -> None:
     for node in infection.daysinfected:
             if node in infection.infected:
@@ -164,13 +161,6 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
                     
                     infection.die_or_recover(node,p_r)
     
-    
-
-
-
-
-
-
 def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection) -> tuple:
     """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
 
@@ -194,8 +184,6 @@ def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infecti
     data : tuple
         data frm the infection and the graphs supplied
     """
- 
-    
     infection_network = infection_graph(graph) #Creates an instance of the infection_graph witnode
     origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
@@ -204,14 +192,7 @@ def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infecti
         infection_type.infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
         '''Here we look in daysinfected and increment the time a node has been infected by one then see if any node has been
         infected for more than 10 days if so the node will attempt to recover or die'''
-        #for node in infection_network.daysinfected:
-        #    if node in infection_network.infected:
-        #        infection_network.daysinfected[node] += 1
-        #        if infection_network.daysinfected[node] > 10:
-        #            
-        #            infection_network.die_or_recover(node,p_r)
         days_infected_checker(infection_network,p_r)
-
         '''If there is no nodes left infected either everyones dead or everyones recovered'''
         if len(infection_network.infected) == 0:
             '''If theres no nodes left in the graph everyones dead'''
@@ -244,12 +225,11 @@ def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infecti
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            return {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'Surviors': no_of_surviors,'Everyone_Dead':total_death},origin_network.stats()
-                
-            
+            infection_info = {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'Surviors': no_of_surviors,'Everyone_Dead':total_death}
+            return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
-        #print(days_of_the_infcetion)
+
 def graphchoice(m,choice) -> nx.Graph:
     '''Here we choose which graph we will be using a barabasi transform on'''   
 
@@ -264,9 +244,6 @@ def graphchoice(m,choice) -> nx.Graph:
     elif choice == 'Erdos-Renyi':
         return nx.erdos_renyi_graph(m+1,0.5)
         
-
-
-
 def userpanel() -> nx.Graph:
     '''Here is where the actual code runs, We ask the user for input for every parameter of the main function'''
     sg.theme('Green')

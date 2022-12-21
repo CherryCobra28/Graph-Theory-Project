@@ -5,7 +5,7 @@ from copy import copy
 
 
 
-def betterdiameter(G: nx.graph) -> int:
+def betterdiameter(G: nx.Graph) -> int:
     A = nx.to_numpy_array(G)
 
     dimensions = A.shape
