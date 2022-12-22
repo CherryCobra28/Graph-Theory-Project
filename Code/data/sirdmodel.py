@@ -13,6 +13,7 @@ selecting one node at random and then at a rate p, will attempt to infect other 
 
 from abc import ABC, abstractmethod
 from copy import deepcopy
+from dataclasses import dataclass
  #used to compare the starting graph with the end result
 import random as rand #Random helps for random numbers
 from math import floor,comb
@@ -48,19 +49,11 @@ class graph_constructer:
         except nx.exception.NetworkXErrror:
             userpanel()
 
-
-
 class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
     def __init__(self,network):
         #bepsi
         self.graph = network
-        self.graph_prop()
-        self.infection_props()
-        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
-        self.colour() #Colours the node
-        
-    def graph_prop(self) -> None:
         self.vertices = list(nx.nodes(self.graph))
         self.no_nodes = nx.number_of_nodes(self.graph)
         self.degrees = dict(nx.degree(self.graph)) #returns a dictionary with the nodes as keys and their degree as value
@@ -71,14 +64,19 @@ class infection_graph:
             self.average_path_length = nx.average_shortest_path_length(self.graph)
         except Exception:
             self.average_path_length = 0
-
-    def infection_props(self) -> None:
+            
+        ########################################################################
         self.infected = set() #Initalises the empty list
         zeros = [0]*len(self.vertices)
         r_number = rand.randrange(0,len(self.vertices))
         self.infected.add(self.vertices[r_number]) #Picks a vertex at random to start the infection
         self.daysinfected = dict(zip(self.vertices,zeros))#Keeps count of how long each node has been infected
         self.timesrecovered = dict(zip(self.vertices,zeros))
+        
+        ########################################################################
+        
+        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
+        self.colour() #Colours the node
 
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
@@ -121,12 +119,6 @@ class infection_graph:
     def PersonalInfectionRates(self) -> dict:
         pass
     
-    
-
-
-    
-    
-    
 class infection_strat(ABC):
     @abstractmethod
     def infect(infclass: infection_graph, p: float) -> None:
@@ -161,7 +153,7 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
                     
                     infection.die_or_recover(node,p_r)
     
-def main(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection) -> tuple:
+def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection) -> tuple[dict,dict]:
     """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
 
     Parameters
@@ -243,13 +235,103 @@ def graphchoice(m,choice) -> nx.Graph:
         return nx.star_graph(m+1)
     elif choice == 'Erdos-Renyi':
         return nx.erdos_renyi_graph(m+1,0.5)
-        
-def userpanel() -> nx.Graph:
+
+
+class Panel:
+    LIST_OF_INFECTION_MODELS = {'Constant Rate':ConstantRateInfection,'Personal':PersonalInfection,'Skill Check':SkillCheckInfection}
+    def barabasi(self) -> tuple:
+        sg.theme('Green')
+        LIST_OF_GRAPHS = ('Wheel','Cycle','Complete','Star','Erdos-Renyi')
+        layout = [[sg.Text('No of nodes')],
+                  [sg.InputText()],
+                  [sg.Text('Barabasi Edges')],
+                  [sg.InputText()],
+                  [sg.Text('P of infection')],
+                  [sg.InputText()],
+                  [sg.Text('P of Recovery')],
+                  [sg.InputText()],
+                  [sg.Text('Choice of seed graph:')],
+                  [sg.Listbox(values=LIST_OF_GRAPHS,size=(15,5), key='Graph_Type', enable_events=True)],
+                  [sg.Text('Infection Type:')],
+                  [sg.Listbox(values=list(self.LIST_OF_INFECTION_MODELS.keys()),size=(15,5),key='Infection',enable_events=True)],
+                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
+                  [sg.Submit()],
+                  [sg.Cancel()]]
+        window = sg.Window('SIRD Infection Model', layout)
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Exit'):
+                quit()
+            elif 'Submit' in event:
+                break      
+        window.close()
+        if values['Enable_Vis'] is  True:
+            enable_vis = True
+        else:
+            enable_vis = False
+        try:
+            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
+            n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+        except ValueError:
+            print('Please input the correct data types')
+            self.barabasi()
+         #n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
+         #enable_vis = input('Show Graphs?:')
+        graph = graphchoice(e,values['Graph_Type'][0])
+        user_graph = graph_constructer.barabasi(graph,n,e)
+        infection_type_key = values['Infection'][0]
+        infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
+        return (user_graph,p_i,p_r,enable_vis,infection_type)
+
+    def watts_strogatz(self):
+        sg.theme('Green')
+        layout = [[sg.Text('No of nodes')],
+                  [sg.InputText()],
+                  [sg.Text('P of infection')],
+                  [sg.InputText()],
+                  [sg.Text('P of Recovery')],
+                  [sg.InputText()],
+                  [sg.Text('Infection Type:')],
+                  [sg.Listbox(values=list(self.LIST_OF_INFECTION_MODELS.keys()),size=(15,5),key='Infection',enable_events=True)],
+                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
+                  [sg.Submit()],
+                  [sg.Cancel()]]
+        window = sg.Window('SIRD Infection Model', layout)
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Exit'):
+                quit()
+            elif 'Submit' in event:
+                break      
+        window.close()
+        if values['Enable_Vis'] is  True:
+            enable_vis = True
+        else:
+            enable_vis = False
+        try:
+            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
+            n,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+        except ValueError:
+            print('Please input the correct data types')
+            self.watts_strogatz()
+
+        user_graph = graph_constructer.watts()
+        infection_type_key = values['Infection'][0]
+        infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
+        return (user_graph,p_i,p_r,enable_vis,infection_type)
+
+    def scale_free(self):
+        pass
+    def erdos_renyi(self):
+        pass
+
+def userpanel() -> tuple:
     '''Here is where the actual code runs, We ask the user for input for every parameter of the main function'''
     sg.theme('Green')
-    list_of_graph_types = ['Barabasi-Albert','Watts-Strogats','Erdos Random','Scale Free']
+    panel = Panel()
+    LIST_OF_GRAPH_TYPES = {'Barabasi-Albert':panel.barabasi,'Watts-Strogats':panel.watts_strogatz,'Erdos Random':panel.erdos_renyi,'Scale Free':panel.scale_free}
     layout = [[sg.Text('Which type of graph would you like to test?')],
-              [sg.Listbox(values=list_of_graph_types, key='-LIST-', enable_events=True)],
+              [sg.Listbox(values=list(LIST_OF_GRAPH_TYPES.keys()),size=(20,10), key='-LIST-', enable_events=True)],
               [sg.Submit()],
               [sg.Cancel()]
               ]
@@ -267,69 +349,16 @@ def userpanel() -> nx.Graph:
     except IndexError:
         userpanel()
     
-    if graph_type == 'Barabasi-Albert':
-        sg.theme('Green')
-        list_of_graphs = ['Wheel','Cycle','Complete','Star','Erdos-Renyi']   
-        layout = [[sg.Text('No of nodes')],
-                  [sg.InputText()],
-                  [sg.Text('Barabasi Edges')],
-                  [sg.InputText()],
-                  [sg.Text('P of infection')],
-                  [sg.InputText()],
-                  [sg.Text('P of Recovery')],
-                  [sg.InputText()],
-                  [sg.Text('Choice of seed graph:')],
-                  [sg.Listbox(values=list_of_graphs,size=(15,5), key='-LIST-', enable_events=True)],
-                  [sg.Checkbox('Enable Graphs?',default = True, key= '-IN-' )],
-                  [sg.Submit()],
-                  [sg.Cancel()]]
-
-
-        window = sg.Window('SIRD Infection Model', layout)
-        while True:
-
-            event, values = window.read()
-            if event in (sg.WIN_CLOSED, 'Exit'):
-                quit()
-            elif 'Submit' in event:
-                break
-            
-            
-        window.close()
-        if values['-IN-'] is  True:
-            enable_vis = True
-        else:
-            enable_vis = False
-        try:
-            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
-            n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
-        except ValueError:
-            print('Please input the correct data types')
-            userpanel()
-     #n,e,p_i,p_r = input('Number of Nodes:'),input('Barabasi edges to add:'),input('Probaility of infection:'),input('Probability to Recover:')
-     #enable_vis = input('Show Graphs?:')
-        graph = graphchoice(e,values['-LIST-'][0])
-        user_graph = graph_constructer.barabasi(graph,n,e)
-        
-   
-
-    elif graph_type == 'Watts-Strogats':
-        pass
-    elif graph_type == 'Erdos Random':
-        pass
-    elif graph_type == 'Scale Free':
-        pass  
-    infection_data,origin_graph = main(user_graph,p_i,p_r,enable_vis)
+    parameters: tuple = LIST_OF_GRAPH_TYPES[graph_type]()
+    return parameters
+    
+def main():
+    infection_data,origin_graph = model(*userpanel())
     print(infection_data)
     print(origin_graph)
-   
-
-
-
-
 
 if __name__ == '__main__':
-    userpanel()
+    main()
    
     
 
