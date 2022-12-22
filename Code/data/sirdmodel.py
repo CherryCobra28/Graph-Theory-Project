@@ -13,7 +13,6 @@ selecting one node at random and then at a rate p, will attempt to infect other 
 
 from abc import ABC, abstractmethod
 from copy import deepcopy
-from dataclasses import dataclass
  #used to compare the starting graph with the end result
 import random as rand #Random helps for random numbers
 from math import floor,comb
