@@ -74,8 +74,8 @@ class infection_graph:
         
         ########################################################################
         
-        self.colours = dict() #Initialises the colour dict that we use to colour nodes in the graph
-        self.colour() #Colours the node
+        self.colours = self.colour() #Initialises the colour dict that we use to colour nodes in the graph
+
 
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
@@ -102,18 +102,20 @@ class infection_graph:
             self.colours.pop(node)
             return(f'{node=} HAS DIED')
         
-    def colour(self) -> None:
+    def colour(self) -> dict:
         '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree greater than the median degree,
         super hubs are defined as nodes with the highest degrees in the graph'''
+        colours = dict()
         hubsize = floor(len(self.histogram)/2)
         hub = list(self.histogram)[hubsize]
-        for key in self.degrees:
-            if self.degrees[key] == self.highestdegree:
-                self.colours.update({key:'yellow'})
-            elif hub < self.degrees[key] < self.highestdegree :
-                self.colours.update({key:'green'})
+        for key,val in self.degrees.items():
+            if val == self.highestdegree:
+                colours.update({key:'yellow'})
+            elif hub < val < self.highestdegree :
+                colours.update({key:'green'})
             else:
-                self.colours.update({key:'blue'})
+                colours.update({key:'blue'})
+        return colours
                 
     def PersonalInfectionRates(self) -> dict:
         pass

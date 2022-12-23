@@ -2,5 +2,6 @@
     "python.analysis.extraPaths": [
         "./Testing code"
     ],
-    "python.analysis.typeCheckingMode": "off"
+    "python.analysis.typeCheckingMode": "off",
+    "C_Cpp.errorSquiggles": "disabled"
 }

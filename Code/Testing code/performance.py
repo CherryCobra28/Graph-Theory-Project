@@ -2,12 +2,12 @@ import cProfile
 import pstats
 
 import networkx as nx
-from datagather import datacreate
+from sirdmodel import model
 
 def perf():
-    #G = nx.barabasi_albert_graph(10000,10)
+    G = nx.barabasi_albert_graph(1000,10)
     with cProfile.Profile() as pr:
-                datacreate()
+                model(G,0.5,0.6,False)
     stats = pstats.Stats(pr)
     stats.sort_stats(pstats.SortKey.TIME)
     stats.print_stats()
