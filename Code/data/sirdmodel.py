@@ -22,6 +22,7 @@ import PySimpleGUI as sg
 from betterdiameter import betterdiameter
 
 
+
 class graph_constructer:
     def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int) -> nx.Graph:
         try:
@@ -177,7 +178,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
     data : tuple
         data frm the infection and the graphs supplied
     """
-    infection_network = infection_graph(graph) #Creates an instance of the infection_graph witnode
+    infection_network = infection_graph(deepcopy(graph)) #Creates an instance of the infection_graph witnode
     origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
@@ -222,7 +223,8 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
-
+    else:
+        raise Exception
 def graphchoice(m,choice) -> nx.Graph:
     '''Here we choose which graph we will be using a barabasi transform on'''   
 
