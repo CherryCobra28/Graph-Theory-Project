@@ -1,17 +1,15 @@
 from time import perf_counter
 import networkx as nx
 import numpy as np
-from copy import copy
 
 
-
-def betterdiameter(G: nx.graph) -> int:
-    A = nx.to_numpy_array(G)
+def betterdiameter(A: np.array) -> int:
+    
 
     dimensions = A.shape
     
     A += np.identity(dimensions[0],int)
-    const_A = copy(A)
+    const_A = A.copy()
     t=1
     for _ in range(100):
 
@@ -28,8 +26,8 @@ def betterdiameter(G: nx.graph) -> int:
             #A = ne.evaluate('A>0').astype(np.uint8)
 
 if __name__ == '__main__':
-    K = nx.barabasi_albert_graph(10,7)
-    
+    K = nx.barabasi_albert_graph(10000,15)
+    K = nx.to_numpy_array(K)
     
     t = perf_counter()
     my = betterdiameter(K)
