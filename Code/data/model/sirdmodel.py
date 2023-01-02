@@ -19,35 +19,17 @@ from math import floor,comb
 import networkx as nx #Adds the networkx package, used to create graph objects
 import matplotlib.pyplot as plt #A library to plot graphs
 import PySimpleGUI as sg
+import numpy as np
 from betterdiameter import betterdiameter
 
 
 
-class graph_constructer:
-    def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int) -> nx.Graph:
-        try:
-            return nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
-        except nx.exception.NetworkXError:
-            print(f'Number of edges must be less that number of nodes, {edges}>{no_nodes}')
-            userpanel()
-        
-    def random_graph(no_nodes: int, Eedges: int) -> nx.Graph:
-        p = Eedges/comb(no_nodes,2)
-        try:
-            return nx.erdos_renyi_graph(no_nodes,p)
-        except nx.exception.NetworkXErrror:
-            userpanel()
-    def watts(n:int, k:int,p: float)-> nx.Graph:
-        try:
-            return nx.watts_strogatz_graph(n,k,p)
-        except nx.exception.NetworkXErrror:
-            userpanel()
-        
-    def scale_free(n,a,b,c) -> nx.Graph:
-        try:
-            nx.scale_free_graph(n,a,b,c)
-        except nx.exception.NetworkXErrror:
-            userpanel()
+
+
+
+
+
+
 
 class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
@@ -72,7 +54,7 @@ class infection_graph:
         self.infected.add(self.vertices[r_number]) #Picks a vertex at random to start the infection
         self.daysinfected = dict(zip(self.vertices,zeros))#Keeps count of how long each node has been infected
         self.timesrecovered = dict(zip(self.vertices,zeros))
-        
+        self.PersonalInfection = self.PersonalInfectionRates()
         ########################################################################
         
         self.colours = self.colour() #Initialises the colour dict that we use to colour nodes in the graph
@@ -119,11 +101,30 @@ class infection_graph:
         return colours
                 
     def PersonalInfectionRates(self) -> dict:
-        pass
+        samples = [rand.random() for _ in range(self.no_nodes)]
+        personal_infections = dict(zip(self.vertices,samples))
+        return personal_infections
+
+    
+    
+def modifier(x):
+    mods = list(range(-5,6))
+    #print(mods)
+    index = floor(11*x)
+    if index == 11:
+        index -= 1
+    return mods[index]    
+    
+    
+    
+    
     
 class infection_strat(ABC):
     @abstractmethod
     def infect(infclass: infection_graph, p: float) -> None:
+        pass
+    @abstractmethod
+    def __str__():
         pass
 class ConstantRateInfection(infection_strat):
     def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
@@ -140,12 +141,54 @@ class ConstantRateInfection(infection_strat):
                 infclass.infected.add(node)
             else:
                 pass
+            
+    def __str__():
+        return 'ConstantRate'
 class PersonalInfection(infection_strat):
-    def infect(infclass: infection_graph) -> None:
-        pass
+    def infect(infclass: infection_graph, p: float) -> None:
+        spreaders = []
+        for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
+            k = nx.all_neighbors(infclass.graph, i)
+            for n in k:
+                spreaders.append(n)
+        for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
+            personal_rate = infclass.PersonalInfection.get(node)
+            r_no = rand.random()
+            if infclass.timesrecovered[node] > 0:
+                pass
+            elif r_no < personal_rate:
+                infclass.infected.add(node)
+            else:
+                pass
+    def __str__():
+        return 'PersonalRate'
+    
+
+    
+
 class SkillCheckInfection(infection_strat):
+    
     def infect(infclass: infection_graph,p:float) -> None:
-        pass
+        spreaders = []
+        for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
+            k = nx.all_neighbors(infclass.graph, i)
+            for n in k:
+                spreaders.append(n)
+        for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
+            personal_rate = infclass.PersonalInfection.get(node)
+
+            infection_roll = rand.randint(1,20) + modifier(p) 
+            resist_roll = rand.randint(1,20) + modifier(personal_rate)
+            success = infection_roll>resist_roll
+            
+            if infclass.timesrecovered[node] > 0:
+                pass
+            elif success:
+                infclass.infected.add(node)
+            else:
+                pass
+    def __str__():
+        return 'SkillCheck'
        
 def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int = 10 ) -> None:
     for node in infection.daysinfected:
@@ -155,7 +198,7 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
                     
                     infection.die_or_recover(node,p_r)
     
-def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection) -> tuple[dict,dict]:
+def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined') -> tuple[dict,dict]:
     """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
 
     Parameters
@@ -219,13 +262,54 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            infection_info = {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'Surviors': no_of_surviors,'Everyone_Dead':total_death}
+            infection_info = {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'Surviors': no_of_surviors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type}
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
     else:
         raise Exception
-def graphchoice(m,choice) -> nx.Graph:
+
+
+
+
+
+
+##GUI##
+#############################################################################
+
+
+
+
+
+
+class graph_constructer:
+    def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int) -> nx.Graph:
+        try:
+            return nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
+        except nx.exception.NetworkXError:
+            print(f'Number of edges must be less that number of nodes, {edges}>{no_nodes}')
+            userpanel()
+        
+    def random_graph(no_nodes: int, Eedges: int) -> nx.Graph:
+        p = Eedges/comb(no_nodes,2)
+        try:
+            return nx.erdos_renyi_graph(no_nodes,p)
+        except nx.exception.NetworkXErrror:
+            userpanel()
+    def watts(n:int, k:int,p: float)-> nx.Graph:
+        try:
+            return nx.watts_strogatz_graph(n,k,p)
+        except nx.exception.NetworkXErrror:
+            userpanel()
+        
+    def scale_free(n,a,b,c) -> nx.Graph:
+        try:
+            nx.scale_free_graph(n,a,b,c)
+        except nx.exception.NetworkXErrror:
+            userpanel()
+
+
+def graphchoice(m:int,choice) -> nx.Graph:
     '''Here we choose which graph we will be using a barabasi transform on'''   
 
     if choice == 'Wheel':
@@ -243,6 +327,7 @@ def graphchoice(m,choice) -> nx.Graph:
 class Panel:
     LIST_OF_INFECTION_MODELS = {'Constant Rate':ConstantRateInfection,'Personal':PersonalInfection,'Skill Check':SkillCheckInfection}
     def barabasi(self) -> tuple:
+        graph_type = 'Barabasi'
         sg.theme('Green')
         LIST_OF_GRAPHS = ('Wheel','Cycle','Complete','Star','Erdos-Renyi')
         layout = [[sg.Text('No of nodes')],
@@ -284,7 +369,7 @@ class Panel:
         user_graph = graph_constructer.barabasi(graph,n,e)
         infection_type_key = values['Infection'][0]
         infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
-        return (user_graph,p_i,p_r,enable_vis,infection_type)
+        return (user_graph,p_i,p_r,enable_vis,infection_type,graph_type)
 
     def watts_strogatz(self):
         sg.theme('Green')
