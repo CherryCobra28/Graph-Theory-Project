@@ -1,10 +1,25 @@
 import pandas as pd
 
+class dict_zip_error(Exception):
+    "The dictionaries must have the same keys"
+    pass
 
 
 def dict_zip(A: dict,B: dict) -> dict:
+    """_summary_
+
+    Args:
+        A (dict): _description_
+        B (dict): _description_
+
+    Raises:
+        dict_zip_error: _description_
+
+    Returns:
+        dict: _description_
+    """    
     if  not (A.keys() == B.keys()):
-        raise Exception
+        raise dict_zip_error
     return_dict = []
     final = {}
     keys = list(A.keys())

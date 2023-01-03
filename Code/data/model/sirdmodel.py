@@ -4,23 +4,22 @@ selecting one node at random and then at a rate p, will attempt to infect other 
  
  
  STRETCH GOALS:
- 1. RUN PROGRAM ON RANDOM, WATTZ-STROGATZ, SCALE FREE AND ALBERT-BARABASI
- 2. IMMPLEMENT MULTIPLE SIRD MODELS (\)
+ 1. RUN PROGRAM ON RANDOM, WATTZ-STROGATZ, SCALE FREE AND ALBERT-BARABASI (\\)
+ 2. IMMPLEMENT MULTIPLE SIRD MODELS (\\)
  
  
  
 '''
 
 from abc import ABC, abstractmethod
-from copy import deepcopy
- #used to compare the starting graph with the end result
+from copy import deepcopy #used to compare the starting graph with the end result
 import random as rand #Random helps for random numbers
 from math import floor,comb
 import networkx as nx #Adds the networkx package, used to create graph objects
 import matplotlib.pyplot as plt #A library to plot graphs
 import PySimpleGUI as sg
 from betterdiameter import betterdiameter
-
+import modelexceptions
 
 
 
@@ -32,7 +31,12 @@ from betterdiameter import betterdiameter
 
 class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
-    def __init__(self,network):
+    def __init__(self,network: nx.Graph):
+        """_summary_
+
+        Args:
+            network (nx.Graph): _description_
+        """        
         #bepsi
         self.graph = network
         self.vertices = list(nx.nodes(self.graph))
@@ -63,7 +67,13 @@ class infection_graph:
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
         
         return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length} 
-    def die_or_recover(self,node,r: float) -> str:
+    def die_or_recover(self,node,r: float) -> None:
+        """_summary_
+
+        Args:
+            node (_type_): _description_
+            r (float): _description_
+        """        
         '''This Method runs after a node has been infceted for k days and will attempt to allow the node to recover at p = r
         or die at p = 1-r'''
         r_no = rand.random()
@@ -72,7 +82,6 @@ class infection_graph:
             self.infected.discard(node)
             self.daysinfected.update({node:0})
             self.timesrecovered[node] +=1 
-            return(f'{node=} HAS RECOVERD')
         else:
             '''however if it fails the node is killed, being removed from the infceted list, removed from the graph, has its time infected
             put to 0 and is removed from the colours list to make sure the plot later doesnt attempt to colour a node
@@ -81,7 +90,6 @@ class infection_graph:
             self.graph.remove_node(node)
             self.daysinfected.update({node:0})
             self.colours.pop(node)
-            return(f'{node=} HAS DIED')
         
     def colour(self) -> dict:
         '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree greater than the median degree,
@@ -103,15 +111,22 @@ class infection_graph:
         personal_infections = dict(zip(self.vertices,samples))
         return personal_infections
 
-def modifier(x):
+def modifier(x: int) -> int:
+    """_summary_
+
+    Args:
+        x (int): _description_
+
+    Returns:
+        int: _description_
+    """    
     mods = list(range(-5,6))
-    #print(mods)
     index = floor(11*x)
     if index == 11:
         index -= 1
     return mods[index]    
     
-class infection_strat(ABC):
+class infection_strat(ABC):  
     @abstractmethod
     def infect(infclass: infection_graph, p: float) -> None:
         pass
@@ -121,6 +136,12 @@ class infection_strat(ABC):
     
 class ConstantRateInfection(infection_strat):
     def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
+        """_summary_
+
+        Args:
+            infclass (infection_graph): _description_
+            p (float): _description_
+        """        
         spreaders = []
         for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
             k = nx.all_neighbors(infclass.graph, i)
@@ -140,6 +161,12 @@ class ConstantRateInfection(infection_strat):
     
 class PersonalInfection(infection_strat):
     def infect(infclass: infection_graph, p: float) -> None:
+        """_summary_
+
+        Args:
+            infclass (infection_graph): _description_
+            p (float): _description_
+        """        
         spreaders = []
         for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
             k = nx.all_neighbors(infclass.graph, i)
@@ -159,6 +186,12 @@ class PersonalInfection(infection_strat):
     
 class SkillCheckInfection(infection_strat):
     def infect(infclass: infection_graph,p:float) -> None:
+        """_summary_
+
+        Args:
+            infclass (infection_graph): _description_
+            p (float): _description_
+        """        
         spreaders = []
         for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
             k = nx.all_neighbors(infclass.graph, i)
@@ -181,6 +214,13 @@ class SkillCheckInfection(infection_strat):
         return 'SkillCheck'
        
 def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int = 10 ) -> None:
+    """_summary_
+
+    Args:
+        infection (infection_graph): _description_
+        p_r (float): _description_
+        fatal_days (int, optional): _description_. Defaults to 10.
+    """    
     for node in infection.daysinfected:
             if node in infection.infected:
                 infection.daysinfected[node] += 1
@@ -190,29 +230,19 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
 def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined') -> tuple[dict,dict]:
     """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
 
-    Parameters
-    ----------
-    graph : NetworkX graph
-        The graph that our model will be ran on.
+    Args:
+        graph (nx.Graph): The graph that our model will be ran on.
+        p_i (float): The infection rate of the virus.
+        p_r (float): The recovery rate of the infcected
+        enable_vis (bool, optional): Turns on or off the graph visuals. Defaults to False.
+        infection_type (infection_strat, optional): Decides how the virus will behave. Defaults to ConstantRateInfection.
+        graph_type (str, optional): What type of graph we are running on. Defaults to 'Not Defined'.
 
-    p_i : float
-        The infection rate of the virus.
-    p_r : float
-        The recovery rate of the infcected
-    enable_vis : bool
-        Turns on or off the graph visuals
-        Default to False
-    infection_type : infection_strat
-        Decides how the virus will behave
-    graph_type : str
-        What type of graph we are running on
-
-
-    Returns
-    -------
-    data : tuple
-        data frm the infection and the graphs supplied
-    """
+    Raises:
+        modelexceptions.ModelError: If the model fails to run we raise a model error
+    Returns:
+        tuple[dict,dict]: The first dictionary represents the data from the infection and the second dictionary constains data about the graph that the model is running on
+    """    
     infection_network = infection_graph(deepcopy(graph)) #Creates an instance of the infection_graph witnode
     origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
@@ -226,7 +256,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
         if len(infection_network.infected) == 0:
             '''If theres no nodes left in the graph everyones dead'''
             if len(nx.nodes(infection_network.graph)) == 0:
-                no_of_surviors = 0 #Everyones dead, no survivors
+                no_of_survivors = 0 #Everyones dead, no survivors
                 total_death = True
                 if enable_vis is True:
                     '''We render the plot of the orginal graph to see how it looked and maybe why everyone died,
@@ -238,9 +268,9 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
                     input()
             else:
                 '''Otherwise if people did survive then we make a list of everyone who survived'''
-                surviors = list(nx.nodes(infection_network.graph))
+                survivors = list(nx.nodes(infection_network.graph))
                 
-                no_of_surviors = len(surviors)
+                no_of_survivors = len(survivors)
                 
                 total_death = False
                 if enable_vis is True:
@@ -248,18 +278,18 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
                     f = plt.figure('Starting Graph')
                     nx.draw_networkx(origin_network.graph,node_color = origin_network.colours.values() ,with_labels=True)
                     f.show()
-                    g = plt.figure('The Surviors')
+                    g = plt.figure('The survivors')
                     nx.draw(infection_network.graph,node_color = infection_network.colours.values(),with_labels=True)
                     g.show()
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            infection_info = {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'Surviors': no_of_surviors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type}
+            infection_info = {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type}
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
     else:
-        raise Exception
+        raise modelexceptions.ModelError
 
 
 
@@ -275,7 +305,19 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
 
 
 class graph_constructer:
+    """_summary_
+    """    
     def barabasi(init_graph: nx.Graph, no_nodes: int, edges: int) -> nx.Graph:
+        """_summary_
+
+        Args:
+            init_graph (nx.Graph): _description_
+            no_nodes (int): _description_
+            edges (int): _description_
+
+        Returns:
+            nx.Graph: _description_
+        """        
         try:
             return nx.barabasi_albert_graph(no_nodes,edges,initial_graph = init_graph)
         except nx.exception.NetworkXError:
@@ -301,7 +343,18 @@ class graph_constructer:
             userpanel()
 
 
-def graphchoice(m:int,choice) -> nx.Graph:
+def graphchoice(m:int,choice: str) -> nx.Graph:
+    """_summary_
+
+    Args:
+        m (int): _description_
+        choice (str): _description_
+
+    Returns:
+        nx.Graph: _description_
+    """    
+    
+    
     '''Here we choose which graph we will be using a barabasi transform on'''   
 
     if choice == 'Wheel':
@@ -317,8 +370,18 @@ def graphchoice(m:int,choice) -> nx.Graph:
 
 
 class Panel:
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """    
     LIST_OF_INFECTION_MODELS = {'Constant Rate':ConstantRateInfection,'Personal':PersonalInfection,'Skill Check':SkillCheckInfection}
     def barabasi(self) -> tuple:
+        """_summary_
+
+        Returns:
+            tuple: _description_
+        """        
         graph_type = 'Barabasi'
         sg.theme('Green')
         LIST_OF_GRAPHS = ('Wheel','Cycle','Complete','Star','Erdos-Renyi')
@@ -406,7 +469,11 @@ class Panel:
         pass
 
 def userpanel() -> tuple:
-    '''Here is where the actual code runs, We ask the user for input for every parameter of the main function'''
+    """_summary_
+
+    Returns:
+        tuple: _description_
+    """    
     sg.theme('Green')
     panel = Panel()
     LIST_OF_GRAPH_TYPES = {'Barabasi-Albert':panel.barabasi,'Watts-Strogats':panel.watts_strogatz,'Erdos Random':panel.erdos_renyi,'Scale Free':panel.scale_free}
