@@ -5,7 +5,7 @@ selecting one node at random and then at a rate p, will attempt to infect other 
  
  STRETCH GOALS:
  1. RUN PROGRAM ON RANDOM, WATTZ-STROGATZ, SCALE FREE AND ALBERT-BARABASI
- 2. IMMPLEMENT MULTIPLE SIRD MODELS
+ 2. IMMPLEMENT MULTIPLE SIRD MODELS (\)
  
  
  
@@ -19,7 +19,6 @@ from math import floor,comb
 import networkx as nx #Adds the networkx package, used to create graph objects
 import matplotlib.pyplot as plt #A library to plot graphs
 import PySimpleGUI as sg
-import numpy as np
 from betterdiameter import betterdiameter
 
 
@@ -58,7 +57,6 @@ class infection_graph:
         ########################################################################
         
         self.colours = self.colour() #Initialises the colour dict that we use to colour nodes in the graph
-
 
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
@@ -105,8 +103,6 @@ class infection_graph:
         personal_infections = dict(zip(self.vertices,samples))
         return personal_infections
 
-    
-    
 def modifier(x):
     mods = list(range(-5,6))
     #print(mods)
@@ -115,10 +111,6 @@ def modifier(x):
         index -= 1
     return mods[index]    
     
-    
-    
-    
-    
 class infection_strat(ABC):
     @abstractmethod
     def infect(infclass: infection_graph, p: float) -> None:
@@ -126,6 +118,7 @@ class infection_strat(ABC):
     @abstractmethod
     def __str__():
         pass
+    
 class ConstantRateInfection(infection_strat):
     def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
         spreaders = []
@@ -144,6 +137,7 @@ class ConstantRateInfection(infection_strat):
             
     def __str__():
         return 'ConstantRate'
+    
 class PersonalInfection(infection_strat):
     def infect(infclass: infection_graph, p: float) -> None:
         spreaders = []
@@ -163,11 +157,7 @@ class PersonalInfection(infection_strat):
     def __str__():
         return 'PersonalRate'
     
-
-    
-
 class SkillCheckInfection(infection_strat):
-    
     def infect(infclass: infection_graph,p:float) -> None:
         spreaders = []
         for i in infclass.infected: #this part gets all the neighburs of each infected node ready to then attempt to infect them
@@ -195,7 +185,6 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
             if node in infection.infected:
                 infection.daysinfected[node] += 1
                 if infection.daysinfected[node] > fatal_days:
-                    
                     infection.die_or_recover(node,p_r)
     
 def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined') -> tuple[dict,dict]:
@@ -215,6 +204,9 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
         Default to False
     infection_type : infection_strat
         Decides how the virus will behave
+    graph_type : str
+        What type of graph we are running on
+
 
     Returns
     -------
