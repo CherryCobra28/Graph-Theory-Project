@@ -3,6 +3,8 @@ import sirdmodel as sird
 import networkx as nx
 from dict_zip import dict_zip
 from tqdm import tqdm
+
+
 SEED_GRAPHS = [nx.fast_gnp_random_graph(10,0.5) for i in range(100)]
 def gather():
     
