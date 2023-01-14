@@ -51,6 +51,80 @@
       \field{pages}{60\bibrangedash 67}
       \range{pages}{8}
     \endentry
+    \entry{onnela2007structure}{article}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=d3704db76b3cc1b813b1bbb835d80c29}{%
+           family={Onnela},
+           familyi={O\bibinitperiod},
+           given={J-P},
+           giveni={J\bibinithyphendelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d32b5a9bff25e830cd8827349dee6e1d}{%
+           family={Saramäki},
+           familyi={S\bibinitperiod},
+           given={Jari},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9e2bf4f85ab86598dd733614790bdf72}{%
+           family={Hyvönen},
+           familyi={H\bibinitperiod},
+           given={Jorkki},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a8462c4421c4b773d2d268d775c69ddf}{%
+           family={Szabó},
+           familyi={S\bibinitperiod},
+           given={György},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b997d645b4a929780c2c78606bf2ff98}{%
+           family={Lazer},
+           familyi={L\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a6da2ff46a3917a7425c3a39e33c1714}{%
+           family={Kaski},
+           familyi={K\bibinitperiod},
+           given={Kimmo},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ed0a0297e5b7b46ff549ae8f1494c6ee}{%
+           family={Kertész},
+           familyi={K\bibinitperiod},
+           given={János},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=953467ea1b8e328ccd298c4b59a43b26}{%
+           family={Barabási},
+           familyi={B\bibinitperiod},
+           given={A-L},
+           giveni={A\bibinithyphendelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {National Acad Sciences}%
+      }
+      \strng{namehash}{fd21431bd1144e15672614215281142d}
+      \strng{fullhash}{09e341c6ccf4d79807fbccf8770a0a75}
+      \strng{bibnamehash}{fd21431bd1144e15672614215281142d}
+      \strng{authorbibnamehash}{fd21431bd1144e15672614215281142d}
+      \strng{authornamehash}{fd21431bd1144e15672614215281142d}
+      \strng{authorfullhash}{09e341c6ccf4d79807fbccf8770a0a75}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the national academy of sciences}
+      \field{number}{18}
+      \field{title}{Structure and tie strengths in mobile communication networks}
+      \field{volume}{104}
+      \field{year}{2007}
+      \field{pages}{7332\bibrangedash 7336}
+      \range{pages}{5}
+    \endentry
     \entry{Watts1998}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=8749174d8ea73cb9cc7eda222618b353}{%

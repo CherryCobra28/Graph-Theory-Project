@@ -20,9 +20,23 @@
         \subsection{Small World Graphs}
         In May 1967 Professor of Psychology at the Graduate School and University Center of the City University of New York, Stanley Milgram ran an experiment to see if a person living
         in Omaha, Nebraska could get a parcel to a stockbroker in Boston, Massachusetts \parencite{milgram1967small}. In his experiment he found the average path length to reach the stockbroker was 5.5, which created the term
-        six degrees of separation (however Milgram's experiment had flaws which puts the exact number into doubt). This idea of having such a small average path length for such numerous nodes is a hallmark of a small world graph.
-        \\A Small world graph is defined by the following property: $L\propto\log{N}$ where $L$ is the average shortest path length of the network and $N$ is the total number of nodes \parencite{Watts1998}.
+        six degrees of separation (however Milgram's experiment had flaws which puts the exact number into doubt). This idea of having such a small average path length for such numerous nodes is a hallmark of a small world graph.\\
+        A Small world graph is formally defined by the following property: $L\propto\log{N}$ where $L$ is the average shortest path length of the network and $N$ is the total number of nodes \parencite{Watts1998}. Several models exist to generate small world graphs such as the Watts-Strogatz Model.
 
+        \subsection{Scale Free Graphs}
+        In networks that appear in the real world such as the internet and social groups, there exists nodes known as "hubs" (a node that has a higher degree then the average of the graph). This is an important property encapsulated in Scale-Free Graphs.\\ 
+        Scale-free Graphs are formally defined by the following power law: $P(k) \sim  k^{-\gamma }$, $k$ is the degree of a vertex, $P(k)$ is the probability of a node having degree $k$ and $\gamma$ is a parameter determined by the graph typically $2<\gamma<3$ \parencite{onnela2007structure}.
+
+        \subsection{Barabasi-Albert Model}
+        In 1999, Albert-László Barabási and Réka Albert developed the Albert-Barabási Model which generates small world, scale free graphs by a process of preferential attachment. 
+        \subsection{SIRD Model}
+        TODO
+    \section{Mathematical Methods}
+    TODO
+    \section{Analysis}
+    TODO
+    \section{Evaluation}
+    TODO
     
     
     

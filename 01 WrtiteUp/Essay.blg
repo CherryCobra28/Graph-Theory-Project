@@ -1,17 +1,17 @@
 [0] Config.pm:306> INFO - This is Biber 2.18
 [0] Config.pm:309> INFO - Logfile is 'Essay.blg'
-[221] biber-MSWIN64:340> INFO - === 
-[300] Biber.pm:418> INFO - Reading 'Essay.bcf'
-[466] Biber.pm:978> INFO - Found 2 citekeys in bib section 0
-[497] Biber.pm:4401> INFO - Processing section 0
-[523] Biber.pm:4592> INFO - Looking for bibtex file 'references.bib' for section 0
-[631] bibtex.pm:1713> INFO - LaTeX decoding ...
-[652] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
-[726] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[726] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[727] Biber.pm:4221> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[727] Biber.pm:4227> INFO - No sort tailoring available for locale 'en-US'
-[737] bbl.pm:654> INFO - Writing 'Essay.bbl' with encoding 'UTF-8'
-[739] bbl.pm:757> INFO - Output to Essay.bbl
-[744] Biber.pm:130> WARN - legacy month field 'Jun' in entry 'Watts1998' is not an integer - this will probably not sort properly.
-[744] Biber.pm:132> INFO - WARNINGS: 1
+[143] biber-MSWIN64:340> INFO - === 
+[199] Biber.pm:418> INFO - Reading 'Essay.bcf'
+[350] Biber.pm:978> INFO - Found 3 citekeys in bib section 0
+[369] Biber.pm:4401> INFO - Processing section 0
+[384] Biber.pm:4592> INFO - Looking for bibtex file 'references.bib' for section 0
+[461] bibtex.pm:1713> INFO - LaTeX decoding ...
+[474] bibtex.pm:1518> INFO - Found BibTeX data source 'references.bib'
+[538] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[538] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[538] Biber.pm:4221> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[538] Biber.pm:4227> INFO - No sort tailoring available for locale 'en-US'
+[548] bbl.pm:654> INFO - Writing 'Essay.bbl' with encoding 'UTF-8'
+[552] bbl.pm:757> INFO - Output to Essay.bbl
+[553] Biber.pm:130> WARN - legacy month field 'Jun' in entry 'Watts1998' is not an integer - this will probably not sort properly.
+[553] Biber.pm:132> INFO - WARNINGS: 1
