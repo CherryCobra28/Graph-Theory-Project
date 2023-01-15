@@ -224,8 +224,8 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
     for node in infection.daysinfected:
             if node in infection.infected:
                 infection.daysinfected[node] += 1
-                if infection.daysinfected[node] > fatal_days:
-                    infection.die_or_recover(node,p_r)
+            if infection.daysinfected[node] > fatal_days:
+                infection.die_or_recover(node,p_r)
     
 def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined') -> tuple[dict,dict]:
     """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
