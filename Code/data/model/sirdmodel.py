@@ -31,7 +31,7 @@ import modelexceptions
 
 class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
-    def __init__(self,network: nx.Graph):
+    def __init__(self,network: nx.Graph, initial_infected: int, intial_immune: int):
         """_summary_
 
         Args:
@@ -41,6 +41,7 @@ class infection_graph:
         self.graph = network
         self.vertices = list(nx.nodes(self.graph))
         self.no_nodes = nx.number_of_nodes(self.graph)
+        self.edges = len(nx.edges(self.graph))
         self.degrees = dict(nx.degree(self.graph)) #returns a dictionary with the nodes as keys and their degree as value
         self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
@@ -51,22 +52,49 @@ class infection_graph:
             self.average_path_length = 0
             
         ########################################################################
+        self.no_of_intitial_infected  = initial_infected
+        self.no_of_intitial_immune  = intial_immune
+
         self.infected = set() #Initalises the empty list
         zeros = [0]*len(self.vertices)
-        r_number = rand.randrange(0,len(self.vertices))
-        self.infected.add(self.vertices[r_number]) #Picks a vertex at random to start the infection
         self.daysinfected = dict(zip(self.vertices,zeros))#Keeps count of how long each node has been infected
         self.timesrecovered = dict(zip(self.vertices,zeros))
+        self.no_of_successful_infections = 0
+        
+        for _ in range(intial_immune):
+            self.init_immune()
+        
+        
+        for _ in range(initial_infected):
+            self.inital_infection() #Picks a vertex at random to start the infection
         self.PersonalInfection = self.PersonalInfectionRates()
         ########################################################################
         
         self.colours = self.colour() #Initialises the colour dict that we use to colour nodes in the graph
-
+        
+        
+    def init_immune(self) -> None:
+        r_number = rand.randrange(0,len(self.vertices))
+        node = self.vertices[r_number]
+        if self.timesrecovered[node]>0:
+            self.init_immune()
+        self.timesrecovered[node] += 1
+        
+    def inital_infection(self) -> None:
+        r_number = rand.randrange(0,len(self.vertices))
+        if self.timesrecovered[r_number] > 0:
+            self.initial_infection()
+        if self.vertices[r_number] in self.infected:
+            self.inital_infection()
+        self.infected.add(self.vertices[r_number])
+        
     def stats(self) -> dict:
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
         
-        return {'histogram':self.histogram, 'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length} 
+        return {'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length} 
+    def inf_stats(self) -> dict:
+        return {'intital_number_of_infected': self.no_of_intitial_infected,'intital_number_of_immune': self.no_of_intitial_immune,'Successful_infections': self.no_of_successful_infections}
     def die_or_recover(self,node,r: float) -> None:
         """_summary_
 
@@ -133,7 +161,9 @@ class infection_strat(ABC):
     @abstractmethod
     def __str__():
         pass
-    
+    @abstractmethod
+    def assumptions():
+        pass
 class ConstantRateInfection(infection_strat):
     def infect(infclass: infection_graph,p: float) -> None:#function to infect a vertex, p is the probaility of infection use a float 
         """_summary_
@@ -153,11 +183,14 @@ class ConstantRateInfection(infection_strat):
                 pass
             elif r_no < p:
                 infclass.infected.add(node)
+                infclass.no_of_successful_infections += 1
             else:
                 pass
             
     def __str__():
         return 'ConstantRate'
+    def assumptions():
+        return 'Rate of infection is constant\n'
     
 class PersonalInfection(infection_strat):
     def infect(infclass: infection_graph, p: float) -> None:
@@ -227,7 +260,7 @@ def days_infected_checker(infection: infection_graph,p_r: float, fatal_days: int
             if infection.daysinfected[node] > fatal_days:
                 infection.die_or_recover(node,p_r)
     
-def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined') -> tuple[dict,dict]:
+def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial_immune: int = 0,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined') -> tuple[dict,dict]:
     """Takes our input graph, plus the infection parameters to yield a tuple contain the information of the infection.
 
     Args:
@@ -243,7 +276,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
     Returns:
         tuple[dict,dict]: The first dictionary represents the data from the infection and the second dictionary constains data about the graph that the model is running on
     """    
-    infection_network = infection_graph(deepcopy(graph)) #Creates an instance of the infection_graph witnode
+    infection_network = infection_graph(deepcopy(graph),initial_infected=intial_infected,intial_immune = intial_immune) #Creates an instance of the infection_graph witnode
     origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
@@ -284,7 +317,9 @@ def model(graph: nx.Graph,p_i: float, p_r: float,enable_vis: bool = False,infect
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            infection_info = {'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type}
+            #no_of_recovered = [val for _, val in infection_network.timesrecovered.items() if val >0]
+            #print(no_of_recovered)
+            infection_info = {'n':origin_network.no_nodes,'e': origin_network.edges,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type} | infection_network.inf_stats()
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
@@ -500,7 +535,8 @@ def userpanel() -> tuple:
     return parameters
     
 def main():
-    infection_data,origin_graph = model(*userpanel())
+    #infection_data,origin_graph = model(*userpanel())
+    infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.9)
     print(infection_data)
     print(origin_graph)
 

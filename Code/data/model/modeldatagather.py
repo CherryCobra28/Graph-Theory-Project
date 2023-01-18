@@ -12,11 +12,8 @@ SEED_GRAPHS = [nx.fast_gnp_random_graph(10,0.5) for i in range(100)]
 def gather():
     
     n = [30,50,70]#,90,110,130,150,170,190,200]#,300,400,500,1000,1500,2000,2500,5000,10000]
-    result = []
-
-    for N in tqdm(n):
-        K = generate(N)
-        result.append(K)
+    result = (generate(N) for N in tqdm(n))
+    result = list(result)
     done = result.pop(0)
 
     for i in result:
