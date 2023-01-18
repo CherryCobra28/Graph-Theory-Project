@@ -11,8 +11,8 @@ from numpy import mean, std
 
 
 def main():
-    A = nx.fast_gnp_random_graph(30,0.5) #edges = 217.5
-    B = nx.barabasi_albert_graph(30,8,initial_graph = nx.fast_gnp_random_graph(10,0.5)) #45 + 20*5
+    A = nx.fast_gnp_random_graph(300,0.5) #edges = 217.5
+    B = nx.barabasi_albert_graph(300,8,initial_graph = nx.fast_gnp_random_graph(10,0.5)) #45 + 20*5
     p_i = 0.2
     p_r = 0.65
     all_A = [sird.model(A,p_i,p_r,graph_type='Random') for _ in range(1000)]
@@ -26,7 +26,7 @@ def main():
     
     
     print(data(A_data))
-    print(data(done_B))
+    print(data(B_data))
 
 
 
@@ -53,9 +53,12 @@ def data(data: pd.DataFrame) -> pd.Series:
     
     
     mean_daystaken = mean(daystaken)
+    std_daystaken = std(daystaken)
     mean_survivors = mean(survivors)
+    std_survivors = std(survivors)
     mean_succ_inf = mean(no_of_succ_inf)
-    data = {'n':n,'e':e,'p_i':p_i,'p_r':p_r,'averagedays':mean_daystaken, 'average survivors':mean_survivors,'AveageSuccInf':mean_succ_inf,'Inf Type':infectiontype,'init inf':init_inf,'init immune':init_immune}
+    std_succ_inf = std(no_of_succ_inf)
+    data = {'n':n,'e':e,'p_i':p_i,'p_r':p_r,'averagedays':mean_daystaken,'std_daystaken':std_daystaken ,'average survivors':mean_survivors,'std_survivors':std_survivors,'AveageSuccInf':mean_succ_inf,'std_succ_inf': std_succ_inf,'Inf Type':infectiontype,'init inf':init_inf,'init immune':init_immune}
     return pd.Series(data)
 
 

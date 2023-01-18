@@ -36,6 +36,12 @@ def dict_zip(A: dict,B: dict) -> dict:
     return (final)    
 
 
+def zipper(list_of_dic: list) -> dict:
+    dic = list_of_dic.pop(0)
+    for i in list_of_dic:
+        dic = dict_zip(dic,i)
+    return dic
+
 
     #{'n':[2,5],'k':[3,6]}
     
