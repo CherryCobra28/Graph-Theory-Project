@@ -177,6 +177,7 @@ class ConstantRateInfection(infection_strat):
             k = nx.all_neighbors(infclass.graph, i)
             for n in k:
                 spreaders.append(n)
+        spreaders = [x for x in spreaders if x not in infclass.infected]
         for node in spreaders:#for each node in the spreaders list the rate of infection is p and will be added  to the infected class
             r_no = rand.random()
             if infclass.timesrecovered[node] > 0:
