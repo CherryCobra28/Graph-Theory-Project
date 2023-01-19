@@ -12,13 +12,13 @@ from numpy import mean, std
 
 def main():
     A = nx.fast_gnp_random_graph(300,0.5) #edges = 217.5
-    B = nx.barabasi_albert_graph(300,8,initial_graph = nx.fast_gnp_random_graph(10,0.5)) #45 + 20*5
+    B = nx.barabasi_albert_graph(300,115,initial_graph = nx.fast_gnp_random_graph(161,0.5)) #45 + 20*5
     p_i = 0.2
     p_r = 0.65
-    all_A = [sird.model(A,p_i,p_r,graph_type='Random') for _ in range(1000)]
+    all_A = [sird.model(A,p_i,p_r,graph_type='Random') for _ in range(10)]
     done_A = [a | b for a,b in all_A]
     done_A = zipper(done_A)
-    all_B = [sird.model(B,p_i,p_r,graph_type='Barabasi') for _ in range(1000)]
+    all_B = [sird.model(B,p_i,p_r,graph_type='Barabasi') for _ in range(10)]
     done_B = [a | b for a,b in all_B]
     done_B = zipper(done_B)
     A_data = pd.DataFrame.from_dict(done_A)
