@@ -407,13 +407,13 @@ def graphchoice(m:int,choice: str) -> nx.Graph:
         return nx.erdos_renyi_graph(m+1,0.5)
 
 
-class Panel:
+class GraphPanel:
     """_summary_
 
     Returns:
         _type_: _description_
     """    
-    LIST_OF_INFECTION_MODELS = {'Constant Rate':ConstantRateInfection,'Personal':PersonalInfection,'Skill Check':SkillCheckInfection}
+    
     def barabasi(self) -> tuple:
         """_summary_
 
@@ -427,17 +427,8 @@ class Panel:
                   [sg.InputText()],
                   [sg.Text('Barabasi Edges')],
                   [sg.InputText()],
-                  [sg.Text('P of infection')],
-                  [sg.InputText()],
-                  [sg.Text('P of Recovery')],
-                  [sg.InputText()],
-                  [sg.Text('Number of Intial Infected')],
-                  [sg.InputText()],
-                  [sg.Text('Number of Intial Immune')],
                   [sg.Text('Choice of seed graph:')],
                   [sg.Listbox(values=LIST_OF_GRAPHS,size=(15,5), key='Graph_Type', enable_events=True)],
-                  [sg.Text('Infection Type:')],
-                  [sg.Listbox(values=list(self.LIST_OF_INFECTION_MODELS.keys()),size=(15,5),key='Infection',enable_events=True)],
                   [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
                   [sg.Submit()],
                   [sg.Cancel()]]
@@ -454,8 +445,8 @@ class Panel:
         else:
             enable_vis = False
         try:
-            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
-            n,e,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+            n,e= values[0],values[1]
+            n,e= int(n),int(e)
         except ValueError:
             print('Please input the correct data types')
             self.barabasi()
@@ -463,9 +454,7 @@ class Panel:
          #enable_vis = input('Show Graphs?:')
         graph = graphchoice(e,values['Graph_Type'][0])
         user_graph = graph_constructer.barabasi(graph,n,e)
-        infection_type_key = values['Infection'][0]
-        infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
-        return (user_graph,p_i,p_r,enable_vis,infection_type,graph_type)
+        return (user_graph,enable_vis,graph_type)
 
     def watts_strogatz(self):
         sg.theme('Green')
@@ -475,7 +464,68 @@ class Panel:
                   [sg.InputText()],
                   [sg.Text('p:')],
                   [sg.InputText()],
-                  [sg.Text('P of infection')],
+                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
+                  [sg.Submit()],
+                  [sg.Cancel()]]
+        window = sg.Window('SIRD Infection Model', layout)
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Exit'):
+                quit()
+            elif 'Submit' in event:
+                break      
+        window.close()
+        if values['Enable_Vis'] is  True:
+            enable_vis = True
+        else:
+            enable_vis = False
+        try:
+            n,e = values[0],values[1]
+            n,e = int(n),int(e)
+        except ValueError:
+            print('Please input the correct data types')
+            self.watts_strogatz()
+
+        user_graph = graph_constructer.watts()
+
+        return (user_graph,enable_vis)
+
+    def scale_free(self):
+        sg.theme('Green')
+        layout = [[sg.Text('No of nodes')],
+                  [sg.InputText()],
+                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
+                  [sg.Submit()],
+                  [sg.Cancel()]]
+        window = sg.Window('SIRD Infection Model', layout)
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Exit'):
+                quit()
+            elif 'Submit' in event:
+                break      
+        window.close()
+        if values['Enable_Vis'] is  True:
+            enable_vis = True
+        else:
+            enable_vis = False
+        try:
+            n,p_i,p_r = values[0],values[1]
+            n,p_i,p_r = int(n)
+        except ValueError:
+            print('Please input the correct data types')
+            self.scale_free()
+
+        user_graph = graph_constructer.scale_free()
+        return (user_graph,enable_vis)
+    def erdos_renyi(self):
+        pass
+    
+class InfectionPanel:
+    LIST_OF_INFECTION_MODELS = {'Constant Rate':ConstantRateInfection,'Personal':PersonalInfection,'Skill Check':SkillCheckInfection}
+    def infect_panel(self):
+        sg.theme('Green')
+        layout = [[sg.Text('P of infection')],
                   [sg.InputText()],
                   [sg.Text('P of Recovery')],
                   [sg.InputText()],
@@ -483,9 +533,7 @@ class Panel:
                   [sg.InputText()],
                   [sg.Text('Number of Intial Immune')],
                   [sg.InputText()],
-                  [sg.Text('Infection Type:')],
                   [sg.Listbox(values=list(self.LIST_OF_INFECTION_MODELS.keys()),size=(15,5),key='Infection',enable_events=True)],
-                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
                   [sg.Submit()],
                   [sg.Cancel()]]
         window = sg.Window('SIRD Infection Model', layout)
@@ -496,60 +544,14 @@ class Panel:
             elif 'Submit' in event:
                 break      
         window.close()
-        if values['Enable_Vis'] is  True:
-            enable_vis = True
-        else:
-            enable_vis = False
         try:
-            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
-            n,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+            p_i,p_r,init_infected,init_immune = float(values[0]),float(values[1]),int(values[2]),int(values[3])
         except ValueError:
-            print('Please input the correct data types')
-            self.watts_strogatz()
-
-        user_graph = graph_constructer.watts()
+            print('Pleaae use the coreect data types')
+            self.infect_panel()
         infection_type_key = values['Infection'][0]
         infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
-        return (user_graph,p_i,p_r,enable_vis,infection_type)
-
-    def scale_free(self):
-        sg.theme('Green')
-        layout = [[sg.Text('No of nodes')],
-                  [sg.InputText()],
-                  [sg.Text('P of infection')],
-                  [sg.InputText()],
-                  [sg.Text('P of Recovery')],
-                  [sg.InputText()],
-                  [sg.Text('Infection Type:')],
-                  [sg.Listbox(values=list(self.LIST_OF_INFECTION_MODELS.keys()),size=(15,5),key='Infection',enable_events=True)],
-                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
-                  [sg.Submit()],
-                  [sg.Cancel()]]
-        window = sg.Window('SIRD Infection Model', layout)
-        while True:
-            event, values = window.read()
-            if event in (sg.WIN_CLOSED, 'Exit'):
-                quit()
-            elif 'Submit' in event:
-                break      
-        window.close()
-        if values['Enable_Vis'] is  True:
-            enable_vis = True
-        else:
-            enable_vis = False
-        try:
-            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
-            n,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
-        except ValueError:
-            print('Please input the correct data types')
-            self.watts_strogatz()
-
-        user_graph = graph_constructer.watts()
-        infection_type_key = values['Infection'][0]
-        infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
-        return (user_graph,p_i,p_r,enable_vis,infection_type)
-    def erdos_renyi(self):
-        pass
+        return (p_i,p_r,init_infected,init_immune,infection_type)
 
 def userpanel() -> tuple:
     """_summary_
@@ -558,7 +560,8 @@ def userpanel() -> tuple:
         tuple: _description_
     """    
     sg.theme('Green')
-    panel = Panel()
+    panel = GraphPanel()
+    infectpanel = InfectionPanel()
     LIST_OF_GRAPH_TYPES = {'Barabasi-Albert':panel.barabasi,'Watts-Strogats':panel.watts_strogatz,'Erdos Random':panel.erdos_renyi,'Scale Free':panel.scale_free}
     layout = [[sg.Text('Which type of graph would you like to test?')],
               [sg.Listbox(values=list(LIST_OF_GRAPH_TYPES.keys()),size=(20,10), key='-LIST-', enable_events=True)],
@@ -579,7 +582,12 @@ def userpanel() -> tuple:
     except IndexError:
         userpanel()
     
-    parameters: tuple = LIST_OF_GRAPH_TYPES[graph_type]()
+    graph_params = LIST_OF_GRAPH_TYPES[graph_type]()
+    infect_params = infectpanel.infect_panel()
+    #(p_i,p_r,init_infected,init_immune,infection_type)
+    #(user_graph,enable_vis,graph_type)
+    #(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial_immune: int = 0,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined')
+    parameters = (graph_params[0],infect_params[0],infect_params[1],infect_params[2],infect_params[3],graph_params[1],infect_params[4],graph_params[2])
     return parameters
     
 def main():
