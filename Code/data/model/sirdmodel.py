@@ -407,7 +407,7 @@ def graphchoice(m:int,choice: str) -> nx.Graph:
         return nx.erdos_renyi_graph(m+1,0.5)
 
 
-class GraphPanel:
+class Panel:
     """_summary_
 
     Returns:
@@ -521,8 +521,6 @@ class GraphPanel:
     def erdos_renyi(self):
         pass
     
-class InfectionPanel:
-    LIST_OF_INFECTION_MODELS = {'Constant Rate':ConstantRateInfection,'Personal':PersonalInfection,'Skill Check':SkillCheckInfection}
     def infect_panel(self):
         sg.theme('Green')
         layout = [[sg.Text('P of infection')],
@@ -552,7 +550,7 @@ class InfectionPanel:
         infection_type_key = values['Infection'][0]
         infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
         return (p_i,p_r,init_infected,init_immune,infection_type)
-
+    
 def userpanel() -> tuple:
     """_summary_
 
@@ -560,8 +558,7 @@ def userpanel() -> tuple:
         tuple: _description_
     """    
     sg.theme('Green')
-    panel = GraphPanel()
-    infectpanel = InfectionPanel()
+    panel = Panel()
     LIST_OF_GRAPH_TYPES = {'Barabasi-Albert':panel.barabasi,'Watts-Strogats':panel.watts_strogatz,'Erdos Random':panel.erdos_renyi,'Scale Free':panel.scale_free}
     layout = [[sg.Text('Which type of graph would you like to test?')],
               [sg.Listbox(values=list(LIST_OF_GRAPH_TYPES.keys()),size=(20,10), key='-LIST-', enable_events=True)],
@@ -583,7 +580,7 @@ def userpanel() -> tuple:
         userpanel()
     
     graph_params = LIST_OF_GRAPH_TYPES[graph_type]()
-    infect_params = infectpanel.infect_panel()
+    infect_params = panel.infect_panel()
     #(p_i,p_r,init_infected,init_immune,infection_type)
     #(user_graph,enable_vis,graph_type)
     #(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial_immune: int = 0,enable_vis: bool = False,infection_type: infection_strat = ConstantRateInfection,graph_type: str = 'Not Defined')
