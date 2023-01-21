@@ -17,7 +17,7 @@ def betterdiameter(G: nx.Graph) -> int:
             return t
         else:
             t += 1
-            A = np.dot(A,const_A)
+            A = A @ const_A
             A = (A>0).astype(np.uint8)
             
 

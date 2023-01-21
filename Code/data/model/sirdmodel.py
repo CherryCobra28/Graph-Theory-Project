@@ -4,8 +4,8 @@ selecting one node at random and then at a rate p, will attempt to infect other 
  
  
  STRETCH GOALS:
- 1. RUN PROGRAM ON RANDOM, WATTZ-STROGATZ, SCALE FREE AND ALBERT-BARABASI (\\)
- 2. IMMPLEMENT MULTIPLE SIRD MODELS (\\)
+ 1. RUN PROGRAM ON RANDOM, WATTZ-STROGATZ, SCALE FREE AND ALBERT-BARABASI (\)
+ 2. IMMPLEMENT MULTIPLE SIRD MODELS (\)
  
  
  
@@ -17,12 +17,14 @@ import random as rand #Random helps for random numbers
 from math import floor,comb
 import networkx as nx #Adds the networkx package, used to create graph objects
 import matplotlib.pyplot as plt #A library to plot graphs
-import PySimpleGUI as sg
 from betterdiameter import betterdiameter
 import modelexceptions
-
-
-
+try:
+    import PySimpleGUI as sg
+    NOGUI = False
+except ImportError:
+    NOGUI = True
+    sg = None
 
 
 
@@ -429,6 +431,9 @@ class Panel:
                   [sg.InputText()],
                   [sg.Text('P of Recovery')],
                   [sg.InputText()],
+                  [sg.Text('Number of Intial Infected')],
+                  [sg.InputText()],
+                  [sg.Text('Number of Intial Immune')],
                   [sg.Text('Choice of seed graph:')],
                   [sg.Listbox(values=LIST_OF_GRAPHS,size=(15,5), key='Graph_Type', enable_events=True)],
                   [sg.Text('Infection Type:')],
@@ -466,6 +471,51 @@ class Panel:
         sg.theme('Green')
         layout = [[sg.Text('No of nodes')],
                   [sg.InputText()],
+                  [sg.Text('k:')],
+                  [sg.InputText()],
+                  [sg.Text('p:')],
+                  [sg.InputText()],
+                  [sg.Text('P of infection')],
+                  [sg.InputText()],
+                  [sg.Text('P of Recovery')],
+                  [sg.InputText()],
+                  [sg.Text('Number of Intial Infected')],
+                  [sg.InputText()],
+                  [sg.Text('Number of Intial Immune')],
+                  [sg.InputText()],
+                  [sg.Text('Infection Type:')],
+                  [sg.Listbox(values=list(self.LIST_OF_INFECTION_MODELS.keys()),size=(15,5),key='Infection',enable_events=True)],
+                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
+                  [sg.Submit()],
+                  [sg.Cancel()]]
+        window = sg.Window('SIRD Infection Model', layout)
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Exit'):
+                quit()
+            elif 'Submit' in event:
+                break      
+        window.close()
+        if values['Enable_Vis'] is  True:
+            enable_vis = True
+        else:
+            enable_vis = False
+        try:
+            n,e,p_i,p_r = values[0],values[1],values[2],values[3]
+            n,p_i,p_r = int(n),int(e),float(p_i),float(p_r)
+        except ValueError:
+            print('Please input the correct data types')
+            self.watts_strogatz()
+
+        user_graph = graph_constructer.watts()
+        infection_type_key = values['Infection'][0]
+        infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
+        return (user_graph,p_i,p_r,enable_vis,infection_type)
+
+    def scale_free(self):
+        sg.theme('Green')
+        layout = [[sg.Text('No of nodes')],
+                  [sg.InputText()],
                   [sg.Text('P of infection')],
                   [sg.InputText()],
                   [sg.Text('P of Recovery')],
@@ -498,9 +548,6 @@ class Panel:
         infection_type_key = values['Infection'][0]
         infection_type = self.LIST_OF_INFECTION_MODELS[infection_type_key]
         return (user_graph,p_i,p_r,enable_vis,infection_type)
-
-    def scale_free(self):
-        pass
     def erdos_renyi(self):
         pass
 
@@ -536,8 +583,10 @@ def userpanel() -> tuple:
     return parameters
     
 def main():
-    #infection_data,origin_graph = model(*userpanel())
-    infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.9)
+    if NOGUI is False:
+        infection_data,origin_graph = model(*userpanel())
+    else:
+        infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.9)
     print(infection_data)
     print(origin_graph)
 
