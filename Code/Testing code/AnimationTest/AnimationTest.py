@@ -52,6 +52,7 @@ class infection_graph:
             self.average_path_length = nx.average_shortest_path_length(self.graph)
         except Exception:
             self.average_path_length = 0
+        self.pos = nx.spring_layout(self.graph)
             
         ########################################################################
         self.no_of_intitial_infected  = initial_infected
@@ -154,7 +155,7 @@ class infection_graph:
                 #print(colors)
         figure = plt.figure(f'{frame_counter}')
         
-        nx.draw(self.graph, node_color=colors,with_labels=True)
+        nx.draw(self.graph,pos=self.pos, node_color=colors,with_labels=True)
         figure.savefig(f'Code\Testing code\AnimationTest\Frame{frame_counter}.png')
         
     
@@ -666,7 +667,7 @@ def main():
     if NOGUI is False:
         infection_data,origin_graph = model(*userpanel())
     else:
-        infection_data,origin_graph = model(nx.barabasi_albert_graph(6,2),0.4,0.3)
+        infection_data,origin_graph = model(nx.barabasi_albert_graph(20,2),0.4,0.3)
     print(infection_data)
     print(origin_graph)
 

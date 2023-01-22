@@ -52,7 +52,7 @@ class infection_graph:
             self.average_path_length = nx.average_shortest_path_length(self.graph)
         except Exception:
             self.average_path_length = 0
-            
+        self.pos = nx.spring_layout(self.graph)
         ########################################################################
         self.no_of_intitial_infected  = initial_infected
         self.no_of_intitial_immune  = intial_immune
@@ -318,10 +318,10 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                 if enable_vis is True:
                     '''Here we render both the orginal grpah and a graph of all the survivors to compare the devasation or lack there of'''
                     f = plt.figure('Starting Graph')
-                    nx.draw_networkx(origin_network.graph,node_color = origin_network.colours.values() ,with_labels=True)
+                    nx.draw_networkx(origin_network.graph,node_color = origin_network.colours.values() ,pos=origin_network.pos,with_labels=True)
                     f.show()
                     g = plt.figure('The survivors')
-                    nx.draw(infection_network.graph,node_color = infection_network.colours.values(),with_labels=True)
+                    nx.draw(infection_network.graph,node_color = infection_network.colours.values(),pos=infection_network.pos,with_labels=True)
                     g.show()
                     input()
             
