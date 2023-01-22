@@ -1,0 +1,17 @@
+Random Graph 2 
+P_r = 0.2
+P_i = 0.68
+n                              50
+e                             605
+p_i                          0.68
+p_r                           0.2
+averagedays                  11.0
+std_daystaken                 0.0
+average survivors            10.6
+std_survivors            3.136877
+AveageSuccInf               213.7
+std_succ_inf            25.992499
+Inf Type             ConstantRate
+init inf                        1
+init immune                     0
+dtype: object

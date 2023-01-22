@@ -1,0 +1,17 @@
+Barabasi Graph 4
+P_r = 0.6
+P_i = 0.5
+n                              10
+e                              17
+p_i                           0.5
+p_r                           0.6
+averagedays                  11.8
+std_daystaken            1.077033
+average survivors             6.8
+std_survivors            1.720465
+AveageSuccInf                 8.4
+std_succ_inf             3.072458
+Inf Type             ConstantRate
+init inf                        1
+init immune                     0
+dtype: object

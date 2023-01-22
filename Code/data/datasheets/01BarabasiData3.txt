@@ -1,0 +1,17 @@
+Barabasi Graph 3
+P_r = 0.8
+P_i = 0.1
+n                              50
+e                             226
+p_i                           0.1
+p_r                           0.8
+averagedays                  22.9
+std_daystaken            2.165641
+average survivors            40.1
+std_survivors            2.547548
+AveageSuccInf                57.6
+std_succ_inf             3.261901
+Inf Type             ConstantRate
+init inf                        1
+init immune                     0
+dtype: object

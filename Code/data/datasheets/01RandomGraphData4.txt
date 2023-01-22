@@ -1,0 +1,17 @@
+Random Graph 4 
+P_r = 0.6
+P_i = 0.5
+n                              10
+e                              14
+p_i                           0.5
+p_r                           0.6
+averagedays                  16.0
+std_daystaken            2.966479
+average survivors             6.4
+std_survivors                 1.8
+AveageSuccInf                10.3
+std_succ_inf             0.781025
+Inf Type             ConstantRate
+init inf                        1
+init immune                     0
+dtype: object
