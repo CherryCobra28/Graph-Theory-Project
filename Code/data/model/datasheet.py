@@ -3,6 +3,8 @@ import pandas as pd
 import networkx as nx
 from dict_zip import dict_zip
 from numpy import mean, std
+import matplotlib.pyplot as plt
+
 #{'n':origin_network.no_nodes,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type}
 
 
@@ -10,11 +12,38 @@ from numpy import mean, std
 '''{'n': [30, 30, 30, 30, 30, 30, 30, 30, 30, 30], 'P_i': [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2], 'P_r': [0.65, 0.65, 0.65, 0.65, 0.65, 0.65, 0.65, 0.65, 0.65, 0.65], 'Days_Taken': [13, 14, 12, 14, 14, 13, 14, 13, 14, 13], 'survivors': [19, 20, 22, 20, 21, 23, 20, 17, 20, 20], 'Everyone_Dead': [False, False, False, False, False, False, False, False, False, False], 'Infection_Type': ['ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate', 'ConstantRate'], 'Graph_Type': ['Random', 'Random', 'Random', 'Random', 'Random', 'Random', 'Random', 'Random', 'Random', 'Random'], 'intital_number_of_infected': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'intital_number_of_immune': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'Successful_infections': [800, 785, 822, 784, 816, 832, 780, 775, 817, 747], 'highest_degree': [20, 20, 20, 20, 20, 20, 20, 20, 20, 20], 'Diameter': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], 'average_path_length': [1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701, 1.5218390804597701]}'''
 
 
+
+
 def main():
-    A = nx.fast_gnp_random_graph(300,0.5) #edges = 217.5
-    B = nx.barabasi_albert_graph(300,115,initial_graph = nx.fast_gnp_random_graph(161,0.5)) #45 + 20*5
-    p_i = 0.2
-    p_r = 0.65
+    x =1
+    params = ((30,0.5,5,10,0.5,0.2),(50,0.5,5,10,0.68,0.2),(50,0.5,5,6,0.1,0.8),(10,0.3,3,5,0.5,0.6),(15,0.7,4,5,0.666,0.333))
+    for i in params:
+        
+        _,_,_,_,p_i,p_r = i
+        done = datagather(*i)
+        A,B,A_data,B_data = done
+        
+        with open(f'01RandomGraphData{x}.txt','w') as file:
+            
+            K = str(data(A_data))
+            tobewritten = (f'Random Graph {x} \n',f'P_r = {p_r}\n',f'P_i = {p_i}\n',K)
+            file.writelines(tobewritten)
+        V = nx.draw(A)
+        plt.savefig(f'01RandomGraphImage{x}.png')
+        
+        
+        with open(f'01BarabasiData{x}.txt','w') as file:
+            K = str(data(B_data))
+            tobewritten = (f'Barabasi Graph {x}\n',f'P_r = {p_r}\n',f'P_i = {p_i}\n',K)
+            file.writelines(tobewritten)
+        V = nx.draw(B)
+        plt.savefig(f'01BarabasiImage{x}.png')
+        
+        x+=1
+
+def datagather(n: int, rand_p: float, barabasi_edge: int,seed_n,p_i: float,p_r:float):
+    A = nx.fast_gnp_random_graph(n,rand_p) #edges = 217.5
+    B = nx.barabasi_albert_graph(n,barabasi_edge,initial_graph = nx.fast_gnp_random_graph(seed_n,rand_p)) #45 + 20*5
     all_A = [sird.model(A,p_i,p_r,graph_type='Random') for _ in range(10)]
     done_A = [a | b for a,b in all_A]
     done_A = zipper(done_A)
@@ -23,10 +52,7 @@ def main():
     done_B = zipper(done_B)
     A_data = pd.DataFrame.from_dict(done_A)
     B_data = pd.DataFrame.from_dict(done_B)
-    
-    
-    print(data(A_data))
-    print(data(B_data))
+    return A,B,A_data,B_data
 
 
 

@@ -140,6 +140,31 @@ class infection_graph:
         samples = [rand.random() for _ in range(self.no_nodes)]
         personal_infections = dict(zip(self.vertices,samples))
         return personal_infections
+    
+    def animator(self,frame_counter:int):
+        colors = []
+        current_alive_nodes = nx.nodes(self.graph)
+        print(current_alive_nodes)
+        figure = plt.figure(f'{frame_counter}')
+        for i in current_alive_nodes:
+            if i in self.infected:
+                colors.append('Red')
+                print(colors)
+            else:
+                colors.append('Blue')
+                print(colors)
+        figure = plt.figure(f'{frame_counter}')
+        
+        nx.draw(self.graph, node_color=colors,with_labels=True)
+        figure.savefig(f'Frame{frame_counter}.png')
+        
+    
+    
+    
+    
+    
+    
+    
 
 def modifier(x: int) -> int:
     """_summary_
@@ -282,6 +307,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
     infection_network = infection_graph(deepcopy(graph),initial_infected=intial_infected,intial_immune = intial_immune) #Creates an instance of the infection_graph witnode
     origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
+    frame_counter = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
     for _ in range(100000):
         infection_type.infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
@@ -289,7 +315,9 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
         infected for more than 10 days if so the node will attempt to recover or die'''
         days_infected_checker(infection_network,p_r)
         '''If there is no nodes left infected either everyones dead or everyones recovered'''
-        
+        #if days_of_the_infcetion % 2 == 0:
+        infection_network.animator(frame_counter)
+        frame_counter += 1
         
         
         
@@ -632,10 +660,11 @@ def userpanel() -> tuple:
     return parameters
     
 def main():
+    NOGUI = True
     if NOGUI is False:
         infection_data,origin_graph = model(*userpanel())
     else:
-        infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.9)
+        infection_data,origin_graph = model(nx.barabasi_albert_graph(10,5),0.8,0.9)
     print(infection_data)
     print(origin_graph)
 

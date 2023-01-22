@@ -1,0 +1,16 @@
+P_r =0.2
+P_i =0.68
+n                              50
+e                             624
+p_i                          0.68
+p_r                           0.2
+averagedays                  11.1
+std_daystaken                 0.3
+average survivors             9.3
+std_survivors            2.830194
+AveageSuccInf               208.2
+std_succ_inf            16.029972
+Inf Type             ConstantRate
+init inf                        1
+init immune                     0
+dtype: object

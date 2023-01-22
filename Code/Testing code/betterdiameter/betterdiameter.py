@@ -21,18 +21,20 @@ def betterdiameter(A: np.array) -> int:
             
         else:
             t += 1
-            A = np.dot(A,const_A)
+            A = (A @ const_A)
             A = (A>0).astype(np.uint8)
             #A = ne.evaluate('A>0').astype(np.uint8)
 
 if __name__ == '__main__':
-    K = nx.barabasi_albert_graph(10000,15)
+    K = nx.barabasi_albert_graph(100,15)
     K = nx.to_numpy_array(K)
     
     t = perf_counter()
     my = betterdiameter(K)
     print(f'My algoirthim took {perf_counter() - t},{my=}')
+    quit()
     t = perf_counter()
+    
     network = nx.diameter(K)
     print(f'Netwrokx took {perf_counter()-t},{network=}')
 
