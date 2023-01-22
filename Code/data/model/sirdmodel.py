@@ -289,6 +289,12 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
         infected for more than 10 days if so the node will attempt to recover or die'''
         days_infected_checker(infection_network,p_r)
         '''If there is no nodes left infected either everyones dead or everyones recovered'''
+        
+        
+        
+        
+        
+        
         if len(infection_network.infected) == 0:
             '''If theres no nodes left in the graph everyones dead'''
             if len(nx.nodes(infection_network.graph)) == 0:
@@ -374,7 +380,7 @@ class graph_constructer:
         except nx.exception.NetworkXErrror:
             userpanel()
         
-    def scale_free(n,a,b,c) -> nx.Graph:
+    def scale_free(n: int,a: float,b: float,c: float) -> nx.Graph:
         try:
             nx.scale_free_graph(n,a,b,c)
         except nx.exception.NetworkXErrror:
@@ -413,7 +419,8 @@ class Panel:
     Returns:
         _type_: _description_
     """    
-    
+    def __init__(self):
+        self.LIST_OF_INFECTION_MODELS = {'ConstantRate':ConstantRateInfection,'Personal':PersonalInfection,'SkillCheck':SkillCheckInfection}
     def barabasi(self) -> tuple:
         """_summary_
 
@@ -456,7 +463,8 @@ class Panel:
         user_graph = graph_constructer.barabasi(graph,n,e)
         return (user_graph,enable_vis,graph_type)
 
-    def watts_strogatz(self):
+    def watts_strogatz(self) -> tuple:
+        graph_type = 'Watts-Strogatz'
         sg.theme('Green')
         layout = [[sg.Text('No of nodes')],
                   [sg.InputText()],
@@ -480,19 +488,26 @@ class Panel:
         else:
             enable_vis = False
         try:
-            n,e = values[0],values[1]
-            n,e = int(n),int(e)
+            n,k,p = values[0],values[1],values[2]
+            n,k,p = int(n),int(k),float(p)
         except ValueError:
             print('Please input the correct data types')
             self.watts_strogatz()
 
-        user_graph = graph_constructer.watts()
+        user_graph = graph_constructer.watts(n,k,p)
 
-        return (user_graph,enable_vis)
+        return (user_graph,enable_vis,graph_type)
 
     def scale_free(self):
+        graph_type = 'Scale-Free'
         sg.theme('Green')
-        layout = [[sg.Text('No of nodes')],
+        layout = [[sg.Text('No of nodes (int)')],
+                  [sg.InputText()],
+                  [sg.Text('alpha (float)')]
+                  [sg.InputText()],
+                  [sg.Text('beta (float)')],
+                  [sg.InputText()],
+                  [sg.Text('gamma (float)')],
                   [sg.InputText()],
                   [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
                   [sg.Submit()],
@@ -510,16 +525,45 @@ class Panel:
         else:
             enable_vis = False
         try:
-            n,p_i,p_r = values[0],values[1]
-            n,p_i,p_r = int(n)
+            n,a,b,c = values[0],values[1],values[2],values[3]
+            n,a,b,c = int(n),float(a),float(b),float(c)
         except ValueError:
             print('Please input the correct data types')
             self.scale_free()
 
-        user_graph = graph_constructer.scale_free()
+        user_graph = graph_constructer.scale_free(n,a,b,c,graph_type)
         return (user_graph,enable_vis)
     def erdos_renyi(self):
-        pass
+        graph_type = 'Erdos-Renyi'
+        sg.theme('Green')
+        layout = [[sg.Text('No of nodes (int)')],
+                  [sg.InputText()],
+                  [sg.Text('Expected No of edges')]
+                  [sg.InputText()],
+                  [sg.Checkbox('Enable Graphs?',default = True, key= 'Enable_Vis' )],
+                  [sg.Submit()],
+                  [sg.Cancel()]]
+        window = sg.Window('SIRD Infection Model', layout)
+        while True:
+            event, values = window.read()
+            if event in (sg.WIN_CLOSED, 'Exit'):
+                quit()
+            elif 'Submit' in event:
+                break      
+        window.close()
+        if values['Enable_Vis'] is  True:
+            enable_vis = True
+        else:
+            enable_vis = False
+        try:
+            n,e = values[0],values[1]
+            n,e= int(n),float(e)
+        except ValueError:
+            print('Please input the correct data types')
+            self.erdos_renyi()
+
+        user_graph = graph_constructer.random_graph(n,e)
+        return (user_graph,enable_vis,graph_type)
     
     def infect_panel(self):
         sg.theme('Green')
