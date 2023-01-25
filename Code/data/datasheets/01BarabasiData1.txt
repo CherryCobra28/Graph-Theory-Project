@@ -1,17 +1,21 @@
 Barabasi Graph 1
-P_r = 0.2
-P_i = 0.5
-n                              30
-e                             125
-p_i                           0.5
-p_r                           0.2
-averagedays                  12.8
-std_daystaken                 0.4
-average survivors             7.0
-std_survivors             2.32379
-AveageSuccInf                53.3
-std_succ_inf                  4.1
-Inf Type             ConstantRate
-init inf                        1
-init immune                     0
+n                                   30
+e                                  126
+p_i                                0.5
+p_r                                0.2
+init inf                             1
+init immune                          0
+highest degree                      17
+diameter                             3
+average path len              1.763218
+average_clustering            0.332849
+average degree                     8.4
+averagedays                       12.6
+std_daystaken                 0.663325
+average survivors                  5.1
+std_survivors                 2.385372
+number of total deaths               0
+AveageSuccInf                     52.0
+std_succ_inf                   3.63318
+Inf Type                  ConstantRate
 dtype: object

@@ -1,17 +1,21 @@
 Random Graph 4 
-P_r = 0.6
-P_i = 0.5
-n                              10
-e                              14
-p_i                           0.5
-p_r                           0.6
-averagedays                  16.0
-std_daystaken            2.966479
-average survivors             6.4
-std_survivors                 1.8
-AveageSuccInf                10.3
-std_succ_inf             0.781025
-Inf Type             ConstantRate
-init inf                        1
-init immune                     0
+n                                   10
+e                                   26
+p_i                                0.5
+p_r                                0.6
+init inf                             1
+init immune                          0
+highest degree                       7
+diameter                             3
+average path len              1.444444
+average_clustering             0.50619
+average degree                     5.2
+averagedays                       12.5
+std_daystaken                  0.67082
+average survivors                  6.4
+std_survivors                 2.107131
+number of total deaths               0
+AveageSuccInf                     13.1
+std_succ_inf                  1.972308
+Inf Type                  ConstantRate
 dtype: object

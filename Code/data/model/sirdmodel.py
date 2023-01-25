@@ -32,22 +32,32 @@ except ImportError:
 
 
 class infection_graph: 
-    '''Creates a clas that we use to control and store information using the graph chosen for infection'''
+    """The infect graph class is the object that we will be using for a majority of the programs run time, it creates an object that holds data about the on goign infection
+    """    
     def __init__(self,network: nx.Graph, initial_infected: int, intial_immune: int):
-        """_summary_
+        """__init__() is run when the object is first created, here we intialise all the values ou program will require
 
         Args:
-            network (nx.Graph): _description_
+            network (nx.Graph): This is the network the infection will be ran on
+            initial_infected (int): This determines how many people will be infected on day 0 of the infection
+            intial_immune (int): This determines how many people will be natrually immune to the infection from day 0
         """        
         #bepsi
-        self.graph = network
-        self.vertices = list(nx.nodes(self.graph))
-        self.no_nodes = nx.number_of_nodes(self.graph)
-        self.edges = len(nx.edges(self.graph))
+        self.graph = network #This is the network the infection is running on
+        self.vertices = list(nx.nodes(self.graph)) #this is a list of all the vertices in the network
+        self.no_nodes = nx.number_of_nodes(self.graph)#the total number of nodes in the network
+        self.edges = len(nx.edges(self.graph))#the number of edges in the network
         self.degrees = dict(nx.degree(self.graph)) #returns a dictionary with the nodes as keys and their degree as value
         self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
-        self.diameter = betterdiameter(self.graph) #Returns the furthest distance between nodes in the graph
+        self.average_degree = sum([key*val for key, val in self.histogram.items()])/self.no_nodes #we take all the values from the histogram dictionary, multiply the frequency by the degree then take the mean of that
+        if self.no_nodes > 2000: #If the number of nodes is greater than 2000, claulating the diameter and cluerting coeffcitn is quit slow so we use an aprroximation instead
+            self.diameter = nx.approximation.diameter(self.graph) #This uses a 2 pass algorithm, it randomly selcts tow nodes from the graph and claulates the diameter between them, then does this again and which ever is higher is selcted as the diameter. This will be a lower bound for the diameter
+            self.clustering = nx.approximation.average_clustering(self.graph)#This approx imation works by slecting a node at random and seeing if two of its neighbours are connected to each other, it repeats that 1000 times then retunrs the fraction of trianles found
+        else:
+            self.diameter = betterdiameter(self.graph) #See betterdiameter documentation
+            self.clustering = nx.average_clustering(self.graph)#returns the average clustering coeffcient by calculating the local clustering coefficent for each node
+        
         try:
             self.average_path_length = nx.average_shortest_path_length(self.graph)
         except Exception:
@@ -94,7 +104,7 @@ class infection_graph:
         '''returns readable info about the graph, here it gives the: degrees of each node,
         the histogram of the degrees, the highest degree in the graph aka the super hubs and the diameter of the graph'''
         
-        return {'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length} 
+        return {'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length,'average_clustering': self.clustering,'average_degree':self.average_degree} 
     def inf_stats(self) -> dict:
         return {'intital_number_of_infected': self.no_of_intitial_infected,'intital_number_of_immune': self.no_of_intitial_immune,'Successful_infections': self.no_of_successful_infections}
     def die_or_recover(self,node,r: float) -> None:
@@ -215,6 +225,7 @@ class PersonalInfection(infection_strat):
                 pass
             elif r_no < personal_rate:
                 infclass.infected.add(node)
+                infclass.no_of_successful_infections += 1
             else:
                 pass
     def __str__():
@@ -244,6 +255,7 @@ class SkillCheckInfection(infection_strat):
                 pass
             elif success:
                 infclass.infected.add(node)
+                infclass.no_of_successful_infections += 1
             else:
                 pass
     def __str__():
@@ -632,6 +644,7 @@ def userpanel() -> tuple:
     return parameters
     
 def main():
+    NOGUI = True
     if NOGUI is False:
         infection_data,origin_graph = model(*userpanel())
     else:

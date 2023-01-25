@@ -1,17 +1,21 @@
 Random Graph 2 
-P_r = 0.2
-P_i = 0.68
-n                              50
-e                             605
-p_i                          0.68
-p_r                           0.2
-averagedays                  11.0
-std_daystaken                 0.0
-average survivors            10.6
-std_survivors            3.136877
-AveageSuccInf               213.7
-std_succ_inf            25.992499
-Inf Type             ConstantRate
-init inf                        1
-init immune                     0
+n                                   30
+e                                  231
+p_i                                0.5
+p_r                                0.5
+init inf                             1
+init immune                          0
+highest degree                      20
+diameter                             2
+average path len              1.468966
+average_clustering            0.530527
+average degree                    15.4
+averagedays                       12.0
+std_daystaken                      0.0
+average survivors                 15.1
+std_survivors                 2.808914
+number of total deaths               0
+AveageSuccInf                     72.7
+std_succ_inf                  4.172529
+Inf Type                  ConstantRate
 dtype: object

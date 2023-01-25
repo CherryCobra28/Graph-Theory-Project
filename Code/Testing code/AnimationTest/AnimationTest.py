@@ -11,18 +11,18 @@ selecting one node at random and then at a rate p, will attempt to infect other 
  
 '''
 
-from abc import ABC, abstractmethod
-from copy import deepcopy #used to compare the starting graph with the end result
-import random as rand #Random helps for random numbers
-from math import floor,comb
-import networkx as nx #Adds the networkx package, used to create graph objects
-import matplotlib.pyplot as plt #A library to plot graphs
-from betterdiameter import betterdiameter
+from abc import ABC, abstractmethod #Abstract base classes are used to provide blueprints for classes taht we use later
+from copy import deepcopy #Peforming a deep copy of an object will retain all the properties it contains
+import random as rand #Random is a library for generating rnadom numbers and is used heavily
+from math import floor,comb #The comb function is equilent to the n choose k function 
+import networkx as nx #Networkx is a library for generating graphs and comes with methods to manipulate those grpahs and is used heavily in the software
+import matplotlib.pyplot as plt #Matplotlib is a library for generating images based off data we provide it
+from betterdiameter import betterdiameter#BetterDiameter is an implementation to calculate the diameter of a graph faster than a brute force search
 import modelexceptions
 try:
-    import PySimpleGUI as sg
+    import PySimpleGUI as sg #PySimpleGUI is a library that provides an easy gui to make this program easier to use
     NOGUI = False
-except ImportError:
+except ImportError: #PySimpleGUI is not available on linux systems so incase it is unavailble the program is still availbe to run
     NOGUI = True
     sg = None
 
@@ -34,11 +34,7 @@ except ImportError:
 class infection_graph: 
     '''Creates a clas that we use to control and store information using the graph chosen for infection'''
     def __init__(self,network: nx.Graph, initial_infected: int, intial_immune: int):
-        """_summary_
-
-        Args:
-            network (nx.Graph): _description_
-        """        
+        
         #bepsi
         self.graph = network
         self.vertices = list(nx.nodes(self.graph))

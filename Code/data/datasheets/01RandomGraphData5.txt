@@ -1,17 +1,21 @@
 Random Graph 5 
-P_r = 0.333
-P_i = 0.666
-n                              15
-e                              70
-p_i                         0.666
-p_r                         0.333
-averagedays                  11.3
-std_daystaken            0.458258
-average survivors             5.4
-std_survivors            1.280625
-AveageSuccInf                29.5
-std_succ_inf             3.201562
-Inf Type             ConstantRate
-init inf                        1
-init immune                     0
+n                                   15
+e                                   72
+p_i                              0.666
+p_r                              0.333
+init inf                             1
+init immune                          0
+highest degree                      12
+diameter                             2
+average path len              1.314286
+average_clustering            0.676431
+average degree                     9.6
+averagedays                       11.0
+std_daystaken                      0.0
+average survivors                  4.9
+std_survivors                 1.445683
+number of total deaths               0
+AveageSuccInf                     30.5
+std_succ_inf                  3.528456
+Inf Type                  ConstantRate
 dtype: object

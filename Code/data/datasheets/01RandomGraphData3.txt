@@ -1,17 +1,21 @@
 Random Graph 3 
-P_r = 0.8
-P_i = 0.1
-n                              50
-e                             654
-p_i                           0.1
-p_r                           0.8
-averagedays                  14.7
-std_daystaken            0.640312
-average survivors            38.1
-std_survivors            3.269557
-AveageSuccInf                75.1
-std_succ_inf             7.502666
-Inf Type             ConstantRate
-init inf                        1
-init immune                     0
+n                                   50
+e                                  628
+p_i                                0.1
+p_r                                0.8
+init inf                             1
+init immune                          0
+highest degree                      35
+diameter                             2
+average path len              1.487347
+average_clustering            0.513755
+average degree                   25.12
+averagedays                       14.1
+std_daystaken                 0.830662
+average survivors                 40.2
+std_survivors                 2.993326
+number of total deaths               0
+AveageSuccInf                     74.5
+std_succ_inf                   5.60803
+Inf Type                  ConstantRate
 dtype: object

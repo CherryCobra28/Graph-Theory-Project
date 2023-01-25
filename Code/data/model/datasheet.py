@@ -16,28 +16,31 @@ import matplotlib.pyplot as plt
 
 def main():
     x =1
-    params = ((30,0.5,5,10,0.5,0.2),(50,0.5,5,10,0.68,0.2),(50,0.5,5,6,0.1,0.8),(10,0.3,3,5,0.5,0.6),(15,0.7,4,5,0.666,0.333))
+    params = ((30,0.5,5,10,0.5,0.2),(30,0.5,5,10,0.5,0.5),(50,0.5,5,6,0.1,0.8),(10,0.5,4,7,0.5,0.6),(15,0.7,4,5,0.666,0.333))
     for i in params:
         
         _,_,_,_,p_i,p_r = i
         done = datagather(*i)
         A,B,A_data,B_data = done
-        
-        with open(f'01RandomGraphData{x}.txt','w') as file:
+        if x ==1:
+            print(data(A_data))
+        with open(f'Code\data\datasheets\\01RandomGraphData{x}.txt','w') as file:
             
             K = str(data(A_data))
-            tobewritten = (f'Random Graph {x} \n',f'P_r = {p_r}\n',f'P_i = {p_i}\n',K)
+            tobewritten = (f'Random Graph {x} \n',K)
             file.writelines(tobewritten)
+        Rfigure = plt.figure(f'Rand{x}')
         V = nx.draw(A)
-        plt.savefig(f'01RandomGraphImage{x}.png')
+        Rfigure.savefig(f'Code\data\datasheets\\01RandomGraphImage{x}.png')
         
         
-        with open(f'01BarabasiData{x}.txt','w') as file:
+        with open(f'Code\data\datasheets\\01BarabasiData{x}.txt','w') as file:
             K = str(data(B_data))
-            tobewritten = (f'Barabasi Graph {x}\n',f'P_r = {p_r}\n',f'P_i = {p_i}\n',K)
+            tobewritten = (f'Barabasi Graph {x}\n',K)
             file.writelines(tobewritten)
+        Bfigure = plt.figure(f'Bara{x}')
         V = nx.draw(B)
-        plt.savefig(f'01BarabasiImage{x}.png')
+        Bfigure.savefig(f'Code\data\datasheets\\01BarabasiImage{x}.png')
         
         x+=1
 
@@ -65,12 +68,19 @@ def zipper(gen: list) -> dict:
     return dic
     
 def data(data: pd.DataFrame) -> pd.Series:
+    #{'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length,'average_clustering': self.clustering,'average_degree':self.average_degree} 
     n = data['n'][0]
     e = data['e'][0]
     p_i = data['P_i'][0]
     p_r = data['P_r'][0]
+    highest_degree =data['highest_degree'][0]
+    diameter = data['Diameter'][0]
+    average_path_length = data['average_path_length'][0]
+    average_clustering = data['average_clustering'][0]
+    average_degree = data['average_degree'][0]
     daystaken = data['Days_Taken']
     survivors = data['survivors']
+    number_of_total_deaths = len([x for x in data['Everyone_Dead'] if x == True])
     infectiontype = data['Infection_Type'][0]
     init_inf = data['intital_number_of_infected'][0]
     init_immune = data['intital_number_of_immune'][0]
@@ -84,7 +94,7 @@ def data(data: pd.DataFrame) -> pd.Series:
     std_survivors = std(survivors)
     mean_succ_inf = mean(no_of_succ_inf)
     std_succ_inf = std(no_of_succ_inf)
-    data = {'n':n,'e':e,'p_i':p_i,'p_r':p_r,'averagedays':mean_daystaken,'std_daystaken':std_daystaken ,'average survivors':mean_survivors,'std_survivors':std_survivors,'AveageSuccInf':mean_succ_inf,'std_succ_inf': std_succ_inf,'Inf Type':infectiontype,'init inf':init_inf,'init immune':init_immune}
+    data = {'n':n,'e':e,'p_i':p_i,'p_r':p_r,'init inf':init_inf,'init immune':init_immune,'highest degree': highest_degree,'diameter': diameter,'average path len': average_path_length,'average_clustering':average_clustering,'average degree':average_degree,'averagedays':mean_daystaken,'std_daystaken':std_daystaken ,'average survivors':mean_survivors,'std_survivors':std_survivors,'number of total deaths':number_of_total_deaths,'AveageSuccInf':mean_succ_inf,'std_succ_inf': std_succ_inf,'Inf Type':infectiontype}
     return pd.Series(data)
 
 
