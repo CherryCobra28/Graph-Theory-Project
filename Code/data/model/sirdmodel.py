@@ -27,11 +27,6 @@ except ImportError:
     NOGUI = True
     sg = None
 
-
-
-
-
-
 class infection_graph: 
     """The infect graph class is the object that we will be using for a majority of the programs run time, it creates an object that holds data about the on goign infection
     """    
@@ -67,25 +62,20 @@ class infection_graph:
         ########################################################################
         self.no_of_intitial_infected  = initial_infected
         self.no_of_intitial_immune  = intial_immune
-
         self.infected = set() #We store each infected node here. We intialize self.infected as a set as in python a set can only have unique values so if node 3 was added twice then only one would be saved
         zeros = [0]*self.no_nodes #a list of 0s for each node in the graph
         self.daysinfected = dict(zip(self.vertices,zeros))#A dictionary mapping each node to how long they have been infected
         self.timesrecovered = dict(zip(self.vertices,zeros))#A dictionary mapping each node to the number of times they recoverd (Currenly if the times recoverd is greater than 0 then the node is immune)
         self.no_of_successful_infections = self.no_of_intitial_infected #the number of times the infection has infected another node
-        
+        #######################################################################
         for _ in range(intial_immune): #adds immune people equal to init_immune parameter
             self.init_immune()
-        
-        
         for _ in range(initial_infected):
             self.inital_infection() #Picks a vertex at random to start the infection
         self.PersonalInfection = self.PersonalInfectionRates() #Creates a personal infection rate for each node (only used for the PersonalInfection and SkillCheck infection strategies)
         ########################################################################
-        
         self.colours = self.colour() #Initialises the colour dict that we use to colour nodes in the graph
-        
-        
+             
     def init_immune(self) -> None:
         """Makes nodes immune from day 0
         """        
@@ -119,6 +109,7 @@ class infection_graph:
             dict: Contains the number of intial infected, intial immune and the number of successful infections
         """        
         return {'intital_number_of_infected': self.no_of_intitial_infected,'intital_number_of_immune': self.no_of_intitial_immune,'Successful_infections': self.no_of_successful_infections}
+    
     def die_or_recover(self,node,r: float) -> None:
         """This function handles nodes either dying or recovering depending on our model parameters
         They recover with probability r and die with probability 1-r
@@ -196,12 +187,15 @@ class infection_strat(ABC):
     @abstractmethod
     def infect(infclass: infection_graph, p: float) -> None:
         pass
+    
     @abstractmethod
     def __str__():
         pass
+    
     @abstractmethod
     def assumptions():
         pass
+
 class ConstantRateInfection(infection_strat):
     """This is the main infection strategy basiing off a constant rate to infect each node
     """    
@@ -231,6 +225,7 @@ class ConstantRateInfection(infection_strat):
     def __str__() -> str:
         """Returns a string representation of the strategy"""
         return 'ConstantRate'
+    
     def assumptions() -> list[str]:
         """Returns a list of assumptions about the strat"""
         return ['Rate of infection is constant\n']
@@ -256,6 +251,7 @@ class PersonalInfection(infection_strat):
                 infclass.no_of_successful_infections += 1
             else:
                 pass
+            
     def __str__():
         return 'PersonalRate'
     
@@ -286,6 +282,7 @@ class SkillCheckInfection(infection_strat):
                 infclass.no_of_successful_infections += 1
             else:
                 pass
+            
     def __str__():
         return 'SkillCheck'
        
@@ -317,7 +314,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
         graph_type (str, optional): The type of graph were using. Defaults to 'Not Defined'.
 
     Raises:
-        modelexceptions.ModelError: If the model is not running correctly. we will raise an error
+        Exception: If the model is not running correctly. we will raise an error
 
     Returns:
         tuple[dict,dict]: The tuple contains information about the graph, the infection parameters and data from the model
@@ -363,26 +360,16 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            infection_info = {'n':origin_network.no_nodes,'e': origin_network.edges,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type} | infection_network.inf_stats()
+            infection_info = {'n':origin_network.no_nodes,'e': origin_network.edges,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': str(infection_type),'Graph_Type':graph_type} | infection_network.inf_stats()
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
     else:
-        raise modelexceptions.ModelError
-
-
-
-
-
+        err = "The model failed to complete for unforseen reasons"
+        raise Exception(err)
 
 ##GUI##
 #############################################################################
-
-
-
-
-
-
 class graph_constructer:
     """_summary_
     """    
@@ -409,6 +396,7 @@ class graph_constructer:
             return nx.erdos_renyi_graph(no_nodes,p)
         except nx.exception.NetworkXErrror:
             userpanel()
+            
     def watts(n:int, k:int,p: float)-> nx.Graph:
         try:
             return nx.watts_strogatz_graph(n,k,p)
@@ -420,7 +408,6 @@ class graph_constructer:
             nx.scale_free_graph(n,a,b,c)
         except nx.exception.NetworkXErrror:
             userpanel()
-
 
 def graphchoice(m:int,choice: str) -> nx.Graph:
     """_summary_
@@ -447,7 +434,6 @@ def graphchoice(m:int,choice: str) -> nx.Graph:
     elif choice == 'Erdos-Renyi':
         return nx.erdos_renyi_graph(m+1,0.5)
 
-
 class Panel:
     """_summary_
 
@@ -456,6 +442,7 @@ class Panel:
     """    
     def __init__(self):
         self.LIST_OF_INFECTION_MODELS = {'ConstantRate':ConstantRateInfection,'Personal':PersonalInfection,'SkillCheck':SkillCheckInfection}
+        
     def barabasi(self) -> tuple:
         """_summary_
 
@@ -530,7 +517,6 @@ class Panel:
             self.watts_strogatz()
 
         user_graph = graph_constructer.watts(n,k,p)
-
         return (user_graph,enable_vis,graph_type)
 
     def scale_free(self):
@@ -565,9 +551,9 @@ class Panel:
         except ValueError:
             print('Please input the correct data types')
             self.scale_free()
-
         user_graph = graph_constructer.scale_free(n,a,b,c,graph_type)
         return (user_graph,enable_vis)
+    
     def erdos_renyi(self):
         graph_type = 'Erdos-Renyi'
         sg.theme('Green')
@@ -596,7 +582,6 @@ class Panel:
         except ValueError:
             print('Please input the correct data types')
             self.erdos_renyi()
-
         user_graph = graph_constructer.random_graph(n,e)
         return (user_graph,enable_vis,graph_type)
     

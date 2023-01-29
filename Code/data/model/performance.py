@@ -5,7 +5,7 @@ import networkx as nx
 from sirdmodel import model
 
 def perf():
-    G = nx.barabasi_albert_graph(1000,10)
+    G = nx.barabasi_albert_graph(500,10)
     with cProfile.Profile() as pr:
                 model(G,0.5,0.6)
     stats = pstats.Stats(pr)
@@ -13,6 +13,6 @@ def perf():
     stats.print_stats()
     stats.dump_stats(filename='data\model\profile.prof')
 
-\
+
 if __name__ == '__main__':
     perf()
