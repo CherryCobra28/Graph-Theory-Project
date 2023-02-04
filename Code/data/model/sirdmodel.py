@@ -15,6 +15,7 @@ from abc import ABC, abstractmethod
 from copy import deepcopy #used to compare the starting graph with the end result
 import random as rand #Random helps for random numbers
 from math import floor,comb
+import logging
 import networkx as nx #Adds the networkx package, used to create graph objects
 import matplotlib.pyplot as plt #A library to plot graphs
 from betterdiameter import betterdiameter
@@ -26,6 +27,10 @@ except ImportError:
     print('PySimpleGUI is not available, please try installing PySimpleGUI')
     NOGUI = True
     sg = None
+
+logging.basicConfig(level=logging.WARNING)
+
+
 
 class infection_graph: 
     """The infect graph class is the object that we will be using for a majority of the programs run time, it creates an object that holds data about the on goign infection
@@ -124,6 +129,7 @@ class infection_graph:
             self.infected.discard(node)
             self.daysinfected.update({node:0})
             self.timesrecovered[node] +=1 
+            logging.debug(f"{node} has recovered")
         else:
             '''however if it fails the node is killed, being removed from the infected set, removed from the graph, has its time infected
             put to 0 and is removed from the colours list to make sure the plot later doesnt attempt to colour a node
@@ -132,6 +138,7 @@ class infection_graph:
             self.graph.remove_node(node)
             self.daysinfected.update({node:0})
             self.colours.pop(node)
+            logging.debug(f"{node} has died")
         
     def colour(self) -> dict:
         '''Here we colour the nodes on whether theyre a hub or a super hub, here hubs are defined as node with a degree greater than the median degree,
@@ -219,6 +226,7 @@ class ConstantRateInfection(infection_strat):
             elif r_no < p: #if the R-no is less than p the node becomes infected 
                 infclass.infected.add(node) #it is added to the infected set
                 infclass.no_of_successful_infections += 1 #we have successfully infected so we add 1 to the number of successful infections
+                logging.debug(f"{node} was infected")
             else: #If the node isnt infected we ignore it
                 pass
             
@@ -249,6 +257,7 @@ class PersonalInfection(infection_strat):
             elif r_no < personal_rate:
                 infclass.infected.add(node)
                 infclass.no_of_successful_infections += 1
+                logging.debug(f"{node} was infected")
             else:
                 pass
             
@@ -280,6 +289,7 @@ class SkillCheckInfection(infection_strat):
             elif success:
                 infclass.infected.add(node)
                 infclass.no_of_successful_infections += 1
+                logging.debug(f"{node} was infected")
             else:
                 pass
             
@@ -327,7 +337,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
         infection_type.infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
         '''Here we look in daysinfected and increment the time a node has been infected by one then see if any node has been
         infected for more than 10 days if so the node will attempt to recover or die'''
-        days_infected_checker(infection_network,p_r)
+        days_infected_checker(infection_network,p_r,2)
         '''If there is no nodes left infected either everyones dead or everyones recovered''' 
         if len(infection_network.infected) == 0:
             '''If theres no nodes left in the graph everyones dead'''
@@ -350,6 +360,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                 
                 total_death = False
                 if enable_vis is True:
+                    logging.warning("Youre gay")
                     '''Here we render both the orginal grpah and a graph of all the survivors to compare the devasation or lack there of'''
                     f = plt.figure('Starting Graph')
                     nx.draw_networkx(origin_network.graph,node_color = origin_network.colours.values() ,pos=origin_network.pos,with_labels=True)
@@ -360,7 +371,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            infection_info = {'n':origin_network.no_nodes,'e': origin_network.edges,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': str(infection_type),'Graph_Type':graph_type} | infection_network.inf_stats()
+            infection_info = {'n':origin_network.no_nodes,'e': origin_network.edges,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type} | infection_network.inf_stats()
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
@@ -656,7 +667,7 @@ def main():
     if NOGUI is False:
         infection_data,origin_graph = model(*userpanel())
     else:
-        infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.9)
+        infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.2)
     print(infection_data)
     print(origin_graph)
 
