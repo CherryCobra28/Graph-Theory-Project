@@ -28,7 +28,7 @@ except ImportError:
     NOGUI = True
     sg = None
 
-logging.basicConfig(level=logging.WARNING)
+logging.basicConfig(level=logging.DEBUG)
 
 
 
@@ -360,7 +360,6 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                 
                 total_death = False
                 if enable_vis is True:
-                    logging.warning("Youre gay")
                     '''Here we render both the orginal grpah and a graph of all the survivors to compare the devasation or lack there of'''
                     f = plt.figure('Starting Graph')
                     nx.draw_networkx(origin_network.graph,node_color = origin_network.colours.values() ,pos=origin_network.pos,with_labels=True)
@@ -644,7 +643,8 @@ def userpanel() -> tuple:
     while True:
 
             event, values = window.read()
-            if event in (sg.WIN_CLOSED, 'Exit'):
+            logging.debug(event)
+            if event in (sg.WIN_CLOSED, 'Exit') or ('Cancel'):
                 quit()
             elif 'Submit' in event:
                 break
@@ -663,7 +663,7 @@ def userpanel() -> tuple:
     return parameters
     
 def main():
-    NOGUI = True
+    #NOGUI = True
     if NOGUI is False:
         infection_data,origin_graph = model(*userpanel())
     else:
