@@ -35,7 +35,7 @@ logging.basicConfig(level=logging.DEBUG)
 class infection_graph: 
     """The infect graph class is the object that we will be using for a majority of the programs run time, it creates an object that holds data about the on goign infection
     """    
-    def __init__(self,network: nx.Graph, initial_infected: int, intial_immune: int):
+    def __init__(self,network: nx.Graph, initial_infected: int, intial_immune: int,enable_vis: bool):
         """__init__() is run when the object is first created, here we intialise all the values ou program will require
 
         Args:
@@ -63,7 +63,8 @@ class infection_graph:
             self.average_path_length = nx.average_shortest_path_length(self.graph) #This calulates the average shortest path length for the graph, if the graph is discconncted this will raise and exception
         except Exception: #Incase of that exception we set the average shortest path length to 0
             self.average_path_length = 0
-        self.pos = nx.spring_layout(self.graph)# This sets a standard layout for when we output images of the graph
+        if enable_vis:
+            self.pos = nx.spring_layout(self.graph)# This sets a standard layout for when we output images of the graph
         ########################################################################
         self.no_of_intitial_infected  = initial_infected
         self.no_of_intitial_immune  = intial_immune
