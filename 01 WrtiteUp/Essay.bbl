@@ -19,6 +19,44 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{barabasi1999emergence}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=15bacd7ddfc866c5dd96976d4b0244d5}{%
+           family={Barabási},
+           familyi={B\bibinitperiod},
+           given={Albert-László},
+           giveni={A\bibinithyphendelim L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d85e8d2b76e8626b1a45373f4e027914}{%
+           family={Albert},
+           familyi={A\bibinitperiod},
+           given={Réka},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {American Association for the Advancement of Science}%
+      }
+      \strng{namehash}{b4063d5171bad9750494dbdb05406431}
+      \strng{fullhash}{b4063d5171bad9750494dbdb05406431}
+      \strng{bibnamehash}{b4063d5171bad9750494dbdb05406431}
+      \strng{authorbibnamehash}{b4063d5171bad9750494dbdb05406431}
+      \strng{authornamehash}{b4063d5171bad9750494dbdb05406431}
+      \strng{authorfullhash}{b4063d5171bad9750494dbdb05406431}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{science}
+      \field{number}{5439}
+      \field{title}{Emergence of scaling in random networks}
+      \field{volume}{286}
+      \field{year}{1999}
+      \field{pages}{509\bibrangedash 512}
+      \range{pages}{4}
+    \endentry
     \entry{milgram1967small}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=647e77469dede3f1d7ed99198d6e59e9}{%

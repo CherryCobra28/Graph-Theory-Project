@@ -2,7 +2,7 @@
 \usepackage{amsmath}
 \usepackage[style=authoryear-ibid,backend=biber]{biblatex}
 \title{SIRD Model over Small World, Scale Free Graphs}
-\date{12/11/2022}
+\date{08/02/2023}
 \author{Thomas Draycott}
 \addbibresource{references.bib}
 \begin{document}
@@ -10,7 +10,7 @@
     \pagenumbering{arabic}
     \newpage
     \section{Introduction}
-    TOBEADDED
+    This project seeks to investigate the structural difference between random graphs and small-world, scale-free graphs and in particular Albert-Barabási graphs. Then these properties will be tested by how the affect an SIRD model ran on both types of graph. The motivation for this porject was from a deep interest in graph theory and with the recent COVID-19 pandemic how the way human relations may affect the spread of infectious disease.
     
 
 
@@ -28,7 +28,8 @@
         Scale-free Graphs are formally defined by the following power law: $P(k) \sim  k^{-\gamma }$, $k$ is the degree of a vertex, $P(k)$ is the probability of a node having degree $k$ and $\gamma$ is a parameter determined by the graph typically $2<\gamma<3$ \parencite{onnela2007structure}.
 
         \subsection{Barabasi-Albert Model}
-        In 1999, Albert-László Barabási and Réka Albert developed the Albert-Barabási Model which generates small world, scale free graphs by a process of preferential attachment. 
+        In 1999, Albert-László Barabási and Réka Albert developed the Albert-Barabási Model which generates small world, scale free graphs by a process of preferential attachment \parencite{barabasi1999emergence}.The model works as such:define two parameters $n$ (The number nodes the graph at the end of the process will have) and $e$ (the number of edges added for each new node) take a seed graph, add one new node to the graph, using preferential attachment add $e$ edges from the new node to nodes on the seed graph, continue till there are $n$ nodes on the graph.\\
+        Preferential attachment describes a 'rich get richer effect' that is the higher the degree of the node the more likely it will gain a new edge, the following formula describes it $\prod (k_{i}) = \frac{k_{i}}{\sum_{j} {k_{j}}}$ where $k_{i}$ is the degree of node $i$
         \subsection{SIRD Model}
         TODO
     \section{Mathematical Methods}
