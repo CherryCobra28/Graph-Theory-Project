@@ -1,1 +1,6 @@
 SIRD
+Networkx
+Barabási
+Réka
+Albert-Barabási
+Watts-Strogatz
