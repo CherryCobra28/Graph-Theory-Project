@@ -28,7 +28,7 @@ except ImportError:
     NOGUI = True
     sg = None
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 
 
@@ -330,7 +330,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
     Returns:
         tuple[dict,dict]: The tuple contains information about the graph, the infection parameters and data from the model
     """    
-    infection_network = infection_graph(deepcopy(graph),initial_infected=intial_infected,intial_immune = intial_immune) #Creates an instance of the infection_graph
+    infection_network = infection_graph(deepcopy(graph),initial_infected=intial_infected,intial_immune = intial_immune,enable_vis=enable_vis) #Creates an instance of the infection_graph
     origin_network = deepcopy(infection_network) #Makes a copy of G so we can compare later
     days_of_the_infcetion = 0
     '''For all intensive purposes this for loop will run forever until either all the nodes die or the infection dies out'''
@@ -645,7 +645,7 @@ def userpanel() -> tuple:
 
             event, values = window.read()
             logging.debug(event)
-            if event in (sg.WIN_CLOSED, 'Exit') or ('Cancel'):
+            if event in (sg.WIN_CLOSED, 'Exit'):
                 quit()
             elif 'Submit' in event:
                 break
@@ -663,14 +663,37 @@ def userpanel() -> tuple:
     parameters = (graph_params[0],infect_params[0],infect_params[1],infect_params[2],infect_params[3],graph_params[1],infect_params[4],graph_params[2])
     return parameters
     
+def output_window(results):
+    infect_info, orginstats = results
+    infect_info = list(infect_info.items())
+    orginstats = list(orginstats.items())
+    layout_origin = [[x[0],x[1]] for x in orginstats]
+    lay_origin = [[sg.Text(f'{x[0]}:{x[1]}')] for x in layout_origin]
+    layout_infect = [[x[0],x[1]] for x in infect_info]
+    lay_infect = [[sg.Text(f'{x[0]}:{x[1]}')] for x in layout_infect]
+    sg.theme('Green')
+    layout = [lay_origin, lay_infect]
+    window = sg.Window('test', layout)
+    while True:
+
+        event, values = window.read()
+        if event in (sg.WIN_CLOSED, 'Exit'):
+            quit()
+        elif 'Submit' in event:
+            break
+    window.close()
+    
+    
+    
 def main():
     #NOGUI = True
     if NOGUI is False:
-        infection_data,origin_graph = model(*userpanel())
+        result = model(*userpanel())
+        output_window(result)
     else:
         infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.2)
-    print(infection_data)
-    print(origin_graph)
+        print(infection_data)
+        print(origin_graph)
 
 if __name__ == '__main__':
     main()
