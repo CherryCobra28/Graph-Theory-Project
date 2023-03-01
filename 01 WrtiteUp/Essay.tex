@@ -58,8 +58,16 @@
             \caption{The Random Graph Function}
             \label{fig:RandomGraph1}
         \end{figure}
-        Let's explain, the function takes $n$ (The total number of nodes) and $p$ (The probability of drawing an edge between a pair of nodes) as parameters. The \verb|itertools.combinations(range(n),2)| creates s list of every combination of 2 numbers up to $n$ i.e. (0,1), (0,2), (1,2) and so on, then to graph $G$ we add $n$ nodes, if $p = 0$ then there are 0 edges in the graph so it stays empty and if $p =1$ then every node is attached to every other node, so it becomes a complete graph, if neither of those are true then we loop through all the possible combinations of nodes and choose a random number from [0,1] and if that is less than $p$ we add an edge between those nodes
+        Let's explain, the function takes $n$ (The total number of nodes) and $p$ (The probability of drawing an edge between a pair of nodes) as parameters. The \verb|itertools.combinations(range(n),2)| creates s list of every combination of 2 numbers up to $n$ i.e. (0,1), (0,2), (1,2) and so on, then to graph $G$ we add $n$ nodes, if $p = 0$ then there are 0 edges in the graph, so it stays empty and if $p =1$ then every node is attached to every other node, so it becomes a complete graph, if neither of those are true then we loop through all the possible combinations of nodes and choose a random number from $[0,1]$ and if that is less than $p$ we add an edge between those nodes.
         \subsection{Creating Barabasi-Albert Graphs}
+        First let us describe how to create Barabasi-Albert Graphs on a piece of paper. To create a Barabasi-Albert Graph we must first start with a "seed" graph (An already drawn graph that we will grow using the Barabasi-Albert Model) then we will define two more parameters $n$ for the total number of nodes we want this new graph to have and $m$ the number of edges we will add each iteration of the model. The algorithm works in the following way: take your "seed" graph and assign each node on the graph a probability $p$ according to its degree $k$ using the formula $p(k_{i}) = \frac{k_{i}}{\sum_{j} {k_{j}}}$ we then randomly select $m$ unique nodes according to the probabilities calculated (this can be done by label each node 1 to n then write on a piece of paper that label for each node, then fold the paper a number of times proportional to its probability for example folding 0.2 twice but 0.2 five times then randomly choosing the papers), add 1 new node to the graph and draw and edge from this new node to each of the randomly preexisting nodes, repeat this until we have $n$ nodes on the graph.
+        As Barabasi-Albert graphs are the main focus of this project we will now show how they are created in networkx. 
+        \begin{figure}[H]
+            \includegraphics[width=8cm]{images/BARABASI_FUNC.png}
+            \caption{The Barabasi-Albert Graph Function}
+            \label{fig:Barabasi-Albert function1}
+        \end{figure}
+
         TO DO
         \subsection{Gaining Information From Graphs}
 
