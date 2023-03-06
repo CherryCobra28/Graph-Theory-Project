@@ -15,5 +15,5 @@
 \contentsline {subsection}{\numberline {3.6}Gaining Information From Graphs}{7}{}%
 \contentsline {section}{\numberline {4}Analysis}{7}{}%
 \contentsline {section}{\numberline {5}Evaluation}{7}{}%
-\contentsline {section}{\numberline {6}APPENDIX}{7}{}%
-\contentsline {subsection}{\numberline {6.1}Python Code}{7}{}%
+\contentsline {section}{\numberline {6}APPENDIX}{8}{}%
+\contentsline {subsection}{\numberline {6.1}Python Code}{8}{}%

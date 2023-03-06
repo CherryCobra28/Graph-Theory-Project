@@ -19,7 +19,6 @@ import logging
 import networkx as nx #Adds the networkx package, used to create graph objects
 import matplotlib.pyplot as plt #A library to plot graphs
 from betterdiameter import betterdiameter
-import modelexceptions
 try:
     import PySimpleGUI as sg
     NOGUI = False
@@ -27,10 +26,7 @@ except ImportError:
     print('PySimpleGUI is not available, please try installing PySimpleGUI')
     NOGUI = True
     sg = None
-
 logging.basicConfig(level=logging.WARNING)
-
-
 
 class infection_graph: 
     """The infect graph class is the object that we will be using for a majority of the programs run time, it creates an object that holds data about the on goign infection
@@ -47,7 +43,7 @@ class infection_graph:
         self.graph = network #This is the network the infection is running on
         self.vertices = list(nx.nodes(self.graph)) #this is a list of all the vertices in the network
         self.no_nodes = nx.number_of_nodes(self.graph)#the total number of nodes in the network
-        self.edges = len(nx.edges(self.graph))#the number of edges in the network
+        self.edges = nx.number_of_edges(self.graph)#the number of edges in the network
         self.degrees = dict(nx.degree(self.graph)) #returns a dictionary with the nodes as keys and their degree as value
         self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
@@ -107,14 +103,20 @@ class infection_graph:
         Returns:
             dict: Contains the highest degree, diameter, average path length, avergae clustering, and the average degree
         """        
-        return {'highest_degree':self.highestdegree,'Diameter':self.diameter,'average_path_length':self.average_path_length,'average_clustering': self.clustering,'average_degree':self.average_degree} 
+        return {'highest_degree':self.highestdegree,
+                'Diameter':self.diameter,
+                'average_path_length':self.average_path_length,
+                'average_clustering': self.clustering,
+                'average_degree':self.average_degree} 
     def inf_stats(self) -> dict:
         """This function returns information about the infection
 
         Returns:
             dict: Contains the number of intial infected, intial immune and the number of successful infections
         """        
-        return {'intital_number_of_infected': self.no_of_intitial_infected,'intital_number_of_immune': self.no_of_intitial_immune,'Successful_infections': self.no_of_successful_infections}
+        return {'intital_number_of_infected': self.no_of_intitial_infected,
+                'intital_number_of_immune': self.no_of_intitial_immune,
+                'Successful_infections': self.no_of_successful_infections}
     
     def die_or_recover(self,node,r: float) -> None:
         """This function handles nodes either dying or recovering depending on our model parameters
@@ -224,6 +226,8 @@ class ConstantRateInfection(infection_strat):
             r_no = rand.random() #A random float from 0 to 1
             if infclass.timesrecovered[node] > 0: #if infclass.timesrecovered[node] is greater than 0 the node is immune so we ignore it
                 pass
+            elif node in infclass.infected:
+                pass
             elif r_no < p: #if the R-no is less than p the node becomes infected 
                 infclass.infected.add(node) #it is added to the infected set
                 infclass.no_of_successful_infections += 1 #we have successfully infected so we add 1 to the number of successful infections
@@ -254,6 +258,8 @@ class PersonalInfection(infection_strat):
             personal_rate = infclass.PersonalInfection.get(node)
             r_no = rand.random()
             if infclass.timesrecovered[node] > 0:
+                pass
+            elif node in infclass.infected:
                 pass
             elif r_no < personal_rate:
                 infclass.infected.add(node)
@@ -286,6 +292,8 @@ class SkillCheckInfection(infection_strat):
             success = infection_roll>resist_roll
             
             if infclass.timesrecovered[node] > 0:
+                pass
+            elif node in infclass.infected:
                 pass
             elif success:
                 infclass.infected.add(node)
@@ -338,7 +346,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
         infection_type.infect(infection_network,p_i) #We call the infect func on our graph and we will do this many times
         '''Here we look in daysinfected and increment the time a node has been infected by one then see if any node has been
         infected for more than 10 days if so the node will attempt to recover or die'''
-        days_infected_checker(infection_network,p_r,2)
+        days_infected_checker(infection_network,p_r,10)
         '''If there is no nodes left infected either everyones dead or everyones recovered''' 
         if len(infection_network.infected) == 0:
             '''If theres no nodes left in the graph everyones dead'''
@@ -355,10 +363,7 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                     input()
             else:
                 '''Otherwise if people did survive then we make a list of everyone who survived'''
-                survivors = list(nx.nodes(infection_network.graph))
-                
-                no_of_survivors = len(survivors)
-                
+                no_of_survivors = len(nx.nodes(infection_network.graph))
                 total_death = False
                 if enable_vis is True:
                     '''Here we render both the orginal grpah and a graph of all the survivors to compare the devasation or lack there of'''
@@ -371,7 +376,15 @@ def model(graph: nx.Graph,p_i: float, p_r: float,intial_infected: int = 1,intial
                     input()
             
             '''Returns a lot of useful info about the graph'''
-            infection_info = {'n':origin_network.no_nodes,'e': origin_network.edges,'P_i': p_i,'P_r': p_r,'Days_Taken': days_of_the_infcetion, 'survivors': no_of_survivors,'Everyone_Dead':total_death,'Infection_Type': infection_type.__str__(),'Graph_Type':graph_type} | infection_network.inf_stats()
+            infection_info = {'n':origin_network.no_nodes,
+                              'e': origin_network.edges,
+                              'P_i': p_i,
+                              'P_r': p_r,
+                              'Days_Taken': days_of_the_infcetion,
+                              'survivors': no_of_survivors,
+                              'Everyone_Dead':total_death,
+                              'Infection_Type': infection_type.__str__(),
+                              'Graph_Type':graph_type} | infection_network.inf_stats()
             return infection_info,origin_network.stats()     
         #Increments the time the infcetions been going on for
         days_of_the_infcetion += 1
@@ -686,7 +699,7 @@ def output_window(results):
     
     
 def main():
-    #NOGUI = True
+    NOGUI = True
     if NOGUI is False:
         result = model(*userpanel())
         output_window(result)

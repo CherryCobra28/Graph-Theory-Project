@@ -16,9 +16,6 @@
     \newpage
     \section{Introduction}
     This project seeks to investigate the structural differences between random graphs and small-world, scale-free graphs and Albert-Barabási graphs. Then, these properties will be tested by how they affect an SIRD model ran on both types of graph. The motivation for this project was from a deep interest in graph theory and with the recent COVID-19 pandemic how the ways human relations may affect the spread of infectious disease.
-    
-
-
     \section{Literature Review}
         \subsection{Graph Theory}
         Graph Theory is the study of networks where vertices are connected by edges, see APPENDIX for a further explanation.
@@ -67,9 +64,10 @@
             \caption{The Barabasi-Albert Graph Function}
             \label{fig:Barabasi-Albert function1}
         \end{figure}
-        This is the Barabási-Albert function from Networkx. It takes 4 parameters, $n$,$m$, \verb|seed|, and \verb|initial_graph|. $n$ and $m$ are simply the same as explained above, \verb|seed| is for the random functions later so we can control the behavior,  \verb|initial_graph| is where we input our 'seed graph' for the model to build on (If no graph is provided then it uses a Star graph with $(m+1)$ nodes). The function then creates a list of nodes: \verb|repeated_nodes| where each node is repeated equal to its degree (A node with degree $5$ is repeated 5 times). 
+        This is the Barabási-Albert function from Networkx. It takes 4 parameters, $n$,$m$, \verb|seed|, and \verb|initial_graph|. $n$ and $m$ are simply the same as explained above, \verb|seed| is for the random functions later so we can control the behavior,  \verb|initial_graph| is where we input our 'seed graph' for the model to build on (If no graph is provided then it uses a Star graph with $(m+1)$ nodes). The function then creates a list of nodes: \verb|repeated_nodes| where each node is repeated equal to its degree (A node with degree $5$ is repeated 5 times) then takes random samples from this list to create the preferential attachment then finally returns the Barabási-Albert graph. 
         
         \subsection{Gaining Information From Graphs}
+        Methods in networkx allow us to extract key information from the graph objects such as \verb|G.number_of_edges| which returns the number of edges that are contained in graph $G$ or \verb|networkx.all_neighbors(G,n)| which returns all the neighbors of node $n$ in graph $G$.
 
 
     \section{Analysis}
