@@ -1,0 +1,19 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {section}{\numberline {2}Literature Review}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Graph Theory}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Random Graphs}{3}{}%
+\contentsline {subsection}{\numberline {2.3}Small World Graphs}{3}{}%
+\contentsline {subsection}{\numberline {2.4}Scale Free Graphs}{3}{}%
+\contentsline {subsection}{\numberline {2.5}Barabasi-Albert Model}{4}{}%
+\contentsline {subsection}{\numberline {2.6}SIRD Model}{4}{}%
+\contentsline {section}{\numberline {3}Mathematical Methods}{4}{}%
+\contentsline {subsection}{\numberline {3.1}Python}{4}{}%
+\contentsline {subsection}{\numberline {3.2}Networkx}{4}{}%
+\contentsline {subsection}{\numberline {3.3}Creating Graphs}{5}{}%
+\contentsline {subsection}{\numberline {3.4}Creating Random Graphs}{5}{}%
+\contentsline {subsection}{\numberline {3.5}Creating Barabasi-Albert Graphs}{6}{}%
+\contentsline {subsection}{\numberline {3.6}Gaining Information From Graphs}{7}{}%
+\contentsline {section}{\numberline {4}Analysis}{7}{}%
+\contentsline {section}{\numberline {5}Evaluation}{7}{}%
+\contentsline {section}{\numberline {6}APPENDIX}{7}{}%
+\contentsline {subsection}{\numberline {6.1}Python Code}{7}{}%
