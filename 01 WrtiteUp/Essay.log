@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  6 MAR 2023 18:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  10 MAR 2023 15:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -86,11 +86,31 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
-) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/amscls\amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks21
+\thm@bodyfont=\toks22
+\thm@headfont=\toks23
+\thm@notefont=\toks24
+\thm@headpunct=\toks25
+\thm@preskip=\skip52
+\thm@postskip=\skip53
+\thm@headsep=\skip54
+\dth@everypar=\toks26
+) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks21
+\KV@toks@=\toks27
 ) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
  (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
@@ -109,9 +129,9 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count271
-\float@exts=\toks22
+\float@exts=\toks28
 \float@box=\box53
-\@float@everytoks=\toks23
+\@float@everytoks=\toks29
 \@floatcapt=\box54
 ) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.sty
 Package: biblatex 2022/07/12 v3.18b programmable bibliographies (PK/MW)
@@ -188,14 +208,14 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@sectionciteorderinternal@0=\count314
 \blx@entrysetcounter=\count315
 \blx@biblioinstance=\count316
-\labelnumberwidth=\skip52
-\labelalphawidth=\skip53
-\biblabelsep=\skip54
-\bibitemsep=\skip55
-\bibnamesep=\skip56
-\bibinitsep=\skip57
-\bibparsep=\skip58
-\bibhang=\skip59
+\labelnumberwidth=\skip55
+\labelalphawidth=\skip56
+\biblabelsep=\skip57
+\bibitemsep=\skip58
+\bibnamesep=\skip59
+\bibinitsep=\skip60
+\bibparsep=\skip61
+\bibhang=\skip62
 \blx@bcfin=\read2
 \blx@bcfout=\write3
 \blx@langwohyphens=\language79
@@ -279,20 +299,20 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@savedoriglanguage=\count385
 \c@pageref=\count386
 \c@savedpageref=\count387
-\shorthandwidth=\skip60
-\shortjournalwidth=\skip61
-\shortserieswidth=\skip62
-\shorttitlewidth=\skip63
-\shortauthorwidth=\skip64
-\shorteditorwidth=\skip65
-\locallabelnumberwidth=\skip66
-\locallabelalphawidth=\skip67
-\localshorthandwidth=\skip68
-\localshortjournalwidth=\skip69
-\localshortserieswidth=\skip70
-\localshorttitlewidth=\skip71
-\localshortauthorwidth=\skip72
-\localshorteditorwidth=\skip73
+\shorthandwidth=\skip63
+\shortjournalwidth=\skip64
+\shortserieswidth=\skip65
+\shorttitlewidth=\skip66
+\shortauthorwidth=\skip67
+\shorteditorwidth=\skip68
+\locallabelnumberwidth=\skip69
+\locallabelalphawidth=\skip70
+\localshorthandwidth=\skip71
+\localshortjournalwidth=\skip72
+\localshortserieswidth=\skip73
+\localshorttitlewidth=\skip74
+\localshortauthorwidth=\skip75
+\localshorteditorwidth=\skip76
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
  (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-compat.def
@@ -362,3 +382,115 @@ Package biblatex Info: ... and expl3
 (biblatex)             is new enough (at least 2020/04/06),
 (biblatex)             setting 'casechanger=expl3'.
  (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-case-expl3.sty (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
+Package: xparse 2022-06-22 L3 Experimental document command parser
+)
+Package: blx-case-expl3 2022/07/12 v3.18b expl3 case changing code for biblatex
+))
+\@quotelevel=\count400
+\@quotereset=\count401
+ (Essay.aux)
+\openout1 = `Essay.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+ (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count402
+\scratchdimen=\dimen152
+\scratchbox=\box56
+\nofMPsegments=\count403
+\nofMParguments=\count404
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count405
+\MPscratchDim=\dimen153
+\MPnumerator=\count406
+\makeMPintoPDFobject=\count407
+\everyMPtoPDFconversion=\toks31
+) (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+ (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/lbx\english.lbx
+File: english.lbx 2022/07/12 v3.18b biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `Essay.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'Essay.bbl' found.
+ (Essay.bbl)
+Package biblatex Info: Reference section=0 on input line 11.
+Package biblatex Info: Reference segment=0 on input line 11.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 12.
+ (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 12.
+ (C:\Users\thoma\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+{C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (Essay.toc)
+\tf@toc=\write4
+\openout4 = `Essay.toc'.
+
+ [2] [3] [4] [5]
+<images/add_nodes_add_edges.png, id=33, 361.35pt x 272.51813pt>
+File: images/add_nodes_add_edges.png Graphic file (type png)
+<use images/add_nodes_add_edges.png>
+Package pdftex.def Info: images/add_nodes_add_edges.png  used on input line 69.
+(pdftex.def)             Requested size: 227.62204pt x 171.66653pt.
+<images/CreatingRandomGraphs.png, id=35, 321.45094pt x 178.41656pt>
+File: images/CreatingRandomGraphs.png Graphic file (type png)
+<use images/CreatingRandomGraphs.png>
+Package pdftex.def Info: images/CreatingRandomGraphs.png  used on input line 77.
+(pdftex.def)             Requested size: 227.62204pt x 126.34177pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--80
+
+ []
+
+[6 <./images/add_nodes_add_edges.png>]
+<images/BARABASI_FUNC.png, id=41, 545.6385pt x 477.58424pt>
+File: images/BARABASI_FUNC.png Graphic file (type png)
+<use images/BARABASI_FUNC.png>
+Package pdftex.def Info: images/BARABASI_FUNC.png  used on input line 86.
+(pdftex.def)             Requested size: 227.62204pt x 199.23586pt.
+ [7 <./images/CreatingRandomGraphs.png>] [8 <./images/BARABASI_FUNC.png>] [9] (Essay.aux)
+Package logreq Info: Writing requests to 'Essay.run.xml'.
+\openout1 = `Essay.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 10898 strings out of 475380
+ 204233 string characters out of 2776771
+ 956498 words of memory out of 3000000
+ 32170 multiletter control sequences out of 15000+600000
+ 477937 words of font info for 62 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 60i,13n,68p,1465b,1428s stack positions out of 10000i,1000n,20000p,200000b,80000s
+<C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Essay.pdf (9 pages, 312266 bytes).
+PDF statistics:
+ 129 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+

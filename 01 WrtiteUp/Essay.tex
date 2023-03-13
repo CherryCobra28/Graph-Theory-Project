@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{amsmath}
+\usepackage{amsmath,amsthm,amssymb}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[style=authoryear-ibid,backend=biber]{biblatex}
@@ -37,6 +37,29 @@
         \subsection{SIRD Model}
         SIRD stands for Susceptible, Infected, Recovered and Dead which is the states each individual in the model can take. There are many was of implementing a model like this such as a virus having specific infection 'power' and mortality rates or having the infection be determined entirely by the individual.
     \section{Mathematical Methods}
+        \subsection{Scale-Free Graphs}
+        Scale-Free Graphs follow a power law, that is $p_{k} \sim k^{-\gamma}$ where $p_{k}$ is the probability of having degree $k$. We will now show the discrete formalism of the power law.
+        \begin{proof}
+            \begin{align*}
+                &\text{Assuming: } k\in \mathbb{N}\\
+                &p_{k} = Ck^{-\gamma} \text{ where C is a constant}\\
+                &\text{C is determined by the normalization condition: }\\
+                &\sum_{k = 1}^{\infty}p_{k} = 1\\
+                &\text{Using line 2 we obtain}\\
+                &C\sum_{k=1}^{\infty}k^{-\gamma} = 1\\
+                &\text{Thus}\\
+                &C = \frac{1}{\sum_{k=1}^{\infty}k^{-\gamma}} = \frac{1}{\zeta(\gamma)}\\
+                &\text{Where $\zeta(s)$ is the Riemann Zeta Function}\\
+                &\therefore p_{k}=\frac{k^{-\gamma}}{\zeta(\gamma)}
+            \end{align*}
+        \end{proof}
+
+
+    \section{Analysis}
+    TODO
+    \section{Evaluation}
+    TODO
+    \section{APPENDIX}
         \subsection{Python}
         This project is written in the Python programming language as it is the language I am most familiar with and has very useful modules for graph analysis. All the code to create these graphs is completely doable without 3rd party libraries however as this project focuses on more complicated topics than just graph creation I will be using a 3rd party library to simplify creating graphs and manipulating them as detailed below.
         \subsection{Networkx}
@@ -68,16 +91,7 @@
         
         \subsection{Gaining Information From Graphs}
         Methods in networkx allow us to extract key information from the graph objects such as \verb|G.number_of_edges| which returns the number of edges that are contained in graph $G$ or \verb|networkx.all_neighbors(G,n)| which returns all the neighbors of node $n$ in graph $G$.
-
-
-    \section{Analysis}
-    TODO
-    \section{Evaluation}
-    TODO
-    \section{APPENDIX}
-        \subsection{Python Code}
-        ADD CODE HERE
-        
+            
     
     
 \printbibliography
