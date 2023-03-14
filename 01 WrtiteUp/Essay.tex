@@ -3,7 +3,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[style=authoryear-ibid,backend=biber]{biblatex}
-\title{Structural Differences in Random and Small World, Scale-Free Graphs }
+\title{Structural Differences Between Random Graphs and Small World, Scale-Free Graphs }
 \date{08/02/2023}
 \author{Thomas Draycott}
 \addbibresource{references.bib}
@@ -28,7 +28,7 @@
         A Small world graph is formally defined by the following property: $L\propto\log{N}$ where $L$ is the average shortest path length of the network and $N$ is the total number of nodes \parencite{Watts1998}. Several models exist to generate small world graphs such as the Watts-Strogatz Model.
 
         \subsection{Scale Free Graphs}
-        In networks that appear in the real world such as the internet and social groups, there exists nodes known as "hubs" (a node that has a higher degree then the average of the graph). This is an important property encapsulated in Scale-Free Graphs.\\ 
+        In networks that appear in the real world such as the internet and social groups, there exists nodes known as "hubs" (a node that has a  significantly higher degree then the average of the graph). This is an important property encapsulated in Scale-Free Graphs.\\ 
         Scale-free Graphs are formally defined by the following power law: $P(k) \sim  k^{-\gamma }$, $k$ is the degree of a vertex, $P(k)$ is the probability of a node having degree $k$ and $\gamma$ is a parameter determined by the graph typically $2<\gamma<3$ \parencite{onnela2007structure}.
 
         \subsection{Barabasi-Albert Model}
@@ -37,6 +37,12 @@
         \subsection{SIRD Model}
         SIRD stands for Susceptible, Infected, Recovered and Dead which is the states each individual in the model can take. There are many was of implementing a model like this such as a virus having specific infection 'power' and mortality rates or having the infection be determined entirely by the individual.
     \section{Mathematical Methods}
+        \subsection{Graph Theory}
+        TODO Chapter 1
+        \subsection{Random Graphs}
+        TODO Chapter 2
+        \subsection{Small World Graphs}
+        TODO Chapter 3
         \subsection{Scale-Free Graphs}
         Scale-Free Graphs follow a power law, that is $p_{k} \sim k^{-\gamma}$ where $p_{k}$ is the probability of having degree $k$. We will now show the discrete formalism of the power law \parencite{barabasi2013network}.
         \begin{proof}
@@ -50,12 +56,12 @@
                 &\text{Thus}\\
                 &C = \frac{1}{\sum_{k=1}^{\infty}k^{-\gamma}} = \frac{1}{\zeta(\gamma)}\\
                 &\text{Where $\zeta(s)$ is the Riemann Zeta Function}\\
-                &\therefore p_{k}=\frac{k^{-\gamma}}{\zeta(\gamma)}
+                &\therefore p_{k}=\frac{k^{-\gamma}}{\zeta(\gamma)} &(4.1)
             \end{align*}
             Therefore the average degree of a scale-free graph is:
             \begin{align*}
                 &\overline{k} = \sum_{k=1}^{\infty}kp_{k}\\
-                &\therefore \overline{k} = \sum_{k=1}^{\infty}k\frac{k^{-\gamma}}{\zeta(\gamma)}\\
+                &\therefore \overline{k} = \sum_{k=1}^{\infty}k\frac{k^{-\gamma}}{\zeta(\gamma)} &(4.2)\\
             \end{align*}
             We can also define a Continuum formalism for the power law distribution as follows:
             \begin{align*}
@@ -64,11 +70,20 @@
                 &\text{Using the normalization condition:}\\
                 &\int_{k_{\text{min}}}^{\infty}p(k) \,dk = 1\\
                 &\therefore C = \frac{1}{\int_{k_{\text{min}}}^{\infty}k^{-\gamma} \,dk} = (\gamma -1)k_{\text{min}}^{\gamma-1}\\
-                &\therefore p(k) = (\gamma -1)k_{\text{min}}^{\gamma-1}k^{-\gamma}\\
+                &\therefore p(k) = (\gamma -1)k_{\text{min}}^{\gamma-1}k^{-\gamma}  &(4.3)\\
                 &\text{Where $k_{\text{min}}$ is the smallest degree for which the power law holds.}\\
                 &\text{Note only the integral of p(k) holds any precise interpretation in the continuum formalism}
             \end{align*}
         \end{proof}
+        We would now like to calculate $k_{\text{max}}$ thsi represents the expected size of the largest hub in the network.
+        \begin{align*}
+            &\text{We assume in a network of $N$ nodes we expect at most one node in the $(k_{\text{max}},\infty)$ range such that}\\
+            &\int_{k_{\text{max}}}^{\infty}p(k) \,dk = \frac{1}{N}\\
+            &\text{Using result (4.3) we get the result:}\\
+            &k_{\text{max}} = k_{\text{min}}N^{\frac{1}{\gamma -1}} &(4.4)\\
+            &\text{See APPENDIX Proofs section Scale Free number 1 }
+        \end{align*}
+        This means that $k_{\text{max}}$ has a polynomial dependence on $N$ so there can be a order of magnitude difference between $k_{\text{min}}$ and $k_{\text{max}}$.\\
         We can extend this to talk about the 'moments' of the degree distribution with the following formula \parencite{papoulis2002probability}:\\
         \begin{align*}
             &\langle f(x) \rangle = \sum f(x)P(x)
@@ -78,14 +93,47 @@
             &\langle k^n \rangle = \sum_{k_{\text{min}}}^{\infty}k^{n}p_{k} \approx \int_{k_{\text{min}}}^{\infty} k^{n}p(k)  \,dk \\
             &\text{Where $k_{\text{min}}$ is the smallest degree such that the distrubution holds}
         \end{align*}
-        Now the interpretation of these moemnts are important. $n=1$ is evidently our expected degree as shown above. $n=2$ allows us to calulate the variance of the degree distrubution via the formula: $\sigma^2 = \langle k^2 \rangle - \langle k\rangle ^2$. $n=3$ gives us the skewness of the degree distrubution.
-        Now we apply this to 
+        Now the interpretation of these moemnts are important. $n=1$ gives us the mean degree. $n=2$ allows us to calulate the variance of the degree distrubution via the formula: $\sigma^2 = \langle k^2 \rangle - \langle k\rangle ^2$. $n=3$ gives us the skewness of the degree distrubution.
+        Now we apply this to our scale-free graph to gain insights to its moments.
+        \begin{align*}
+            &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}}k^{n}p(k) \,dk = C\frac{k^{n-\gamma -1}_{\text{max}}-k^{n-\gamma -1}_{\text{min}}}{n-\gamma +1}\\
+            &\text{Where $k_{\text{max}}$ is the largest hub in the network }\\
+            &\text{A proof of the above integral will be in the APPENDIX Proofs section Scale Free number 2}
+        \end{align*}
+        Let us allow $k_{\text{min}}$ to stay fixed and to investigate the behavior of $\langle k^n \rangle$ we will take the limit as $k_\text{max} \to \infty$ doing so we see that the values of $\langle k^n \rangle$ are dictated by the $n-\gamma -1$ term. If $n-\gamma -1 \leqslant 0$ then $k^{n-\gamma -1}_{\text{max}}$ will tend to $0$ as $k_\text{max}$ increases, therefore all moments that statisfy $n\leqslant \gamma-1$ are finite. Conversely if  $n-\gamma -1 > 0$  then $\langle k^n \rangle$ goes to infinity as $k_\text{max} \to \infty$ so for all moments larger than $\gamma-1$ diverge.\\ 
+        For most scale-free graphs $2<\gamma<3$ and thus as $N\to \infty$ the first moemnt $\langle k \rangle$ is finite but $\langle k^2 \rangle$ and $\langle k^3 \rangle$ will go to infinity. Thus we can see wit the divergence of $\langle k^2 \rangle$ the variance (and standard deviation) can be arbitrarly large, if we picked a node at random we know very little about its degree. "Hence networks with $\gamma<3$ do not have a meaningful internal scale but are scale free" \parencite{barabasi2013network}. As an example to concrete this in his 1993 paper Barabási found the degree $k$ of a randomly chosen node int the WWW was $4.6 \pm 1546$ which shows that despite $\langle k^2 \rangle$ only diverges in the $N \to \infty$ limit that the standard deviation $\sigma \gg  \langle k \rangle$.
 
     \section{Analysis}
     TODO
     \section{Evaluation}
     TODO
     \section{APPENDIX}
+        \subsection{Proofs}
+            \subsubsection{Graph Theory}
+            TODO
+            \subsubsection{Random Graphs}
+            TODO
+            \subsubsection{Small World Graphs}
+            TODO
+            \subsubsection{Scale-Free Graphs}
+            Proof 1:
+            \begin{align*}
+                &\int_{k_{\text{max}}}^{\infty} p(k) \,dk = \frac{1}{N}\\
+                &\text{Result (4.3): } p(k) = (\gamma -1)k^{\gamma-1}_{\text{min}}k^{-\gamma}\\
+                &\text{Note: $(\gamma -1)k^{\gamma-1}_{\text{min}}$ is a constant which we will call $C$}\\
+                &\text{Thus}\\
+                &C\int_{k_{\text{max}}}^{\infty}k^{-\gamma} \,dk  = \frac{1}{N}\\
+                &C[\frac{1}{1-\gamma}k^{1-\gamma}]^{\infty}_{k_{\text{max}}} = \frac{1}{N}\\
+                &\text{Assuming $\gamma>1$}\\
+                &\lim_{k \to \infty} \frac{1}{1-\gamma}k^{1-\gamma}= 0\\
+                &\therefore C\frac{{k^{1-\gamma}_{\text{max}}}}{\gamma -1} = \frac{1}{N}\\
+                &(\gamma-1)k^{\gamma-1}_{\text{min}}\frac{{k^{1-\gamma}_{\text{max}}}}{\gamma -1} = \frac{1}{N}\\
+                &k^{1-\gamma}_{\text{max}} = \frac{1}{Nk^{\gamma-1}_{\text{min}}}\\
+                &k^{\gamma -1}_{\text{max}} = Nk^{\gamma-1}_{\text{min}}\\
+                &k_{\text{max}} = (Nk^{\gamma-1}_{\text{min}})^{\frac{1}{\gamma-1}}\\
+                &\therefore k_{\text{max}} = k_{\text{min}}N^{\frac{1}{\gamma-1}} \qed
+            \end{align*}
+
         \subsection{Python}
         This project is written in the Python programming language as it is the language I am most familiar with and has very useful modules for graph analysis. All the code to create these graphs is completely doable without 3rd party libraries however as this project focuses on more complicated topics than just graph creation I will be using a 3rd party library to simplify creating graphs and manipulating them as detailed below.
         \subsection{Networkx}
