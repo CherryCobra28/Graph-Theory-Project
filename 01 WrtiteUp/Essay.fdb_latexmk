@@ -1,11 +1,11 @@
 # Fdb version 3
-["biber Essay"] 1678834974 "Essay.bcf" "Essay.bbl" "Essay" 1678834982
-  "Essay.bcf" 1678834982 107885 6a931f50b6e00e45ad51990dc9743010 "pdflatex"
+["biber Essay"] 1678835405 "Essay.bcf" "Essay.bbl" "Essay" 1678835517
+  "Essay.bcf" 1678835517 107885 6a931f50b6e00e45ad51990dc9743010 "pdflatex"
   "references.bib" 1678718299 4019 d16940f3d39cf6713b9b51bcf27ffa25 ""
   (generated)
   "Essay.bbl"
   "Essay.blg"
-["pdflatex"] 1678834980 "c:/Users/thoma/Documents/Graph-Theory-Project/01 WrtiteUp/Essay.tex" "Essay.pdf" "Essay" 1678834982
+["pdflatex"] 1678835515 "c:/Users/thoma/Documents/Graph-Theory-Project/01 WrtiteUp/Essay.tex" "Essay.pdf" "Essay" 1678835517
   "C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1678461657 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1668291109 10788374 d37304bdb4e0e22cf87cb5c8c21b1a0f ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -99,12 +99,12 @@
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/logreq/logreq.def" 1280937415 1620 fb1c32b818f2058eca187e5c41dfae77 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/logreq/logreq.sty" 1280937415 6187 b27afc771af565d3a9ff1ca7d16d0d46 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "Essay.aux" 1678834982 4874 a8885da55b1538f4a3e94bdf9af3ad83 "pdflatex"
-  "Essay.bbl" 1678834977 14856 7552edc36994ab4838b499246e9c82ee "biber Essay"
-  "Essay.run.xml" 1678834982 2362 d3eb0068190c0e8918faa372cf960bb7 "pdflatex"
-  "Essay.tex" 1678834972 16967 50298f012426d075b18396e793c2f1d1 ""
-  "Essay.toc" 1678834982 1801 a9d308c13832ae95904a1a9a19fc2ad8 "pdflatex"
-  "c:/Users/thoma/Documents/Graph-Theory-Project/01 WrtiteUp/Essay.tex" 1678834972 16967 50298f012426d075b18396e793c2f1d1 ""
+  "Essay.aux" 1678835517 4874 85a56bed207f02e5dabd5f7635221383 "pdflatex"
+  "Essay.bbl" 1678835408 14856 7552edc36994ab4838b499246e9c82ee "biber Essay"
+  "Essay.run.xml" 1678835517 2362 d3eb0068190c0e8918faa372cf960bb7 "pdflatex"
+  "Essay.tex" 1678835514 17370 78721629b87ef3513b1758e8991d9654 ""
+  "Essay.toc" 1678835517 1801 c38179ec84f0776bb5cdb17242daec5f "pdflatex"
+  "c:/Users/thoma/Documents/Graph-Theory-Project/01 WrtiteUp/Essay.tex" 1678835514 17370 78721629b87ef3513b1758e8991d9654 ""
   "images/BARABASI_FUNC.png" 1678028271 95167 f3c2ab9b50af58d598f7b9768dc1d685 ""
   "images/CreatingRandomGraphs.png" 1676223938 18133 7f8de5d292ade8c5ff89f252a7c54518 ""
   "images/add_nodes_add_edges.png" 1676066437 40332 3d40ffb504d68d1b0f6276c9e37a3c2f ""

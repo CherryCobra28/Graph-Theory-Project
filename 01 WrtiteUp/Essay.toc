@@ -20,7 +20,7 @@
 \contentsline {subsubsection}{\numberline {6.1.3}Small World Graphs}{7}{}%
 \contentsline {subsubsection}{\numberline {6.1.4}Scale-Free Graphs}{8}{}%
 \contentsline {subsection}{\numberline {6.2}Python}{8}{}%
-\contentsline {subsection}{\numberline {6.3}Networkx}{8}{}%
+\contentsline {subsection}{\numberline {6.3}Networkx}{9}{}%
 \contentsline {subsection}{\numberline {6.4}Creating Graphs}{9}{}%
 \contentsline {subsection}{\numberline {6.5}Creating Random Graphs}{9}{}%
 \contentsline {subsection}{\numberline {6.6}Creating Barabasi-Albert Graphs}{10}{}%

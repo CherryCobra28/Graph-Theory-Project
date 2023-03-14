@@ -133,6 +133,12 @@
                 &k_{\text{max}} = (Nk^{\gamma-1}_{\text{min}})^{\frac{1}{\gamma-1}}\\
                 &\therefore k_{\text{max}} = k_{\text{min}}N^{\frac{1}{\gamma-1}} \qed
             \end{align*}
+            Proof 2:
+            \begin{align*}
+                &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}}k^{n}p(k) \,dk\\
+                &\text{Result (4.3): } p(k) = (\gamma -1)k^{\gamma-1}_{\text{min}}k^{-\gamma}\\
+                &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}} (\gamma-1)k^{-\gamma}_{\text{min}}k^{n}k^{-\gamma} \,dk
+            \end{align*}
 
         \subsection{Python}
         This project is written in the Python programming language as it is the language I am most familiar with and has very useful modules for graph analysis. All the code to create these graphs is completely doable without 3rd party libraries however as this project focuses on more complicated topics than just graph creation I will be using a 3rd party library to simplify creating graphs and manipulating them as detailed below.
