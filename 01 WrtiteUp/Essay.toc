@@ -8,12 +8,12 @@
 \contentsline {subsection}{\numberline {2.6}SIRD Model}{4}{}%
 \contentsline {section}{\numberline {3}Mathematical Methods}{4}{}%
 \contentsline {subsection}{\numberline {3.1}Scale-Free Graphs}{4}{}%
-\contentsline {section}{\numberline {4}Analysis}{5}{}%
-\contentsline {section}{\numberline {5}Evaluation}{5}{}%
-\contentsline {section}{\numberline {6}APPENDIX}{5}{}%
-\contentsline {subsection}{\numberline {6.1}Python}{5}{}%
-\contentsline {subsection}{\numberline {6.2}Networkx}{5}{}%
-\contentsline {subsection}{\numberline {6.3}Creating Graphs}{6}{}%
-\contentsline {subsection}{\numberline {6.4}Creating Random Graphs}{6}{}%
-\contentsline {subsection}{\numberline {6.5}Creating Barabasi-Albert Graphs}{7}{}%
-\contentsline {subsection}{\numberline {6.6}Gaining Information From Graphs}{8}{}%
+\contentsline {section}{\numberline {4}Analysis}{6}{}%
+\contentsline {section}{\numberline {5}Evaluation}{6}{}%
+\contentsline {section}{\numberline {6}APPENDIX}{6}{}%
+\contentsline {subsection}{\numberline {6.1}Python}{6}{}%
+\contentsline {subsection}{\numberline {6.2}Networkx}{6}{}%
+\contentsline {subsection}{\numberline {6.3}Creating Graphs}{7}{}%
+\contentsline {subsection}{\numberline {6.4}Creating Random Graphs}{7}{}%
+\contentsline {subsection}{\numberline {6.5}Creating Barabasi-Albert Graphs}{8}{}%
+\contentsline {subsection}{\numberline {6.6}Gaining Information From Graphs}{9}{}%

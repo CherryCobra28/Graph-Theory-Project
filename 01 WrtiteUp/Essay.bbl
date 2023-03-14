@@ -19,6 +19,38 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{barabasi2013network}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=15bacd7ddfc866c5dd96976d4b0244d5}{%
+           family={Barabási},
+           familyi={B\bibinitperiod},
+           given={Albert-László},
+           giveni={A\bibinithyphendelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {The Royal Society Publishing}%
+      }
+      \strng{namehash}{15bacd7ddfc866c5dd96976d4b0244d5}
+      \strng{fullhash}{15bacd7ddfc866c5dd96976d4b0244d5}
+      \strng{bibnamehash}{15bacd7ddfc866c5dd96976d4b0244d5}
+      \strng{authorbibnamehash}{15bacd7ddfc866c5dd96976d4b0244d5}
+      \strng{authornamehash}{15bacd7ddfc866c5dd96976d4b0244d5}
+      \strng{authorfullhash}{15bacd7ddfc866c5dd96976d4b0244d5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences}
+      \field{number}{1987}
+      \field{title}{Network science}
+      \field{volume}{371}
+      \field{year}{2013}
+      \field{pages}{20120375}
+      \range{pages}{1}
+    \endentry
     \entry{barabasi1999emergence}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=15bacd7ddfc866c5dd96976d4b0244d5}{%
@@ -224,6 +256,36 @@
       \field{year}{2007}
       \field{pages}{7332\bibrangedash 7336}
       \range{pages}{5}
+    \endentry
+    \entry{papoulis2002probability}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=bce9f8459535acdc1a8ac7ecb78db667}{%
+           family={Papoulis},
+           familyi={P\bibinitperiod},
+           given={Athanasios},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fef1861fb97fc77eda6bcea356325acb}{%
+           family={Unnikrishna\bibnamedelima Pillai},
+           familyi={U\bibinitperiod\bibinitdelim P\bibinitperiod},
+           given={S},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{0c98a3935db8cd77431ae292789f5529}
+      \strng{fullhash}{0c98a3935db8cd77431ae292789f5529}
+      \strng{bibnamehash}{0c98a3935db8cd77431ae292789f5529}
+      \strng{authorbibnamehash}{0c98a3935db8cd77431ae292789f5529}
+      \strng{authornamehash}{0c98a3935db8cd77431ae292789f5529}
+      \strng{authorfullhash}{0c98a3935db8cd77431ae292789f5529}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Probability, random variables and stochastic processes}
+      \field{year}{2002}
     \endentry
     \entry{Watts1998}{article}{}
       \name{author}{2}{}{%
