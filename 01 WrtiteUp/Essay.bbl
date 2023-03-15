@@ -89,6 +89,82 @@
       \field{pages}{509\bibrangedash 512}
       \range{pages}{4}
     \endentry
+    \entry{bollobas2004diameter}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=f3d840e4303e9ef23642edbd5513a12a}{%
+           family={Bollobás*},
+           familyi={B\bibinitperiod},
+           given={Béla},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=307ef682b122ec837c82fa64b8b71529}{%
+           family={Riordan},
+           familyi={R\bibinitperiod},
+           given={Oliver},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{49e29bdf5ae4e6db41d7f39b59b7d3b0}
+      \strng{fullhash}{49e29bdf5ae4e6db41d7f39b59b7d3b0}
+      \strng{bibnamehash}{49e29bdf5ae4e6db41d7f39b59b7d3b0}
+      \strng{authorbibnamehash}{49e29bdf5ae4e6db41d7f39b59b7d3b0}
+      \strng{authornamehash}{49e29bdf5ae4e6db41d7f39b59b7d3b0}
+      \strng{authorfullhash}{49e29bdf5ae4e6db41d7f39b59b7d3b0}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Combinatorica}
+      \field{number}{1}
+      \field{title}{The diameter of a scale-free random graph}
+      \field{volume}{24}
+      \field{year}{2004}
+      \field{pages}{5\bibrangedash 34}
+      \range{pages}{30}
+    \endentry
+    \entry{cohen2003scale}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a286a1f9d17c042ee0910f0fabd63cca}{%
+           family={Cohen},
+           familyi={C\bibinitperiod},
+           given={Reuven},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=742d135a5dd9af879149ba57bf45774c}{%
+           family={Havlin},
+           familyi={H\bibinitperiod},
+           given={Shlomo},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {APS}%
+      }
+      \strng{namehash}{7d3c1babaf2c80f53d9fac9d3dd1b12f}
+      \strng{fullhash}{7d3c1babaf2c80f53d9fac9d3dd1b12f}
+      \strng{bibnamehash}{7d3c1babaf2c80f53d9fac9d3dd1b12f}
+      \strng{authorbibnamehash}{7d3c1babaf2c80f53d9fac9d3dd1b12f}
+      \strng{authornamehash}{7d3c1babaf2c80f53d9fac9d3dd1b12f}
+      \strng{authorfullhash}{7d3c1babaf2c80f53d9fac9d3dd1b12f}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical review letters}
+      \field{number}{5}
+      \field{title}{Scale-free networks are ultrasmall}
+      \field{volume}{90}
+      \field{year}{2003}
+      \field{pages}{058701}
+      \range{pages}{1}
+    \endentry
     \entry{SciPyProceedings_11}{inproceedings}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=94707ad079516150870c2f9a2932df46}{%

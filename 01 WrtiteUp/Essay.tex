@@ -15,12 +15,15 @@
     \tableofcontents
     \newpage
     \section{Introduction}
-    This project seeks to investigate the structural differences between random graphs and small-world, scale-free graphs and Albert-Barabási graphs. Then, these properties will be tested by how they affect an SIRD model ran on both types of graph. The motivation for this project was from a deep interest in graph theory and with the recent COVID-19 pandemic how the ways human relations may affect the spread of infectious disease.
+    This project seeks to investigate the structural differences between random graphs and small-world, scale-free graphs and in paticular Albert-Barabási graphs.\\
+    Then later we will use a SIRD model as a vehicle to explore whether these structural differences have an effect on random processes,  while traditionally a project that contains an SIRD model would focus on the model as its core concept we will only use it as a simple lens to investigate the differences between graph structures therefore little time will be afforded to the mathematics behind the SIRD simulation, only how it computes on our graphs.\\
+    Random graphs were chosen as the comparison as by the fact they are random they are free of overarching structures that are present in other tyeps of graph.\\
+    The motivation for this project stems from my deep interest in graph theory and with the recent COVID-19 pandemic I wanted to explore whether how the way populations internally structured lead to a significant differnece in the spread of disease.
     \section{Literature Review}
         \subsection{Graph Theory}
-        Graph Theory is the study of networks where vertices are connected by edges, see APPENDIX for a further explanation.
+        Graph Theory is the study of networks where vertices are connected by edges, see APPENDIX for a further explanation. note add the set theory deff
         \subsection{Random Graphs}
-        TO DO
+        TO DO note difference between erod and gilbert models
         \subsection{Small World Graphs}
         In May 1967 Professor of Psychology at the Graduate School and University Center of the City University of New York, Stanley Milgram ran an experiment to see if a person living
         in Omaha, Nebraska could get a parcel to a stockbroker in Boston, Massachusetts \parencite{milgram1967small}. In his experiment he found the average path length to reach the stockbroker was 5.5, which created the term
@@ -63,7 +66,7 @@
                 &\overline{k} = \sum_{k=1}^{\infty}kp_{k}\\
                 &\therefore \overline{k} = \sum_{k=1}^{\infty}k\frac{k^{-\gamma}}{\zeta(\gamma)} &(4.2)\\
             \end{align*}
-            We can also define a Continuum formalism for the power law distribution as follows:
+            We can also define a Continuum formalism for the power law distribution because for analytic claculations it is useful to let the degree k be any positive real number as follows \parencite{barabasi2013network}:
             \begin{align*}
                 &\text{Assuming: } k\in \mathbb{R}^{+}\\
                 &p(k) = Ck^{-\gamma}\\
@@ -75,7 +78,7 @@
                 &\text{Note only the integral of p(k) holds any precise interpretation in the continuum formalism}
             \end{align*}
         \end{proof}
-        We would now like to calculate $k_{\text{max}}$ thsi represents the expected size of the largest hub in the network.
+        We would now like to calculate $k_{\text{max}}$ this represents the expected size of the largest hub in the network.
         \begin{align*}
             &\text{We assume in a network of $N$ nodes we expect at most one node in the $(k_{\text{max}},\infty)$ range such that}\\
             &\int_{k_{\text{max}}}^{\infty}p(k) \,dk = \frac{1}{N}\\
@@ -83,25 +86,44 @@
             &k_{\text{max}} = k_{\text{min}}N^{\frac{1}{\gamma -1}} &(4.4)\\
             &\text{See APPENDIX Proofs section Scale Free number 1 }
         \end{align*}
-        This means that $k_{\text{max}}$ has a polynomial dependence on $N$ so there can be a order of magnitude difference between $k_{\text{min}}$ and $k_{\text{max}}$.\\
+        This means that $k_{\text{max}}$ has a polynomial dependence on $N$, so there can be a order of magnitude difference between $k_{\text{min}}$ and $k_{\text{max}}$.\\
         We can extend this to talk about the 'moments' of the degree distribution with the following formula \parencite{papoulis2002probability}:\\
         \begin{align*}
             &\langle f(x) \rangle = \sum f(x)P(x)
         \end{align*}
-        Applying this to degree distrubution we gain the following, the $n^{th}$ moment is defined as:\\
+        Applying this to degree distribution we gain the following, the $n^{th}$ moment is defined as:\\
         \begin{align*}
             &\langle k^n \rangle = \sum_{k_{\text{min}}}^{\infty}k^{n}p_{k} \approx \int_{k_{\text{min}}}^{\infty} k^{n}p(k)  \,dk \\
-            &\text{Where $k_{\text{min}}$ is the smallest degree such that the distrubution holds}
+            &\text{Where $k_{\text{min}}$ is the smallest degree such that the distribution holds}
         \end{align*}
-        Now the interpretation of these moemnts are important. $n=1$ gives us the mean degree. $n=2$ allows us to calulate the variance of the degree distrubution via the formula: $\sigma^2 = \langle k^2 \rangle - \langle k\rangle ^2$. $n=3$ gives us the skewness of the degree distrubution.
+        Now the interpretation of these moments are important. $n=1$ gives us the mean degree. $n=2$ allows us to calculate the variance of the degree distribution via the formula: $\sigma^2 = \langle k^2 \rangle - \langle k\rangle ^2$. $n=3$ gives us the skewness of the degree distribution.
         Now we apply this to our scale-free graph to gain insights to its moments.
         \begin{align*}
             &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}}k^{n}p(k) \,dk = C\frac{k^{n-\gamma -1}_{\text{max}}-k^{n-\gamma -1}_{\text{min}}}{n-\gamma +1}\\
             &\text{Where $k_{\text{max}}$ is the largest hub in the network }\\
             &\text{A proof of the above integral will be in the APPENDIX Proofs section Scale Free number 2}
         \end{align*}
-        Let us allow $k_{\text{min}}$ to stay fixed and to investigate the behavior of $\langle k^n \rangle$ we will take the limit as $k_\text{max} \to \infty$ doing so we see that the values of $\langle k^n \rangle$ are dictated by the $n-\gamma -1$ term. If $n-\gamma -1 \leqslant 0$ then $k^{n-\gamma -1}_{\text{max}}$ will tend to $0$ as $k_\text{max}$ increases, therefore all moments that statisfy $n\leqslant \gamma-1$ are finite. Conversely if  $n-\gamma -1 > 0$  then $\langle k^n \rangle$ goes to infinity as $k_\text{max} \to \infty$ so for all moments larger than $\gamma-1$ diverge.\\ 
-        For most scale-free graphs $2<\gamma<3$ and thus as $N\to \infty$ the first moemnt $\langle k \rangle$ is finite but $\langle k^2 \rangle$ and $\langle k^3 \rangle$ will go to infinity. Thus we can see wit the divergence of $\langle k^2 \rangle$ the variance (and standard deviation) can be arbitrarly large, if we picked a node at random we know very little about its degree. "Hence networks with $\gamma<3$ do not have a meaningful internal scale but are scale free" \parencite{barabasi2013network}. As an example to concrete this in his 1993 paper Barabási found the degree $k$ of a randomly chosen node int the WWW was $4.6 \pm 1546$ which shows that despite $\langle k^2 \rangle$ only diverges in the $N \to \infty$ limit that the standard deviation $\sigma \gg  \langle k \rangle$.
+        Let us allow $k_{\text{min}}$ to stay fixed and to investigate the behavior of $\langle k^n \rangle$ we will take the limit as $k_\text{max} \to \infty$ doing, so we see that the values of $\langle k^n \rangle$ are dictated by the $n-\gamma -1$ term. If $n-\gamma -1 \leqslant 0$ then $k^{n-\gamma -1}_{\text{max}}$ will tend to $0$ as $k_\text{max}$ increases, therefore all moments that satisfy $n\leqslant \gamma-1$ are finite. Conversely, if  $n-\gamma -1 > 0$  then $\langle k^n \rangle$ goes to infinity as $k_\text{max} \to \infty$ so for all moments larger than $\gamma-1$ diverge.\\ 
+        For most scale-free graphs $2<\gamma<3$ and thus as $N\to \infty$ the first moment $\langle k \rangle$ is finite but $\langle k^2 \rangle$ and $\langle k^3 \rangle$ will go to infinity. Thus, we can see wit the divergence of $\langle k^2 \rangle$ the variance (and standard deviation) can be arbitrarily large, if we picked a node at random we know very little about its degree. "Hence networks with $\gamma<3$ do not have a meaningful internal scale but are scale free" \parencite{barabasi2013network}. As an example to concrete this in his 1993 paper Barabási found the degree $k$ of a randomly chosen node int the WWW was $4.6 \pm 1546$ which shows that despite $\langle k^2 \rangle$ only diverges in the $N \to \infty$ limit that the standard deviation $\sigma \gg  \langle k \rangle$.\\
+        The average shortest path length $\langle d \rangle$ depends on the network size $N$ and the degree exponent $\gamma$ described in the following formula \parencite{bollobas2004diameter}\parencite{cohen2003scale}:\\
+        \begin{align*}
+            &\langle d \rangle \sim
+            \begin{cases}
+                \text{const.} &\gamma =2\\
+                \ln\ln N  &2<\gamma<3\\
+                \frac{\ln N}{\ln\ln N}  &\gamma = 3\\
+                \ln N  &\gamma>3
+            \end{cases}
+        \end{align*}
+        Let us discuss the implication of the behaviors described above \parencite{barabasi2013network}:\\
+        For $\gamma$ the degree of the largest hub $k_{\text{max}}$ grows linearly with network size $N$. Which forces the network into a 'hub and spoke' configuration where all the nodes are close together because they all connect to a central hub. The average shortest path length does not depend on $N$. This is known as an Anomalous regime\\
+        For $2<\gamma<3$ the average shortest path length grows much slower than the $\ln N$ derived for random networks, this is referred to an ultra-small world regime \parencite{cohen2003scale}. The hubs massively reduce the average path length.\\
+        For $\gamma =3$ Here the 2nd moment of the degree distribution now longer diverges, we regain the $\ln N$ dependence from the random networks but the $\ln\ln N$ shrinks the average path length under that of a similarly sized random networks.\\
+        For $\gamma > 3$ At this point $\langle k^2 \rangle$ is finite and the average shortest path length follows the small world effect from random graphs. Hubs at this point are not sufficiently large to have an impact on the average shortest path length.
+        (Note to expand on later large scale free graphs where $\gamma < 2$ do not exist as simple graphs )
+
+
+
 
     \section{Analysis}
     TODO
@@ -137,7 +159,12 @@
             \begin{align*}
                 &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}}k^{n}p(k) \,dk\\
                 &\text{Result (4.3): } p(k) = (\gamma -1)k^{\gamma-1}_{\text{min}}k^{-\gamma}\\
-                &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}} (\gamma-1)k^{-\gamma}_{\text{min}}k^{n}k^{-\gamma} \,dk
+                &\langle k^n \rangle = \int_{k_{\text{min}}}^{k_{\text{max}}} (\gamma-1)k^{-\gamma}_{\text{min}}k^{n}k^{-\gamma} \,dk \\
+                &\text{Again $ (\gamma-1)k^{-\gamma}_{\text{min}}$ is a constant we will call $C$}\\
+                &\langle k^n \rangle = C\int_{k_{\text{min}}}^{k_{\text{max}}}k^{n}k^{-\gamma} \,dk\\ 
+                &\langle k^n \rangle = C\int_{k_{\text{min}}}^{k_{\text{max}}}k^{n-\gamma} \,dk\\
+                &\langle k^n \rangle = C[\frac{1}{n-\gamma +1}k^{n-\gamma+1}]^{k_{\text{max}}}_{k_{\text{min}}}\\
+                &\langle k^n \rangle = C\frac{k_{\text{max}}^{n-\gamma+1} -k_{\text{min}}^{n-\gamma+1}}{n-\gamma +1 }
             \end{align*}
 
         \subsection{Python}
