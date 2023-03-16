@@ -17,7 +17,7 @@
     \section{Introduction}
     This project seeks to investigate the structural differences between random graphs and small-world, scale-free graphs and in paticular Albert-Barabási graphs.\\
     Then later we will use a SIRD model as a vehicle to explore whether these structural differences have an effect on random processes,  while traditionally a project that contains an SIRD model would focus on the model as its core concept we will only use it as a simple lens to investigate the differences between graph structures therefore little time will be afforded to the mathematics behind the SIRD simulation, only how it computes on our graphs.\\
-    Random graphs were chosen as the comparison as by the fact they are random they are free of overarching structures that are present in other tyeps of graph.\\
+    Random graphs were chosen as the comparison as by the fact they are random they are free of overarching structures that are present in other types of graph.\\
     The motivation for this project stems from my deep interest in graph theory and with the recent COVID-19 pandemic I wanted to explore whether how the way populations internally structured lead to a significant differnece in the spread of disease.
     \section{Literature Review}
         \subsection{Graph Theory}
@@ -66,7 +66,7 @@
                 &\overline{k} = \sum_{k=1}^{\infty}kp_{k}\\
                 &\therefore \overline{k} = \sum_{k=1}^{\infty}k\frac{k^{-\gamma}}{\zeta(\gamma)} &(4.2)\\
             \end{align*}
-            We can also define a Continuum formalism for the power law distribution because for analytic claculations it is useful to let the degree k be any positive real number as follows \parencite{barabasi2013network}:
+            We can also define a Continuum formalism for the power law distribution because for analytic calculations it is useful to let the degree k be any positive real number as follows \parencite{barabasi2013network}:
             \begin{align*}
                 &\text{Assuming: } k\in \mathbb{R}^{+}\\
                 &p(k) = Ck^{-\gamma}\\
@@ -175,9 +175,9 @@
         First we need to show how to create a graph using the software.\\
         \includegraphics[width=8cm]{images/add_nodes_add_edges.png}\\
         The above code does the following: it imports the Networkx package for us to use, creates a 'graph' object called G, creates nodes A, B, C, then adds two edges between A and B and B and C.\\
-        However that is too clunky for normal use so the Networkx package provides functions such as:
+        However that is too cumbersome for normal use so the Networkx package provides functions such as:
         \begin{verbatim}networkx.complete_graph(5)\end{verbatim}
-        to generate a complete graph with 5 nodes in one line, but we still have the atomic control of the graph as in the first example.
+        to generate a complete graph with 5 nodes in one line, but we still have very fine control of the graph as in the first example.
         \subsection{Creating Random Graphs}
         To create a random graph on a piece of paper it is quite simple: Select $N$ nodes to add to the graph and $p$ probability, draw $N$ nodes on the paper, then go through every possible pair of nodes in the graph and draw an edge between them if when picking a random real number from [0,1] it is less than $p$. Networkx implements a function \verb|networkx.gnp_random_graph| to create a random graph using the following code:\\
         \begin{figure}[H]
@@ -185,12 +185,12 @@
             \caption{The Random Graph Function}
             \label{fig:RandomGraph1}
         \end{figure}
-        Let's explain, the function takes $n$ (The total number of nodes) and $p$ (The probability of drawing an edge between a pair of nodes) as parameters. The \verb|itertools.combinations(range(n),2)| creates s list of every combination of 2 numbers up to $n$ i.e. (0,1), (0,2), (1,2) and so on, then to graph $G$ we add $n$ nodes, if $p = 0$ then there are 0 edges in the graph, so it stays empty and if $p =1$ then every node is attached to every other node, so it becomes a complete graph, if neither of those are true then we loop through all the possible combinations of nodes and choose a random number from $[0,1]$ and if that is less than $p$ we add an edge between those nodes.
+        Let us explain, the function takes $n$ (The total number of nodes) and $p$ (The probability of drawing an edge between a pair of nodes) as parameters. The \verb|itertools.combinations(range(n),2)| creates s list of every combination of 2 numbers up to $n$ i.e. (0,1), (0,2), (1,2) and so on, then to graph $G$ we add $n$ nodes, if $p = 0$ then there are 0 edges in the graph, so it stays empty and if $p =1$ then every node is attached to every other node, so it becomes a complete graph, if neither of those are true then we loop through all the possible combinations of nodes and choose a random number from $[0,1]$ and if that is less than $p$ we add an edge between those nodes.
         \subsection{Creating Barabasi-Albert Graphs}
         First let us describe how to create Barabasi-Albert Graphs on a piece of paper. To create a Barabasi-Albert Graph we must first start with a "seed" graph (An already drawn graph that we will grow using the Barabasi-Albert Model) then we will define two more parameters $n$ for the total number of nodes we want this new graph to have and $m$ the number of edges we will add each iteration of the model. The algorithm works in the following way: take your "seed" graph and assign each node on the graph a probability $p$ according to its degree $k$ using the formula $p(k_{i}) = \frac{k_{i}}{\sum_{j} {k_{j}}}$ we then randomly select $m$ unique nodes according to the probabilities calculated (this can be done by label each node 1 to n then write on a piece of paper that label for each node, then fold the paper a number of times proportional to its probability for example folding 0.2 twice but 0.2 five times then randomly choosing the papers), add 1 new node to the graph and draw an edge from this new node to each of the randomly preexisting nodes, repeat this until we have $n$ nodes on the graph.\\
         As Barabasi-Albert graphs are the main focus of this project we will now show how they are created in networkx. 
         \begin{figure}[H]
-            \includegraphics[width=8cm]{images/BARABASI_FUNC.png}
+            \includegraphics[width=12cm]{images/BARABASI_FUNC.png}
             \caption{The Barabasi-Albert Graph Function}
             \label{fig:Barabasi-Albert function1}
         \end{figure}
