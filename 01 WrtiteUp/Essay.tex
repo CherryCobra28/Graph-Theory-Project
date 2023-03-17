@@ -14,6 +14,9 @@
     \newpage
     \tableofcontents
     \newpage
+    \begin{abstract}
+        TO DO LAST
+    \end{abstract}
     \section{Introduction}
     This project seeks to investigate the structural differences between random graphs and small-world, scale-free graphs and in paticular Albert-Barabási graphs.\\
     Then later we will use a SIRD model as a vehicle to explore whether these structural differences have an effect on random processes,  while traditionally a project that contains an SIRD model would focus on the model as its core concept we will only use it as a simple lens to investigate the differences between graph structures therefore little time will be afforded to the mathematics behind the SIRD simulation, only how it computes on our graphs.\\
@@ -21,7 +24,7 @@
     The motivation for this project stems from my deep interest in graph theory and with the recent COVID-19 pandemic I wanted to explore whether how the way populations internally structured lead to a significant difference in the spread of disease.
     \section{Literature Review}
         \subsection{Graph Theory}
-        Graph Theory is the study of networks where vertices are connected by edges. We will be only focusing on simple graphs in this project and any graph mentioned can be assumed to be a simple graph. A strict definition of simple graphs is as follows \parencite{bender2010lists}: Let $G$ be a graph, $G$ is an ordered pair $G=(V,E)$ comprising $V$: a set of vertices and $E\subseteq \{\{x,y\} | x,y \in V \text{ and } x\neq y\}$: a set of edges which are unordered pairs of vertices.
+        Graph Theory is the study of networks where vertices are connected by edges (The word node and vertex will be used interchangeably and so will network and graph however graph will be used more for more abstract representations). We will be only focusing on simple graphs in this project and any graph mentioned can be assumed to be a simple graph. A strict definition of simple graphs is as follows \parencite{bender2010lists}: Let $G$ be a graph, $G$ is an ordered pair $G=(V,E)$ comprising $V$: a set of vertices and $E\subseteq \{\{x,y\} | x,y \in V \text{ and } x\neq y\}$: a set of edges which are unordered pairs of vertices.
         \subsection{Random Graphs}
         In 1959, Paul Erd\"{o}s and Alfr\'{e}d R\'{e}nyi published their paper 'On Random Graphs' \parencite{erd6s1959random} and independently Edgar Nelson Gilbert published his paper 'Random Graphs' \parencite{gilbert1959random}. Both papers describe how to create a graph using probabilities which became a very useful tool for solving problems in graph theory particularly problems in which they wished to prove the existence of certain graphs held various properties or to provide a strong definition for what it meant for a property to hold for almost all graphs. However, Erd\"{o}s' and Gilbert's models differed in how they worked. The Erd\"{o}s-R\'{e}yi model works as follows to generate a random graph $G(n,M)$ where $n$ is the number of nodes in the graph and $M$ is the total number of edges to be added, randomly pick $M$ pairs of vertices from the set of all combinations of two vertices, ignoring repeats and draw edges between them. In this model the average degree is easily calculated however it is rare that the number of edges will be so exact which brings on to the Gilbert model. For the Gilbert Model we define the random graph $G$ as such $G(n,p)$ where $n$ is the total number of nodes and $p$ is the probability of joining to vertices together and works as follows: draw $n$ nodes for the graph, select a vertex pair, generate a random number between $0$ and $1$, if the number exceeds $p$ draw en edge between those two vertices, repeat for all vertex pairs once. For the rest of this paper we will use 'random graph' to refer to Gilbert model random graphs as they better represent real networks because the number of edges is not fixed. 
         \subsection{Small World Graphs}
@@ -41,7 +44,56 @@
         SIRD stands for Susceptible, Infected, Recovered and Dead which is the states each individual in the model can take. There are many was of implementing a model like this such as a virus having specific infection 'power' and mortality rates or having the infection be determined entirely by the individual.
     \section{Mathematical Methods}
         \subsection{Graph Theory}
-        TODO Chapter 1
+            \subsubsection{Degrees}
+            We will provide some key definintions and results from Graph Theory which will be useful for the further topics \parencite{barabasi2013network}.\\
+            Degree: The number of edges attached to a node (Commonly written as $k_i$ denoting the degree $k$ of node $i$). We can also calculate the number of edges $L$ of a graph from the sum of the degrees that is: 
+            \begin{align*}
+                L=\frac{1}{2}\sum_{i=1}^{N} k_{i}
+            \end{align*}
+            Average degree:
+            \begin{align*}
+                \langle k \rangle = \frac{1}{N} \sum_{i=1}^{N}k_{i} = \frac{2L}{N}
+            \end{align*}
+            ($\langle k \rangle$ and $\overline{k}$ will be used interchangeably, but the first will be more common)
+            Degree distribution: The probability distribution of the degrees of graph will be very relevant in the later sections so we will define it here as $p_k$ which is the probability a node has degree $k$.
+            \begin{align*}
+                &\text{As $p_k$ is a probability we must normalize it with the following condition:}\\
+                &\sum_{k=1}^{\infty}p_{k} = 1\\
+                &\text{For a network with $N$ nodes where $N_k$ is the number of nodes with degree $k$}\\
+                &p_{k} = \frac{N_k}{N}\\
+                &\text{With this we can redefine $\langle k \rangle$ as:}\\
+                &\langle k \rangle = \sum_{k=0}^{\infty}kp_{k}
+            \end{align*}
+        \subsubsection{Adjacency Matrix}
+            Graphs can also be represented by adjacency matrices. We define the matrix $A$, entry $A_{i,j} = 1$ if there is an edge between node $i$ and node $j$ else $A_{i,j} = 0$. For an undirected graph $A$ is symmetrical.\\
+        \subsubsection{$L_{\text{max}}$}
+            The total number of edges $L$ for a graph is bounded by $L_{\text{max}}$ and $L=0$
+            \begin{align*}
+                L_{\text{max}} =  \frac{N(N-1)}{2}\\
+            \end{align*}
+            We can see this by the most edges a simple graph can have is if it is a complete graph and complete graphs have $\frac{N(N-1)}{2}$ therefore a non-complete graph must have fewer edges\\
+            Most real networks are sparse that is $L\ll L_{\text{max}}$\\
+        \subsubsection{Paths}
+        A path is an ordered list of nodes describing a walk from each node to another. A Path length is the number of nodes contained in a path. The shortest path is the path between node $i$ and node $j$ with the smallest possible path length and is usually denoted as $d_{i,j}$ or just $d$. The diameter of a graph is defined as the longest shortest path of a graph and is denoted as $d_{\text{max}}$.\\
+        Average shortest path length is defined as the average of the shortest paths between all pairs of nodes and is denoted as $\langle d \rangle$ and is calculated as such:
+        \begin{align*}
+            &\langle d \rangle = \frac{1}{N(N-1)}\sum_{i,j=1,N | i\neq j}d_{i,j}
+        \end{align*}
+
+        \subsubsection{Clustering Coefficient}
+            The clustering coefficient captures the degree to which the neighbors of a given node link to each other \parencite{barabasi2013network}. For a node $i$ with degree $k_{i}$ the local clustering coefficient is defined as \parencite{Watts1998}.
+            \begin{align*}
+                &C_{i} = \frac{2L_{i}}{k_{i}(k_{i}-1)} 
+                &\text{Where $L_{i}$ is the number of links between the $k_i$ neighbors of node $i$. $C_{i}$ is between $0$ and $1$}
+            \end{align*}
+            $C_i$ represents the proportion that the neighbors of node $i$ are connected\\
+            We can define the average clustering coefficient of a graph as such:
+            \begin{align*}
+                \langle C \rangle = \frac{1}{N}\sum_{i=1}^{N}C_{i}
+            \end{align*}
+            $\langle C \rangle$ can also be interpreted as the probability two neighbors of a randomly selected node link to each other
+
+
         \subsection{Random Graphs}
         TODO Chapter 2
         \subsection{Small World Graphs}
@@ -121,10 +173,6 @@
         For $\gamma =3$ Here the 2nd moment of the degree distribution now longer diverges, we regain the $\ln N$ dependence from the random networks but the $\ln\ln N$ shrinks the average path length under that of a similarly sized random networks.\\
         For $\gamma > 3$ At this point $\langle k^2 \rangle$ is finite and the average shortest path length follows the small world effect from random graphs. Hubs at this point are not sufficiently large to have an impact on the average shortest path length.
         (Note to expand on later large scale free graphs where $\gamma < 2$ do not exist as simple graphs, this may allow our assumption of $\gamma >1$)
-
-
-
-
     \section{Analysis}
     TODO
     \section{Evaluation}
