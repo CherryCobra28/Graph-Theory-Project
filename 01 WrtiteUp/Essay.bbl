@@ -89,6 +89,39 @@
       \field{pages}{509\bibrangedash 512}
       \range{pages}{4}
     \endentry
+    \entry{bender2010lists}{book}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=b3563a25d2f3d837128412d87dc99f74}{%
+           family={Bender},
+           familyi={B\bibinitperiod},
+           given={Edward\bibnamedelima A},
+           giveni={E\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c8734a7bb34ad2f2150e95084ca59d16}{%
+           family={Williamson},
+           familyi={W\bibinitperiod},
+           given={S\bibnamedelima Gill},
+           giveni={S\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {S. Gill Williamson}%
+      }
+      \strng{namehash}{d8747620a64ec824e6a2ba6fc55d78b4}
+      \strng{fullhash}{d8747620a64ec824e6a2ba6fc55d78b4}
+      \strng{bibnamehash}{d8747620a64ec824e6a2ba6fc55d78b4}
+      \strng{authorbibnamehash}{d8747620a64ec824e6a2ba6fc55d78b4}
+      \strng{authornamehash}{d8747620a64ec824e6a2ba6fc55d78b4}
+      \strng{authorfullhash}{d8747620a64ec824e6a2ba6fc55d78b4}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Lists, decisions and graphs}
+      \field{year}{2010}
+    \endentry
     \entry{bollobas2004diameter}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=f3d840e4303e9ef23642edbd5513a12a}{%
@@ -164,6 +197,72 @@
       \field{year}{2003}
       \field{pages}{058701}
       \range{pages}{1}
+    \endentry
+    \entry{erd6s1959random}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=72dea028d13605ec48dd4eb97bdafb76}{%
+           family={Erd6s},
+           familyi={E\bibinitperiod},
+           given={P},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4966b2bb1482bc667169eaa92a67ef67}{%
+           family={Renyi},
+           familyi={R\bibinitperiod},
+           given={A},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7aaf916f4d910fe808daed467ca04186}
+      \strng{fullhash}{7aaf916f4d910fe808daed467ca04186}
+      \strng{bibnamehash}{7aaf916f4d910fe808daed467ca04186}
+      \strng{authorbibnamehash}{7aaf916f4d910fe808daed467ca04186}
+      \strng{authornamehash}{7aaf916f4d910fe808daed467ca04186}
+      \strng{authorfullhash}{7aaf916f4d910fe808daed467ca04186}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Publ. Math. Debrecen}
+      \field{title}{On random graphs}
+      \field{volume}{6}
+      \field{year}{1959}
+      \field{pages}{290\bibrangedash 297}
+      \range{pages}{8}
+    \endentry
+    \entry{gilbert1959random}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=02209db72e005b4058b5cf6ab3143b3f}{%
+           family={Gilbert},
+           familyi={G\bibinitperiod},
+           given={Edgar\bibnamedelima N},
+           giveni={E\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{02209db72e005b4058b5cf6ab3143b3f}
+      \strng{fullhash}{02209db72e005b4058b5cf6ab3143b3f}
+      \strng{bibnamehash}{02209db72e005b4058b5cf6ab3143b3f}
+      \strng{authorbibnamehash}{02209db72e005b4058b5cf6ab3143b3f}
+      \strng{authornamehash}{02209db72e005b4058b5cf6ab3143b3f}
+      \strng{authorfullhash}{02209db72e005b4058b5cf6ab3143b3f}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{number}{4}
+      \field{title}{Random graphs}
+      \field{volume}{30}
+      \field{year}{1959}
+      \field{pages}{1141\bibrangedash 1144}
+      \range{pages}{4}
     \endentry
     \entry{SciPyProceedings_11}{inproceedings}{}
       \name{author}{3}{}{%

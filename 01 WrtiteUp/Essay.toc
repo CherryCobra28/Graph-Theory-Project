@@ -2,14 +2,14 @@
 \contentsline {section}{\numberline {2}Literature Review}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Graph Theory}{3}{}%
 \contentsline {subsection}{\numberline {2.2}Random Graphs}{3}{}%
-\contentsline {subsection}{\numberline {2.3}Small World Graphs}{3}{}%
+\contentsline {subsection}{\numberline {2.3}Small World Graphs}{4}{}%
 \contentsline {subsection}{\numberline {2.4}Scale Free Graphs}{4}{}%
 \contentsline {subsection}{\numberline {2.5}Barabasi-Albert Model}{4}{}%
-\contentsline {subsection}{\numberline {2.6}SIRD Model}{4}{}%
-\contentsline {section}{\numberline {3}Mathematical Methods}{4}{}%
-\contentsline {subsection}{\numberline {3.1}Graph Theory}{4}{}%
-\contentsline {subsection}{\numberline {3.2}Random Graphs}{4}{}%
-\contentsline {subsection}{\numberline {3.3}Small World Graphs}{4}{}%
+\contentsline {subsection}{\numberline {2.6}SIRD Model}{5}{}%
+\contentsline {section}{\numberline {3}Mathematical Methods}{5}{}%
+\contentsline {subsection}{\numberline {3.1}Graph Theory}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Random Graphs}{5}{}%
+\contentsline {subsection}{\numberline {3.3}Small World Graphs}{5}{}%
 \contentsline {subsection}{\numberline {3.4}Scale-Free Graphs}{5}{}%
 \contentsline {section}{\numberline {4}Analysis}{8}{}%
 \contentsline {section}{\numberline {5}Evaluation}{8}{}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  16 MAR 2023 10:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  17 MAR 2023 12:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -457,12 +457,12 @@ Overfull \hbox (7.30621pt too wide) in paragraph at lines 18--22
 \OT1/cmr/m/n/10 graphs and small-world, scale-free graphs and in patic-u-lar Albert-Barab^^Sasi graphs. 
  []
 
-[3] [4]
+[3] [4] [5]
 Overfull \hbox (81.69528pt too wide) detected at line 79
 []
  []
 
-[5]
+
 Overfull \hbox (116.0331pt too wide) detected at line 88
 []
  []
@@ -477,12 +477,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 93--95
 
  []
 
-
+[6]
 Overfull \hbox (57.75069pt too wide) detected at line 105
 []
  []
 
-[6]
+
 Underfull \hbox (badness 10000) in paragraph at lines 105--109
 
  []
@@ -516,15 +516,15 @@ Package logreq Info: Writing requests to 'Essay.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 10923 strings out of 475380
- 204996 string characters out of 2776771
- 965840 words of memory out of 3000000
- 32195 multiletter control sequences out of 15000+600000
+ 10939 strings out of 475380
+ 205502 string characters out of 2776771
+ 966048 words of memory out of 3000000
+ 32211 multiletter control sequences out of 15000+600000
  477937 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,16n,68p,1465b,1479s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 60i,16n,68p,1793b,1479s stack positions out of 10000i,1000n,20000p,200000b,80000s
 <C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Essay.pdf (14 pages, 358350 bytes).
+Output written on Essay.pdf (14 pages, 362940 bytes).
 PDF statistics:
  155 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

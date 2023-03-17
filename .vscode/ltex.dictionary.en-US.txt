@@ -4,3 +4,7 @@ Barabási
 Réka
 Albert-Barabási
 Watts-Strogatz
+Erdös
+Réyi
+Alfréd
+Rényi
