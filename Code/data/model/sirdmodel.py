@@ -48,7 +48,7 @@ class infection_graph:
         self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
         self.average_degree = sum([key*val for key, val in self.histogram.items()])/self.no_nodes #we take all the values from the histogram dictionary, multiply the frequency by the degree then take the mean of that
-        if self.no_nodes >= 1000: #If the number of nodes is greater than 2000, claulating the diameter and cluerting coeffcitn is quit slow so we use an aprroximation instead
+        if self.no_nodes >= 5000: #If the number of nodes is greater than 2000, claulating the diameter and cluerting coeffcitn is quit slow so we use an aprroximation instead
             self.diameter = nx.approximation.diameter(self.graph) #This uses a 2 pass algorithm, it randomly selcts tow nodes from the graph and claulates the diameter between them, then does this again and which ever is higher is selcted as the diameter. This will be a lower bound for the diameter
             self.clustering = nx.approximation.average_clustering(self.graph)#This approx imation works by slecting a node at random and seeing if two of its neighbours are connected to each other, it repeats that 1000 times then retunrs the fraction of trianles found
         else:
@@ -704,7 +704,7 @@ def main():
         result = model(*userpanel())
         output_window(result)
     else:
-        infection_data,origin_graph = model(nx.barabasi_albert_graph(20,5),0.8,0.2)
+        infection_data,origin_graph = model(nx.barabasi_albert_graph(100000,5),0.8,0.2)
         print(infection_data)
         print(origin_graph)
 
