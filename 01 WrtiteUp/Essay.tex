@@ -120,14 +120,22 @@
             \end{align*}
             Using this approximation can be very useful for a number of reasons, firstly the variance and other key characteristics only depend on a single value that being $\langle k \rangle$. It also suggests an interesting detail, because it does not rely on $N$, the degree distributions of graphs of varying sizes, but the small average degree are in fact identical to each other. It also makes further calculations easier however it must be firmly stated that the approximation only holds for sparse graphs and typically small graphs (those where $N$ is less than 1000) are not sparse enough for this approximation to hold. We will use this approximation later but the requirements for it to hold must be remembered.
         \subsection{Small World Graphs}
-        Considering a random network with an average degree $\langle k \rangle$, a node will have on average \parencite{barabasi2013network}:\\
-        $\langle k \rangle$ nodes at distance 1 ($d=1$)\\
-        $\langle k \rangle^2$ nodes at distance 2 ($d=2$)\\
-        $\langle k \rangle^3$ nodes at distance 3 ($d=3$)\\
-        ...\\
-        $\langle k \rangle^d$ nodes at distance d ($d$)\\
-        Precisely the expected number of nodes up to distance $d$ from our starting node is $N(d) = 1+\langle k \rangle+\langle k \rangle^2+\langle k \rangle^3+...+\langle k \rangle^d$ which is equal to $\frac{\langle k \rangle^{d+1}-1}{\langle k \rangle -1}$. We have to set an upper bound on $N(d)$ as obviously cannot be greater than $N$, so we set $N(d_{\text{max}}) \approx N$. Assuming $\langle k \rangle \gg 1$ we can disregard the $(-1)$ term in the numerator and denominator to obtain: $\langle k \rangle^{d_{\text{max}}} \approx N$ therefore the diameter of the network follows $d_{\text{max}} \approx \frac{\log{N}}{\log{\langle k \rangle}}$. Here we have the definition of the small world effect, the previous equation describes the scaling of the diameter however the average shortest path length $\langle d \rangle$ is better approximated by the previous equation as the diameter is easily increased by rare extremely long shortest path lengths. Generally $\log{N} \ll N$ which suggest the average shortest path length is orders pf magnitude smaller than the size of the network which gives the defintion of small: $\langle d \rangle \propto \log{N}$, with the $\frac{1}{\langle k \rangle}$ term correcting for denser networks having a msllaer distance between nodes.
-
+            \subsubsection{Diameter}
+            Considering a random network with an average degree $\langle k \rangle$, a node will have on average \parencite{barabasi2013network}:\\
+            $\langle k \rangle$ nodes at distance 1 ($d=1$)\\
+            $\langle k \rangle^2$ nodes at distance 2 ($d=2$)\\
+            $\langle k \rangle^3$ nodes at distance 3 ($d=3$)\\
+            ...\\
+            $\langle k \rangle^d$ nodes at distance d ($d$)\\
+            Precisely the expected number of nodes up to distance $d$ from our starting node is $N(d) = 1+\langle k \rangle+\langle k \rangle^2+\langle k \rangle^3+...+\langle k \rangle^d$ which is equal to $\frac{\langle k \rangle^{d+1}-1}{\langle k \rangle -1}$. We have to set an upper bound on $N(d)$ as obviously cannot be greater than $N$, so we set $N(d_{\text{max}}) \approx N$. Assuming $\langle k \rangle \gg 1$ we can disregard the $(-1)$ term in the numerator and denominator to obtain: $\langle k \rangle^{d_{\text{max}}} \approx N$ therefore the diameter of the network follows $d_{\text{max}} \approx \frac{\log{N}}{\log{\langle k \rangle}}$. Here we have the definition of the small world effect, the previous equation describes the scaling of the diameter however the average shortest path length $\langle d \rangle$ is better approximated by the previous equation as the diameter is easily increased by rare extremely long shortest path lengths. Generally $\log{N} \ll N$ which suggest the average shortest path length is orders pf magnitude smaller than the size of the network which gives the definition of small: $\langle d \rangle \propto \log{N}$, with the $\frac{1}{\langle k \rangle}$ term correcting for denser networks having a smaller distance between nodes.
+            \subsubsection{Clustering Coefficient}
+            We define $C_i$ as the local clustering coefficient of node $i$. To calculate the local clustering coefficient we need the exppected number of edges $E_i$ between the nodes $k_i$ neighbours. In a random graph the probability that two of $i$'sneighbours link to each other is $p$.\\ There are $\frac{k_{i}(k_{i}-1)}{2}$ possible edges between $k_i$ neighbours of node $i$, the expected value of $E_i$ is:
+            \begin{align*}
+                &\langle E_i \rangle = p\frac{k_{i}(k_{i}-1)}{2}\\
+                &\text{Therefore the localclustering coefficient of a random network is}\\
+                &C_i = \frac{2\langle E_i \rangle}{k_{i}(k_{i}-1)} = p = \frac{\langle k \rangle}{N}
+            \end{align*} 
+            From we glean this, for a fixed average degree, the larger the network the smaller a nodes clustering is and the local clustering coefficient of a node is independent of the nodes degree.
         \subsection{Scale-Free Graphs}
         Scale-Free Graphs follow a power law, that is $p_{k} \sim k^{-\gamma}$ where $p_{k}$ is the probability of having degree $k$. We will now show the discrete formalism of the power law \parencite{barabasi2013network}.
         \begin{proof}
