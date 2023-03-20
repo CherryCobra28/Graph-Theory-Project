@@ -45,7 +45,7 @@
     \section{Mathematical Methods}
         \subsection{Graph Theory}
             \subsubsection{Degrees}
-            We will provide some key definintions and results from Graph Theory which will be useful for the further topics \parencite{barabasi2013network}.\\
+            We will provide some key definitions and results from Graph Theory which will be useful for the further topics \parencite{barabasi2013network}.\\
             Degree: The number of edges attached to a node (Commonly written as $k_i$ denoting the degree $k$ of node $i$). We can also calculate the number of edges $L$ of a graph from the sum of the degrees that is: 
             \begin{align*}
                 L=\frac{1}{2}\sum_{i=1}^{N} k_{i}
@@ -55,7 +55,7 @@
                 \langle k \rangle = \frac{1}{N} \sum_{i=1}^{N}k_{i} = \frac{2L}{N}
             \end{align*}
             ($\langle k \rangle$ and $\overline{k}$ will be used interchangeably, but the first will be more common)
-            Degree distribution: The probability distribution of the degrees of graph will be very relevant in the later sections so we will define it here as $p_k$ which is the probability a node has degree $k$.
+            Degree distribution: The probability distribution of the degrees of graph will be very relevant in the later sections, so we will define it here as $p_k$ which is the probability a node has degree $k$.
             \begin{align*}
                 &\text{As $p_k$ is a probability we must normalize it with the following condition:}\\
                 &\sum_{k=1}^{\infty}p_{k} = 1\\
@@ -95,9 +95,39 @@
 
 
         \subsection{Random Graphs}
-        TODO Chapter 2
+        For a random graph $G(N,p)$ we will define some key behaviors and values.
+            \subsubsection{Number of Edges}
+            We can begin by defining the probability of a random graph having exactly $L$ edges:
+            Firstly there are $\frac{N(N-1)}{2}$ pairs of nodes to which we can draw edges between, then the probability that $L$ of the attempts to connect the $\frac{N(N-1)}{2}$ pairs of nodes have resulted in an edge is $p^L$, then the probability that the remaining  $\frac{N(N-1)}{2} -L$ attempts have not resulted in an edge is $(1-p)^{\frac{N(N-1)}{2} -L}$ and finally there is $\binom{\frac{N(N-1)}{2}}{L}$ different ways to draw $L$ edges between $\frac{N(N-1)}{2}$ pairs of nodes. Taking the product of these factors we gain:
+            \begin{align*}
+                p_{L} = \binom{\frac{N(N-1)}{2}}{L}p^L(1-p)^{\frac{N(N-1)}{2} -L}
+            \end{align*}
+            Which is clearly a binomial distribution therefore the mean number of edges $\langle L \rangle$ is given by $np$ which for this example is equal to $p\frac{N(N-1)}{2}$. We also obtain the average degree of the random graph:
+            \begin{align*}
+                \langle k \rangle = \frac{2 \langle L \rangle}{N} = p(N-1)
+            \end{align*}
+            Note that $N-1$ is the maximum degree a node can have in this graph.
+            \subsubsection{Degree distribution}
+            Similarly to the case of edges above we can construct a binomial distribution for the degrees of the random graph. The probability a randomly chosen node will have degree $k$ will be again a product of three terms defined as follows: The probability the node has $k$ edges is $p^k$. The probability the remaining $N-1-k$ edges are missing is $(1-p)^{N-1-k}$. And the number of ways a node can have degree $k$ from degree $N-1$ is $\binom{N-1}{k}$ thus.
+            \begin{align*}
+                p_{k} = \binom{N-1}{k}p^k(1-p)^{N-1-k}
+            \end{align*}  
+            Again using the properties of the binomial distribution we see that the average degree is $p(N-1)$ and the variance is $p(N-1)(1-p)$
+            \subsubsection{The Poisson Approximation}
+            Most real networks are sparse that is $\langle k \rangle \ll N$ in these cases the degree distribution is well approximated with:
+            \begin{align*}
+                p_{k} = e^{-\langle k \rangle}\frac{{\langle k \rangle}^k}{k!}
+            \end{align*}
+            Using this approximation can be very useful for a number of reasons, firstly the variance and other key characteristics only depend on a single value that being $\langle k \rangle$. It also suggests an interesting detail, because it does not rely on $N$, the degree distributions of graphs of varying sizes, but the small average degree are in fact identical to each other. It also makes further calculations easier however it must be firmly stated that the approximation only holds for sparse graphs and typically small graphs (those where $N$ is less than 1000) are not sparse enough for this approximation to hold. We will use this approximation later but the requirements for it to hold must be remembered.
         \subsection{Small World Graphs}
-        TODO Chapter 3
+        Considering a random network with an average degree $\langle k \rangle$, a node will have on average \parencite{barabasi2013network}:\\
+        $\langle k \rangle$ nodes at distance 1 ($d=1$)\\
+        $\langle k \rangle^2$ nodes at distance 2 ($d=2$)\\
+        $\langle k \rangle^3$ nodes at distance 3 ($d=3$)\\
+        ...\\
+        $\langle k \rangle^d$ nodes at distance d ($d$)\\
+        Precisely the expected number of nodes up to distance $d$ from our starting node is $N(d) = 1+\langle k \rangle+\langle k \rangle^2+\langle k \rangle^3+...+\langle k \rangle^d$ which is equal to $\frac{\langle k \rangle^{d+1}-1}{\langle k \rangle -1}$. We have to set an upper bound on $N(d)$ as obviously cannot be greater than $N$, so we set $N(d_{\text{max}}) \approx N$. Assuming $\langle k \rangle \gg 1$ we can disregard the $(-1)$ term in the numerator and denominator to obtain: $\langle k \rangle^{d_{\text{max}}} \approx N$ therefore the diameter of the network follows $d_{\text{max}} \approx \frac{\log{N}}{\log{\langle k \rangle}}$. Here we have the definition of the small world effect, the previous equation describes the scaling of the diameter however the average shortest path length $\langle d \rangle$ is better approximated by the previous equation as the diameter is easily increased by rare extremely long shortest path lengths. Generally $\log{N} \ll N$ which suggest the average shortest path length is orders pf magnitude smaller than the size of the network which gives the defintion of small: $\langle d \rangle \propto \log{N}$, with the $\frac{1}{\langle k \rangle}$ term correcting for denser networks having a msllaer distance between nodes.
+
         \subsection{Scale-Free Graphs}
         Scale-Free Graphs follow a power law, that is $p_{k} \sim k^{-\gamma}$ where $p_{k}$ is the probability of having degree $k$. We will now show the discrete formalism of the power law \parencite{barabasi2013network}.
         \begin{proof}
