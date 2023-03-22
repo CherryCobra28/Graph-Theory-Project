@@ -44,10 +44,10 @@ def gather():
     L = pd.DataFrame.from_dict(R_done)
     D = pd.concat([D, L],ignore_index =True)
     print(D)
-    if os.path.exists('model.csv'):
-        D.to_csv('model.csv',index =False,header=False,mode='a')
+    if os.path.exists('graphmodel.csv'):
+        D.to_csv('graphmodel.csv',index =False,header=False,mode='a')
     else:
-        D.to_csv('model.csv',index =False)
+        D.to_csv('graphmodel.csv',index =False)
 def generate(barabasi_graphs):
         
 
