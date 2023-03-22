@@ -48,17 +48,20 @@ class infection_graph:
         self.histogram = dict(enumerate(nx.degree_histogram(self.graph)))#Creates a dictionary where the degree is the key and the frequency of that degree is the value
         self.highestdegree = list(self.histogram)[-1] #Gives the last element of the histogram to give the highest degree
         self.average_degree = sum([key*val for key, val in self.histogram.items()])/self.no_nodes #we take all the values from the histogram dictionary, multiply the frequency by the degree then take the mean of that
-        if self.no_nodes >= 5000: #If the number of nodes is greater than 2000, claulating the diameter and cluerting coeffcitn is quit slow so we use an aprroximation instead
-            self.diameter = nx.approximation.diameter(self.graph) #This uses a 2 pass algorithm, it randomly selcts tow nodes from the graph and claulates the diameter between them, then does this again and which ever is higher is selcted as the diameter. This will be a lower bound for the diameter
+        if self.no_nodes >= 3000: #If the number of nodes is greater than 2000, claulating the diameter and cluerting coeffcitn is quit slow so we use an aprroximation instead
+            try:
+                self.diameter = nx.approximation.diameter(self.graph) #This uses a 2 pass algorithm, it randomly selcts tow nodes from the graph and claulates the diameter between them, then does this again and which ever is higher is selcted as the diameter. This will be a lower bound for the diameter
+            except Exception:
+                self.diameter = 10**6 #This is just a large number for if it is not connceted, putting infinity here would stop us anaylsing the data as easy
             self.clustering = nx.approximation.average_clustering(self.graph)#This approx imation works by slecting a node at random and seeing if two of its neighbours are connected to each other, it repeats that 1000 times then retunrs the fraction of trianles found
+            self.average_path_length = 0.5 * self.diameter
         else:
             self.diameter = betterdiameter(self.graph) #See betterdiameter documentation
             self.clustering = nx.average_clustering(self.graph)#returns the average clustering coeffcient by calculating the local clustering coefficent for each node
-        
-        try:
-            self.average_path_length = nx.average_shortest_path_length(self.graph) #This calulates the average shortest path length for the graph, if the graph is discconncted this will raise and exception
-        except Exception: #Incase of that exception we set the average shortest path length to 0
-            self.average_path_length = 0
+            try:
+                self.average_path_length = nx.average_shortest_path_length(self.graph) #This calulates the average shortest path length for the graph, if the graph is discconncted this will raise and exception
+            except Exception: #Incase of that exception we set the average shortest path length to 0
+                self.average_path_length = 0
         if enable_vis:
             self.pos = nx.spring_layout(self.graph)# This sets a standard layout for when we output images of the graph
         ########################################################################

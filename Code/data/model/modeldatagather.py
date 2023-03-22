@@ -9,14 +9,15 @@ import edgesetter
 
 
 
-SEED_GRAPHS = [nx.fast_gnp_random_graph(10,0.5) for i in range(100)]
+SEED_GRAPHS = [nx.fast_gnp_random_graph(10,0.5) for i in range(5)]
 def gather():
     bbara = list()
     rr = list()
-    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
+    n = [5000]#[30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500]#,3000,3000,4000,4000,5000,5000]
     for N in tqdm(n):
-        TEST_GRAPHS = [nx.barabasi_albert_graph(N,5,initial_graph=k) for k in SEED_GRAPHS]
+        TEST_GRAPHS = [nx.barabasi_albert_graph(N,5,initial_graph=k) for k in tqdm(SEED_GRAPHS)]
         R_TEST_GRAPHS = create_random_graphs(N,TEST_GRAPHS)
+        print('Barabasi')
         bara_result = generate(TEST_GRAPHS)
         bbara.append(bara_result)
         R_result = gen_rand(R_TEST_GRAPHS,TEST_GRAPHS)
@@ -46,7 +47,7 @@ def generate(barabasi_graphs):
         
         barabasi_graphs.pop(0)
         
-        for graph in barabasi_graphs:
+        for graph in tqdm(barabasi_graphs):
             B,_ = sird.model(graph,0.5,0.6,graph_type='barabasi')
             #print(A)
             #print(B)
@@ -58,7 +59,8 @@ def gen_rand(random_graphs,test):
     tester = zip(random_graphs,A)
     Alpha,_ = sird.model(random_graphs[0],0.5,0.6,graph_type='random')
     random_graphs.pop(0)
-    for graph in random_graphs:
+    print('random graphs')
+    for graph in tqdm(random_graphs):
         if graph is None:
             ind = random_graphs.index(graph)
             print(test[ind].number_of_edges())
@@ -71,10 +73,10 @@ def gen_rand(random_graphs,test):
     return Alpha
 
 def create_random_graphs(N: int,list_graphs: list):
-    random_graphs = [nx.fast_gnp_random_graph(N,0.5) for _ in list_graphs]
+    random_graphs = [nx.fast_gnp_random_graph(N,0.5) for _ in tqdm(list_graphs)]
     zippy = zip(random_graphs,list_graphs)
     done_random = list()
-    for i,v in zippy:
+    for i,v in tqdm(zippy):
         diff = edgesetter.get_difference(i,v)
         r = edgesetter.edge_rm(i,diff)
         if r is None:
