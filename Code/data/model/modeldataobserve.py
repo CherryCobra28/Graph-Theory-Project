@@ -8,7 +8,7 @@ def dataloader():
 def infection_data_parser(Data: pd.DataFrame):
     graphtypes = set(Data['Graph_Type'])
     data_sum = Data[['Graph_Type','n','e','Days_Taken','survivors','Everyone_Dead','Successful_infections']].groupby(['Graph_Type','n']).describe()
-    print(data_sum['survivors'])
+    print(data_sum['Days_Taken'])
     data_sum.to_excel('model_sum.xlsx')
     #for graph in graphtypes:
     #    graph_data = Data[Data['Graph_Type'] == graph]

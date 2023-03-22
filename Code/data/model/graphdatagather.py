@@ -6,84 +6,93 @@ from dict_zip import dict_zip
 from tqdm import tqdm
 
 
+import pandas as pd
+import sirdmodel as sird
+import networkx as nx
+from dict_zip import dict_zip
+from tqdm import tqdm
+import os
+import edgesetter
 
 
 
 
-#
-#
-#
-#
+SEED_GRAPHS = [nx.fast_gnp_random_graph(10,0.5) for i in range(100)]
+def gather():
+    bbara = list()
+    rr = list()
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500]#,3000,3000,4000,4000,5000,5000]
+    for N in tqdm(n):
+        TEST_GRAPHS = [nx.barabasi_albert_graph(N,5,initial_graph=k) for k in tqdm(SEED_GRAPHS)]
+        R_TEST_GRAPHS = create_random_graphs(N,TEST_GRAPHS)
+        print('Barabasi')
+        bara_result = generate(TEST_GRAPHS)
+        bbara.append(bara_result)
+        R_result = gen_rand(R_TEST_GRAPHS,TEST_GRAPHS)
+        rr.append(R_result)
+    bara_done = bbara.pop(0)
 
-def datacreate():
-    virus = [0.6,0.5]
-    m = 5
-    return_dict = {}
-    e = m
-    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
-    d = pd.DataFrame()
-    index = 0
-    SEED_GRAPH = [nx.fast_gnp_random_graph(10,0.5) for i in range(100)]
-    for x in n:
-        print(f'{x=}')
-        diam_approx = math.log(x)/math.log(math.log(x))
-        cluster_approx = (math.log(x)**2)/x
-        for i in tqdm(SEED_GRAPH):
-            G = nx.barabasi_albert_graph(x,5,initial_graph = i)
+    for i in bbara:
+        bara_done = dict_zip(bara_done, i)
+    R_done = rr.pop(0)
 
+    for i in rr:
+        R_done = dict_zip(R_done, i)
 
-            A = {'Number_of_Nodes':x,'Real_Diameter':betterdiameter(G),'Aprrox_Diameter':diam_approx,'Average_Clustering':nx.average_clustering(G),'Approx_Clustering':cluster_approx}
-            
-
-    d.to_csv('data.csv',index = False)
-
-def dataobserve():
-    a = pd.read_csv('data.csv')
-    #print(a)
-    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,5000,10000]
-    means = []
-    sdofreal = []
-    approxdiam = []
-    ratios = []
-    sdofdiams = []
-    meanrcluster = []
-    sdofrcluster = []
-    approxcluster = []
-    ratioofclsuter = []
-    sdofcluster = []
-    for x in n:
+    #print(A)
+    D = pd.DataFrame.from_dict(bara_done)
+    L = pd.DataFrame.from_dict(R_done)
+    D = pd.concat([D, L],ignore_index =True)
+    print(D)
+    if os.path.exists('model.csv'):
+        D.to_csv('model.csv',index =False,header=False,mode='a')
+    else:
+        D.to_csv('model.csv',index =False)
+def generate(barabasi_graphs):
         
-        explore = a[a['Number_of_Nodes'] == x]
-        realdiams = explore['Real_Diameter']
-        means.append(realdiams.mean())
-        sdofreal.append(realdiams.std())
-        approx = list(explore['Aprrox_Diameter'])[0]
-        approxdiam.append(approx)
-        ratios.append(approx/realdiams.mean())
-        sd = (realdiams.mean()-approx)**2
-        sd = math.sqrt(sd)
-        sdofdiams.append(sd)
-        clusters = explore['Average_Clustering']
-        meanrcluster.append(clusters.mean())
-        sdofrcluster.append(clusters.std())
-        approxC = list(explore['Approx_Clustering'])[0]
-        approxcluster.append(approxC)
-        ratioofclsuter.append(approxC/clusters.mean())
-        sdC = (clusters.mean()-approx)**2
-        sdC = math.sqrt(sdC)
-        sdofcluster.append(sdC)
+
+        _,A = sird.model(barabasi_graphs[0],0.5,0.6,graph_type='barabasi')
         
+        barabasi_graphs.pop(0)
         
-    B = {'N':n,'Average_Diam':means,'Standard_Deviation': sdofreal,'Aprrox_Diam':approxdiam,'Ratio_Between_Diams': ratios, 'Standard_deviation_Between_Real_approx':sdofdiams, 'Average_Clustering': meanrcluster,'S.D of Clsutering': sdofrcluster, 'Approx_Clustering':approxcluster,'Ratio_Between_Clustering':ratioofclsuter,'S.D_Between_Aprrox_and_Real': sdofcluster  }
-    data = pd.DataFrame(B)  
-    print(data.head())
-    data.to_csv('datasum.csv') 
-    
-    
-    
-    
-    
+        for graph in tqdm(barabasi_graphs):
+            _,B = sird.model(graph,0.5,0.6,graph_type='barabasi')
+            #print(A)
+            #print(B)
+            A = dict_zip(A,B)
+       
+        return A
+def gen_rand(random_graphs,test):
+    A = test
+    tester = zip(random_graphs,A)
+    _,Alpha = sird.model(random_graphs[0],0.5,0.6,graph_type='random')
+    random_graphs.pop(0)
+    print('random graphs')
+    for graph in tqdm(random_graphs):
+        if graph is None:
+            ind = random_graphs.index(graph)
+            print(test[ind].number_of_edges())
+            print('WHAT')
+            quit()
+        _,Beta = sird.model(graph,0.5,0.6,graph_type='random')
+        #print(A)
+        #print(B)
+        Alpha = dict_zip(Alpha,Beta)
+    return Alpha
+
+def create_random_graphs(N: int,list_graphs: list):
+    random_graphs = [nx.fast_gnp_random_graph(N,0.5) for _ in tqdm(list_graphs)]
+    zippy = zip(random_graphs,list_graphs)
+    done_random = list()
+    for i,v in tqdm(zippy):
+        diff = edgesetter.get_difference(i,v)
+        r = edgesetter.edge_rm(i,diff)
+        if r is None:
+            create_random_graphs(N,list_graphs)
+        done_random.append(r)
+    return done_random
+        
+
+
 if __name__ == '__main__':
-    k = input('create or observe')
-    choice = f'data{k}()'
-    eval(choice)
+    gather()
