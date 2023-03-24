@@ -18,35 +18,36 @@
     \tableofcontents
     \newpage
     \section{Introduction}
-    This project seeks to investigate the structural differences between random graphs and small-world, scale-free graphs and in paticular Albert-Barabási graphs.\\
-    Then later we will use a SIRD model as a vehicle to explore whether these structural differences have an effect on random processes,  while traditionally a project that contains an SIRD model would focus on the model as its core concept we will only use it as a simple lens to investigate the differences between graph structures therefore little time will be afforded to the mathematics behind the SIRD simulation, only how it computes on our graphs.\\
-    Random graphs were chosen as the comparison as by the fact they are random they are free of overarching structures that are present in other types of graph.\\
-    The motivation for this project stems from my deep interest in graph theory and with the recent COVID-19 pandemic I wanted to explore whether how the way populations internally structured lead to a significant difference in the spread of disease.
+    This project investigates the structural differences between random graphs and small-world, scale-free graphs and in particular, Albert-Barabási graphs.\\
+    Later, we will use an SIRD model as a vehicle to explore whether these structural differences can affect a random process. Traditionally a project that contains an SIRD model would focus on the model as its core concept. Alternatively we will only use it as a simple lens to investigate the differences between graph structures. Therefore, little time will be afforded to the mathematics behind the SIRD simulation, more time will be afforded to how it computes on our graphs.\\
+    Random graphs were chosen as the comparison because they are random they are free of overarching structures that are present in other types of graph.\\
+    The motivation for this project stems from my deep interest in graph theory. Additionally, with the recent COVID-19 pandemic I wanted to explore if it is how the way populations are internally structured which lead to a significant difference in the spread of disease.
     \section{Literature Review}
         \subsection{Graph Theory}
-        Graph Theory is the study of networks where vertices are connected by edges (The word node and vertex will be used interchangeably and so will network and graph however graph will be used more for more abstract representations). We will be only focusing on simple graphs in this project and any graph mentioned can be assumed to be a simple graph. A strict definition of simple graphs is as follows \parencite{bender2010lists}: Let $G$ be a graph, $G$ is an ordered pair $G=(V,E)$ comprising $V$: a set of vertices and $E\subseteq \{\{x,y\} | x,y \in V \text{ and } x\neq y\}$: a set of edges which are unordered pairs of vertices.
+        Graph Theory is the study of networks where vertices are connected by edges (The words 'node' and 'vertex' will be used interchangeably as will 'network' and graph however graph will be used for more abstract representations). A simple graph contains no self loops and there can only be one edge between each pair of nodes. We will only be focusing on simple graphs in this project and any graph mentioned can be assumed to be a simple graph. A strict definition of simple graphs is as follows: Let $G$ be a graph, $G$ is an ordered pair $G=(V,E)$ comprising $V$: a set of vertices and $E\subseteq \{\{x,y\} | x,y \in V \text{ and } x\neq y\}$: a set of edges which are unordered pairs of vertices \parencite{bender2010lists}.
         \subsection{Random Graphs}
-        In 1959, Paul Erd\"{o}s and Alfr\'{e}d R\'{e}nyi published their paper 'On Random Graphs' \parencite{erd6s1959random} and independently Edgar Nelson Gilbert published his paper 'Random Graphs' \parencite{gilbert1959random}. Both papers describe how to create a graph using probabilities which became a very useful tool for solving problems in graph theory particularly problems in which they wished to prove the existence of certain graphs held various properties or to provide a strong definition for what it meant for a property to hold for almost all graphs. However, Erd\"{o}s' and Gilbert's models differed in how they worked. The Erd\"{o}s-R\'{e}yi model works as follows to generate a random graph $G(N,M)$ where $N$ is the number of nodes in the graph and $M$ is the total number of edges to be added, randomly pick $M$ pairs of vertices from the set of all combinations of two vertices, ignoring repeats and draw edges between them. In this model the average degree is easily calculated however it is rare that the number of edges will be so exact which brings on to the Gilbert model. For the Gilbert Model we define the random graph $G$ as such $G(N,p)$ where $N$ is the total number of nodes and $p$ is the probability of joining to vertices together and works as follows: draw $N$ nodes for the graph, select a vertex pair, generate a random number between $0$ and $1$, if the number exceeds $p$ draw en edge between those two vertices, repeat for all vertex pairs once. For the rest of this paper we will use 'random graph' to refer to Gilbert model random graphs as they better represent real networks because the number of edges is not fixed. 
+        In 1959, Paul Erd\"{o}s and Alfr\'{e}d R\'{e}nyi published their paper 'On Random Graphs' \parencite{erd6s1959random}. Independently, Edgar Nelson Gilbert published his paper 'Random Graphs' \parencite{gilbert1959random}. Both papers describe how to create a graph using probabilities which became a very useful tool for solving problems in graph theory. In particular, problems in which they aimed to prove the existence of certain graphs held various properties or to provide a strong definition for what it meant for a property to hold for almost all graphs.\\ 
+        However, Erd\"{o}s' and Gilbert's models differed in how they worked. The Erd\"{o}s-R\'{e}yi model works as follows; to generate a random graph $G(N,M)$ where $N$ is the number of nodes in the graph and $M$ is the total number of edges to be added, randomly pick $M$ pairs of vertices from the set of all combinations of two vertices, ignoring repeats and draws edges between them. In this model the average degree is easily calculated. However, it is rare that the number of edges will be exact which brings on to the Gilbert model. For the Gilbert Model we define the random graph $G$ as such; $G(N,p)$ where $N$ is the total number of nodes and $p$ is the probability of joining two vertices together and works as follows: draw $N$ nodes for the graph, select a vertex pair, generate a random number between $0$ and $1$, if the number exceeds $p$ draw en edge between those two vertices, repeat for all vertex pairs once. For the rest of this paper we will use 'random graph' to refer to Gilbert model random graphs as they better represent real networks because the number of edges is not fixed. 
         \subsection{Small World Graphs}
-        In May 1967 Professor of Psychology at the Graduate School and University Center of the City University of New York, Stanley Milgram ran an experiment to see if a person living
-        in Omaha, Nebraska could get a parcel to a stockbroker in Boston, Massachusetts \parencite{milgram1967small}. In his experiment he found the average path length to reach the stockbroker was 5.5, which created the term
-        six degrees of separation (however Milgram's experiment had flaws which puts the exact number into doubt). This idea of having such a small average path length for such numerous nodes is a hallmark of a small world graph.\\
+        In May 1967,the Professor of Psychology at the Graduate School and University Center of the City University of New York, Stanley Milgram ran an experiment to see if a person living
+        in Omaha, Nebraska could send a parcel to a stockbroker in Boston, Massachusetts that they had never met personally by asking the subjects to give the parcel to someone they thought may know the recipient \parencite{milgram1967small}. In his experiment he found the average path length to reach the stockbroker was 5.5, which created the term
+        six degrees of separation. However, Milgram's experiment had flaws which puts the exact number into doubt. This idea of having such a small average path length for a numerous amount of nodes the hallmark of a small world graph.\\
         A Small world graph is formally defined by the following property: $L\propto\log{N}$ where $L$ is the average shortest path length of the network and $N$ is the total number of nodes \parencite{Watts1998}. Several models exist to generate small world graphs such as the Watts-Strogatz Model.
 
         \subsection{Scale Free Graphs}
-        In networks that appear in the real world such as the internet and social groups, there exists nodes known as "hubs" (a node that has a  significantly higher degree then the average of the graph). This is an important property encapsulated in Scale-Free Graphs.\\ 
+        In networks that appear in the real world such as the internet and social groups, there exist nodes known as "hubs"  (nodes that have a significantly higher degrees than the average of the graph). This is an important property encapsulated in Scale-Free Graphs.\\ 
         Scale-free Graphs are formally defined by the following power law: $P(k) \sim  k^{-\gamma }$, $k$ is the degree of a vertex, $P(k)$ is the probability of a node having degree $k$ and $\gamma$ is a parameter determined by the graph typically $2<\gamma<3$ \parencite{onnela2007structure}.
 
         \subsection{Barabasi-Albert Model}
-        In 1999, Albert-László Barabási and Réka Albert developed the Albert-Barabási Model which generates small world, scale free graphs by a process of preferential attachment \parencite{barabasi1999emergence}. The model works as such: define two parameters $N$ (The number nodes the graph at the end of the process will have) and $e$ (the number of edges added for each new node) take a seed graph, add one new node to the graph, using preferential attachment add $e$ edges from the new node to nodes on the seed graph, continue till there are $N$ nodes on the graph.\\
-        Preferential attachment describes a 'rich get richer effect' that is the higher the degree of the node the more likely it will gain a new edge, the following formula describes it $\prod (k_{i}) = \frac{k_{i}}{\sum_{\forall j} {k_{j}}}$ where $k_{i}$ is the degree of node $i$. 
+        In 1999, Albert-László Barabási and Réka Albert developed the Albert-Barabási Model which generates small world, scale free graphs by a process of preferential attachment \parencite{barabasi1999emergence}. The model works as such: define two parameters $N$ (The number nodes the graph at the end of the process will have) and $e$ (the number of edges added for each new node) take a seed graph (A graph we start with originally that the model will grow from), add one new node to the graph, using preferential attachment add $e$ edges from the new node to nodes on the seed graph (With no loops or self loops), continue until there are $N$ nodes on the graph.\\
+        'Preferential attachment' describes a 'rich get richer effect' that means the higher the degree of the node the more likely it will gain a new edge. This is described by the following formula $\prod (k_{i}) = \frac{k_{i}}{\sum_{\forall j} {k_{j}}}$ where $k_{i}$ is the degree of node $i$. 
         \subsection{SIRD Model}
-        SIRD stands for Susceptible, Infected, Recovered and Dead which is the states each individual in the model can take. There are many was of implementing a model like this such as a virus having specific infection 'power' and mortality rates or having the infection be determined entirely by the individual.
-    \section{Mathematical Methods}
+        SIRD stands for Susceptible, Infected, Recovered and Dead which are the four states each individual in the model can take. There are many ways of implementing a model like this such as a virus having specific infection 'power' and mortality rates or having the infection be determined entirely by the individual. SIRD models vary massively in the assumptions they make, we will be assuming a discrete SIRD model with a constant infection rate, constant recovery rate and total immunity after a node has been infected once.    \section{Mathematical Methods}
         \subsection{Graph Theory}
             \subsubsection{Degrees}
             We will provide some key definitions and results from Graph Theory which will be useful for the further topics \parencite{barabasi2013network}.\\
-            Degree: The number of edges attached to a node (Commonly written as $k_i$ denoting the degree $k$ of node $i$). We can also calculate the number of edges $L$ of a graph from the sum of the degrees that is: 
+            Degree: The number of edges attached to a node (Commonly written as $k_i$ denoting the degree $k$ of node $i$).\\ 
+            We can calculate the number of edges $L$ of a graph from the sum of the degrees that is: 
             \begin{align*}
                 L=\frac{1}{2}\sum_{i=1}^{N} k_{i}
             \end{align*}
@@ -54,8 +55,8 @@
             \begin{align*}
                 \langle k \rangle = \frac{1}{N} \sum_{i=1}^{N}k_{i} = \frac{2L}{N}
             \end{align*}
-            ($\langle k \rangle$ and $\overline{k}$ will be used interchangeably, but the first will be more common)
-            Degree distribution: The probability distribution of the degrees of graph will be very relevant in the later sections, so we will define it here as $p_k$ which is the probability a node has degree $k$.
+            ($\langle k \rangle$ and $\overline{k}$ will be used interchangeably, but $\langle k \rangle$ will be more common)
+            Degree distribution: The probability distribution of the degrees of the graph will be very relevant in the later sections, so we will define it here as $p_k$ which is the probability a node has degree $k$.
             \begin{align*}
                 &\text{As $p_k$ is a probability we must normalize it with the following condition:}\\
                 &\sum_{k=1}^{\infty}p_{k} = 1\\
@@ -71,31 +72,31 @@
             \begin{align*}
                 L_{\text{max}} =  \frac{N(N-1)}{2}\\
             \end{align*}
-            We can see this by the most edges a simple graph can have is if it is a complete graph and complete graphs have $\frac{N(N-1)}{2}$ therefore a non-complete graph must have fewer edges\\
+            We can see this by the most edges a simple graph can have is if it is a complete graph and complete graphs have $\frac{N(N-1)}{2}$ therefore a non-complete graph must have fewer edges.\\
             Most real networks are sparse that is $L\ll L_{\text{max}}$\\
         \subsubsection{Paths}
         A path is an ordered list of nodes describing a walk from each node to another. A Path length is the number of nodes contained in a path. The shortest path is the path between node $i$ and node $j$ with the smallest possible path length and is usually denoted as $d_{i,j}$ or just $d$. The diameter of a graph is defined as the longest shortest path of a graph and is denoted as $d_{\text{max}}$.\\
-        Average shortest path length is defined as the average of the shortest paths between all pairs of nodes and is denoted as $\langle d \rangle$ and is calculated as such:
+        The average shortest path length is defined as the average of the shortest paths between all pairs of nodes and is denoted as $\langle d \rangle$ and is calculated as such:
         \begin{align*}
             &\langle d \rangle = \frac{1}{N(N-1)}\sum_{i,j=1,N | i\neq j}d_{i,j}
         \end{align*}
 
         \subsubsection{Clustering Coefficient}
-            The clustering coefficient captures the degree to which the neighbors of a given node link to each other \parencite{barabasi2013network}. For a node $i$ with degree $k_{i}$ the local clustering coefficient is defined as \parencite{Watts1998}.
+            The clustering coefficient captures the degree to which the neighbours of a given node link to each other \parencite{barabasi2013network}; For a node $i$ with degree $k_{i}$ the local clustering coefficient is defined as \parencite{Watts1998}.
             \begin{align*}
                 &C_{i} = \frac{2L_{i}}{k_{i}(k_{i}-1)} 
-                &\text{Where $L_{i}$ is the number of links between the $k_i$ neighbors of node $i$. $C_{i}$ is between $0$ and $1$}
+                &\text{Where $L_{i}$ is the number of links between the $k_i$ neighbours of node $i$. $C_{i}$ is between $0$ and $1$}
             \end{align*}
-            $C_i$ represents the proportion that the neighbors of node $i$ are connected\\
+            $C_i$ represents the proportion that the neighbours of node $i$ are connected\\
             We can define the average clustering coefficient of a graph as such:
             \begin{align*}
                 \langle C \rangle = \frac{1}{N}\sum_{i=1}^{N}C_{i}
             \end{align*}
-            $\langle C \rangle$ can also be interpreted as the probability two neighbors of a randomly selected node link to each other
+            $\langle C \rangle$ can also be interpreted as the probability two neighbours of a randomly selected node link to each other
 
 
         \subsection{Random Graphs}
-        For a random graph $G(N,p)$ we will define some key behaviors and values.
+        For a random graph $G(N,p)$ we will define some key behaviours and values.
             \subsubsection{Number of Edges}
             We can begin by defining the probability of a random graph having exactly $L$ edges:
             Firstly there are $\frac{N(N-1)}{2}$ pairs of nodes to which we can draw edges between, then the probability that $L$ of the attempts to connect the $\frac{N(N-1)}{2}$ pairs of nodes have resulted in an edge is $p^L$, then the probability that the remaining  $\frac{N(N-1)}{2} -L$ attempts have not resulted in an edge is $(1-p)^{\frac{N(N-1)}{2} -L}$ and finally there is $\binom{\frac{N(N-1)}{2}}{L}$ different ways to draw $L$ edges between $\frac{N(N-1)}{2}$ pairs of nodes. Taking the product of these factors we gain:
@@ -193,7 +194,7 @@
             &\text{Where $k_{\text{max}}$ is the largest hub in the network }\\
             &\text{A proof of the above integral will be in the APPENDIX Proofs section Scale Free number 2}
         \end{align*}
-        Let us allow $k_{\text{min}}$ to stay fixed and to investigate the behavior of $\langle k^n \rangle$ we will take the limit as $k_\text{max} \to \infty$ doing, so we see that the values of $\langle k^n \rangle$ are dictated by the $n-\gamma -1$ term. If $n-\gamma -1 \leqslant 0$ then $k^{n-\gamma -1}_{\text{max}}$ will tend to $0$ as $k_\text{max}$ increases, therefore all moments that satisfy $n\leqslant \gamma-1$ are finite. Conversely, if  $n-\gamma -1 > 0$  then $\langle k^n \rangle$ goes to infinity as $k_\text{max} \to \infty$ so for all moments larger than $\gamma-1$ diverge.\\ 
+        Let us allow $k_{\text{min}}$ to stay fixed and to investigate the behaviour of $\langle k^n \rangle$ we will take the limit as $k_\text{max} \to \infty$ doing, so we see that the values of $\langle k^n \rangle$ are dictated by the $n-\gamma -1$ term. If $n-\gamma -1 \leqslant 0$ then $k^{n-\gamma -1}_{\text{max}}$ will tend to $0$ as $k_\text{max}$ increases, therefore all moments that satisfy $n\leqslant \gamma-1$ are finite. Conversely, if  $n-\gamma -1 > 0$  then $\langle k^n \rangle$ goes to infinity as $k_\text{max} \to \infty$ so for all moments larger than $\gamma-1$ diverge.\\ 
         For most scale-free graphs $2<\gamma<3$ and thus as $N\to \infty$ the first moment $\langle k \rangle$ is finite but $\langle k^2 \rangle$ and $\langle k^3 \rangle$ will go to infinity. Thus, we can see wit the divergence of $\langle k^2 \rangle$ the variance (and standard deviation) can be arbitrarily large, if we picked a node at random we know very little about its degree. "Hence networks with $\gamma<3$ do not have a meaningful internal scale but are scale free" \parencite{barabasi2013network}. As an example to concrete this in his 1993 paper Barabási found the degree $k$ of a randomly chosen node int the WWW was $4.6 \pm 1546$ which shows that despite $\langle k^2 \rangle$ only diverges in the $N \to \infty$ limit that the standard deviation $\sigma \gg  \langle k \rangle$.\\
         The average shortest path length $\langle d \rangle$ depends on the network size $N$ and the degree exponent $\gamma$ described in the following formula \parencite{bollobas2004diameter}\parencite{cohen2003scale}:\\
         \begin{align*}
@@ -205,7 +206,7 @@
                 \ln N  &\gamma>3
             \end{cases}
         \end{align*}
-        Let us discuss the implication of the behaviors described above \parencite{barabasi2013network}:\\
+        Let us discuss the implication of the behaviours described above \parencite{barabasi2013network}:\\
         For $\gamma$ the degree of the largest hub $k_{\text{max}}$ grows linearly with network size $N$. Which forces the network into a 'hub and spoke' configuration where all the nodes are close together because they all connect to a central hub. The average shortest path length does not depend on $N$. This is known as an Anomalous regime\\
         For $2<\gamma<3$ the average shortest path length grows much slower than the $\ln N$ derived for random networks, this is referred to an ultra-small world regime \parencite{cohen2003scale}. The hubs massively reduce the average path length.\\
         For $\gamma =3$ Here the 2nd moment of the degree distribution now longer diverges, we regain the $\ln N$ dependence from the random networks but the $\ln\ln N$ shrinks the average path length under that of a similarly sized random networks.\\
@@ -225,6 +226,8 @@
     \section{Evaluation}
     TODO
     \section{APPENDIX}
+        \subsection{Problems With Milgram's Study}
+        TODO
         \subsection{Proofs}
             \subsubsection{Graph Theory}
             TODO
@@ -289,10 +292,10 @@
             \caption{The Barabasi-Albert Graph Function}
             \label{fig:Barabasi-Albert function1}
         \end{figure}
-        This is the Barabási-Albert function from Networkx. It takes 4 parameters, $n$,$m$, \verb|seed|, and \verb|initial_graph|. $n$ and $m$ are simply the same as explained above, \verb|seed| is for the random functions later so we can control the behavior,  \verb|initial_graph| is where we input our 'seed graph' for the model to build on (If no graph is provided then it uses a Star graph with $(m+1)$ nodes). The function then creates a list of nodes: \verb|repeated_nodes| where each node is repeated equal to its degree (A node with degree $5$ is repeated 5 times) then takes random samples from this list to create the preferential attachment then finally returns the Barabási-Albert graph. 
+        This is the Barabási-Albert function from Networkx. It takes 4 parameters, $n$,$m$, \verb|seed|, and \verb|initial_graph|. $n$ and $m$ are simply the same as explained above, \verb|seed| is for the random functions later so we can control the behaviour,  \verb|initial_graph| is where we input our 'seed graph' for the model to build on (If no graph is provided then it uses a Star graph with $(m+1)$ nodes). The function then creates a list of nodes: \verb|repeated_nodes| where each node is repeated equal to its degree (A node with degree $5$ is repeated 5 times) then takes random samples from this list to create the preferential attachment then finally returns the Barabási-Albert graph. 
         
         \subsection{Gaining Information From Graphs}
-        Methods in networkx allow us to extract key information from the graph objects such as \verb|G.number_of_edges| which returns the number of edges that are contained in graph $G$ or \verb|networkx.all_neighbors(G,n)| which returns all the neighbors of node $n$ in graph $G$.
+        Methods in networkx allow us to extract key information from the graph objects such as \verb|G.number_of_edges| which returns the number of edges that are contained in graph $G$ or \verb|networkx.all_neighbours(G,n)| which returns all the neighbours of node $n$ in graph $G$.
             
     
     
