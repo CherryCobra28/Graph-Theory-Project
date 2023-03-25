@@ -218,27 +218,36 @@
             (Note to expand on later large scale free graphs where $\gamma < 2$ do not exist as simple graphs, this may allow our assumption of $\gamma >1$)
         \subsection{Albert-Barabasi model}
             \subsubsection{Description of the model}
-            TODO
+            We will describe the Albert-Barabasi model inn further detail here including some important equations. First, let us define some key values. Let $N$ be the number of desired nodes for the final graph to have, let $m$ be the number of edges added each iteration of the model and let $G$ be the initial graph the model will grow from. The Number of nodes in $G$ will be denoted as $G_N$ and this will be strictly less than $N$ and the number of edges in $G$ will be denoted as $G_E$(we will call $G$ the 'seed graph' but note this is not widely accepted terminology). Also $m$ must be chosen such that $m < G_N$. First we take $G$ and add one unconncected node, then we assign each node in $G$ a probability using the formula below:
+            \begin{align*}
+                &P(k_i)=\frac{k_i}{\sum_{\forall j}k_j}\\
+                &\text{Where $k_h$ is the degree of node $h$}
+            \end{align*}
+            Using these probabilities we add $m$ edges from our new unconnected node to $m$ unique nodes. We continue this $N-G_N$ times thus we will add $m(NG_{N})$ edges
             \subsubsection{Degree Distribution}
             The Albert-Barabási model produces scale free graphs. The degree distribution of it is: $p_{k} \sim k^{-3}$ \parencite{barabasi2013network}.
             \subsubsection{Diameter And Average Shortest Path Length}
             From ($3.4.3$) and because $\gamma = 3$ our diameter follows for $m>1$ and large $N$:
             \begin{align*}
-                &\langle d \rangle \sim \frac{\log N}{\log \log N}
+                &\langle d \rangle \sim \frac{\ln N}{\ln \ln N}
             \end{align*}
             The average shortest path length scales similarly.
             \subsubsection{Clustering Coefficient}
-            The average clustering coefficient of the Albert-Barabási model follows \parencite{barabasi2013network}:
+            The average clustering coefficient of the Albert-Barabási model follows \parencite{barabasi2013network}\parencite{klemm2002growing}:
             \begin{align*}
                 &\langle C \rangle \sim \frac{(\log N)^2}{N}
             \end{align*}
         \subsection{SIRD Model}
-        TODO
-    \section{Analysis}
-        \subsection{Theoretical difference}
-        TODO
-        \subsection{Physical difference}
-        TODO
+        We will briefly describe what SIRD model we will be using and the parameters it takes. We will be using a discrete SIRD model assuming constant infection rate ($p_i$) and recovery rate ($p_r$). It will be discrete as we are looking a nodes being infected so the numbers of infected or recovered will always be positive integers. A constant infection rate means no matter the state of the model the probability of node $i$ infecting its neighbour $j$ will always be $p_i$. Our recovery rate works as follows after some defined number of time $t$ the node has been infected it has a boolean decision, recover with probability $p_r$ or die with probability $1-p_r$. If the node recovers they are permanently immune to the infection and can not spread the infection. The algorithm works as follows: given a graph $G$ we randomly select $1$ node to be initially infected, then the infected node will attempt to infect its direct neighbours with probability ($p_i$) if successful those nodes will be become infected then we check if any node has been infected for $t$ days and if they have been they will attempt to recover or die. This defines a single iteration of the algorithm, note that the algorithm only ends under two conditions all the nodes have died or there are no infected nodes left.
+        \subsection{Analysis}
+            For our analysis we will now compare the properties of Random graphs and the properties of Barabási-Albert graphs. Firstly from a theorectical view using the equations and formulas we have dfeined prior. Then, we will look at data from random graphs and barabasi-albert graphs cretaed by a computer to see if our theorectical formulas match to real graphs. Finally, we will use our SIRD model to see if the differnec in graph structure that we have shown so far has a significant effect on the output of the SIRD model. All the random graphs and barabasi-albert graphs we look at will have the same number of nodes and edges so the only difference between them is the underlying structure of their creation.
+
+            \subsubsection{Theoretical difference}
+            TODO
+            \subsubsection{Parameters Of Our Analysis}
+            TODO
+            \subsubsection{Physical difference}
+            TODO
         
         
     \section{Evaluation}

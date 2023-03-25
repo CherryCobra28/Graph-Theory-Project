@@ -30,20 +30,21 @@
 \contentsline {subsubsection}{\numberline {3.5.3}Diameter And Average Shortest Path Length}{14}{}%
 \contentsline {subsubsection}{\numberline {3.5.4}Clustering Coefficient}{14}{}%
 \contentsline {subsection}{\numberline {3.6}SIRD Model}{14}{}%
-\contentsline {section}{\numberline {4}Analysis}{14}{}%
-\contentsline {subsection}{\numberline {4.1}Theoretical difference}{14}{}%
-\contentsline {subsection}{\numberline {4.2}Physical difference}{14}{}%
-\contentsline {section}{\numberline {5}Evaluation}{14}{}%
-\contentsline {section}{\numberline {6}APPENDIX}{15}{}%
-\contentsline {subsection}{\numberline {6.1}Problems With Milgram's Study}{15}{}%
-\contentsline {subsection}{\numberline {6.2}Proofs}{15}{}%
-\contentsline {subsubsection}{\numberline {6.2.1}Graph Theory}{15}{}%
-\contentsline {subsubsection}{\numberline {6.2.2}Random Graphs}{15}{}%
-\contentsline {subsubsection}{\numberline {6.2.3}Small World Graphs}{15}{}%
-\contentsline {subsubsection}{\numberline {6.2.4}Scale-Free Graphs}{16}{}%
-\contentsline {subsection}{\numberline {6.3}Python}{17}{}%
-\contentsline {subsection}{\numberline {6.4}Networkx}{17}{}%
-\contentsline {subsection}{\numberline {6.5}Creating Graphs}{18}{}%
-\contentsline {subsection}{\numberline {6.6}Creating Random Graphs}{18}{}%
-\contentsline {subsection}{\numberline {6.7}Creating Barabasi-Albert Graphs}{19}{}%
-\contentsline {subsection}{\numberline {6.8}Gaining Information From Graphs}{20}{}%
+\contentsline {subsection}{\numberline {3.7}Analysis}{15}{}%
+\contentsline {subsubsection}{\numberline {3.7.1}Theoretical difference}{15}{}%
+\contentsline {subsubsection}{\numberline {3.7.2}Parameters Of Our Analysis}{15}{}%
+\contentsline {subsubsection}{\numberline {3.7.3}Physical difference}{15}{}%
+\contentsline {section}{\numberline {4}Evaluation}{15}{}%
+\contentsline {section}{\numberline {5}APPENDIX}{16}{}%
+\contentsline {subsection}{\numberline {5.1}Problems With Milgram's Study}{16}{}%
+\contentsline {subsection}{\numberline {5.2}Proofs}{16}{}%
+\contentsline {subsubsection}{\numberline {5.2.1}Graph Theory}{16}{}%
+\contentsline {subsubsection}{\numberline {5.2.2}Random Graphs}{16}{}%
+\contentsline {subsubsection}{\numberline {5.2.3}Small World Graphs}{16}{}%
+\contentsline {subsubsection}{\numberline {5.2.4}Scale-Free Graphs}{17}{}%
+\contentsline {subsection}{\numberline {5.3}Python}{18}{}%
+\contentsline {subsection}{\numberline {5.4}Networkx}{18}{}%
+\contentsline {subsection}{\numberline {5.5}Creating Graphs}{19}{}%
+\contentsline {subsection}{\numberline {5.6}Creating Random Graphs}{19}{}%
+\contentsline {subsection}{\numberline {5.7}Creating Barabasi-Albert Graphs}{20}{}%
+\contentsline {subsection}{\numberline {5.8}Gaining Information From Graphs}{21}{}%

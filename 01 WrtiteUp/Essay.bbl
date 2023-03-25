@@ -326,6 +326,44 @@
       \field{pages}{11\bibrangedash 15}
       \range{pages}{5}
     \endentry
+    \entry{klemm2002growing}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=5346a275e0b98507f28a89790171ce2d}{%
+           family={Klemm},
+           familyi={K\bibinitperiod},
+           given={Konstantin},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a484cd1a5ee4b1795db75b5213591339}{%
+           family={Eguiluz},
+           familyi={E\bibinitperiod},
+           given={Victor\bibnamedelima M},
+           giveni={V\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {APS}%
+      }
+      \strng{namehash}{4e8eecd3d53b4e4d11a60b83613511ff}
+      \strng{fullhash}{4e8eecd3d53b4e4d11a60b83613511ff}
+      \strng{bibnamehash}{4e8eecd3d53b4e4d11a60b83613511ff}
+      \strng{authorbibnamehash}{4e8eecd3d53b4e4d11a60b83613511ff}
+      \strng{authornamehash}{4e8eecd3d53b4e4d11a60b83613511ff}
+      \strng{authorfullhash}{4e8eecd3d53b4e4d11a60b83613511ff}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review E}
+      \field{number}{5}
+      \field{title}{Growing scale-free networks with small-world behavior}
+      \field{volume}{65}
+      \field{year}{2002}
+      \field{pages}{057102}
+      \range{pages}{1}
+    \endentry
     \entry{milgram1967small}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=647e77469dede3f1d7ed99198d6e59e9}{%
