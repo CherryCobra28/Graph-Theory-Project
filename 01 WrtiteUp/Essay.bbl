@@ -509,6 +509,33 @@
       \verb https://doi.org/10.1038/30918
       \endverb
     \endentry
+    \entry{yang2013networks}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=3421cd55be1f59dc6044dcf9b10a48fb}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Song},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{3421cd55be1f59dc6044dcf9b10a48fb}
+      \strng{fullhash}{3421cd55be1f59dc6044dcf9b10a48fb}
+      \strng{bibnamehash}{3421cd55be1f59dc6044dcf9b10a48fb}
+      \strng{authorbibnamehash}{3421cd55be1f59dc6044dcf9b10a48fb}
+      \strng{authornamehash}{3421cd55be1f59dc6044dcf9b10a48fb}
+      \strng{authorfullhash}{3421cd55be1f59dc6044dcf9b10a48fb}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Networks: An Introduction by MEJ Newman: Oxford, UK: Oxford University Press. 720 pp., \$85.00.}
+      \field{year}{2013}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

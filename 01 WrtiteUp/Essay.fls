@@ -488,9 +488,12 @@ INPUT .\images\BARABASI_FUNC.png
 INPUT .\images\BARABASI_FUNC.png
 INPUT .\images\BARABASI_FUNC.png
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmcsc10.tfm
+INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcti1000.tfm
 INPUT Essay.aux
 INPUT Essay.run.xml
 OUTPUT Essay.run.xml
+INPUT C:\Users\thoma\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcti1000.pk
+INPUT C:\Users\thoma\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcti1000.pk
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb

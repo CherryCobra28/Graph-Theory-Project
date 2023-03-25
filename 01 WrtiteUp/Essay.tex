@@ -85,7 +85,7 @@
         \subsubsection{Clustering Coefficient}
             The clustering coefficient captures the degree to which the neighbours of a given node link to each other \parencite{barabasi2013network}; For a node $i$ with degree $k_{i}$ the local clustering coefficient is defined as \parencite{Watts1998}.
             \begin{align*}
-                &C_{i} = \frac{2L_{i}}{k_{i}(k_{i}-1)} 
+                &C_{i} = \frac{2L_{i}}{k_{i}(k_{i}-1)}\\
                 &\text{Where $L_{i}$ is the number of links between the $k_i$ neighbours of node $i$. $C_{i}$ is between $0$ and $1$}
             \end{align*}
             $C_i$ represents the proportion that the neighbours of node $i$ are connected\\
@@ -100,36 +100,36 @@
         For a random graph $G(N,p)$ we will define some key behaviours and values.
             \subsubsection{Number of Edges}
             We can begin by defining the probability of a random graph having exactly $L$ edges:
-            Firstly there are $\frac{N(N-1)}{2}$ pairs of nodes to which we can draw edges between, then the probability that $L$ of the attempts to connect the $\frac{N(N-1)}{2}$ pairs of nodes have resulted in an edge is $p^L$, then the probability that the remaining  $\frac{N(N-1)}{2} -L$ attempts have not resulted in an edge is $(1-p)^{\frac{N(N-1)}{2} -L}$ and finally there is $\binom{\frac{N(N-1)}{2}}{L}$ different ways to draw $L$ edges between $\frac{N(N-1)}{2}$ pairs of nodes. Taking the product of these factors we gain:
+            Firstly, there are $\frac{N(N-1)}{2}$ pairs of nodes to which we can draw edges between, then the probability that $L$ of the attempts to connect the $\frac{N(N-1)}{2}$ pairs of nodes have resulted in an edge is $p^L$. Then, the probability that the remaining  $\frac{N(N-1)}{2} -L$ attempts have not resulted in an edge is $(1-p)^{\frac{N(N-1)}{2} -L}$. Finally there is $\binom{\frac{N(N-1)}{2}}{L}$ different ways to draw $L$ edges between $\frac{N(N-1)}{2}$ pairs of nodes. Taking the product of these factors we gain:
             \begin{align*}
                 p_{L} = \binom{\frac{N(N-1)}{2}}{L}p^L(1-p)^{\frac{N(N-1)}{2} -L}
             \end{align*}
-            Which is clearly a binomial distribution therefore the mean number of edges $\langle L \rangle$ is given by $np$ which for this example is equal to $p\frac{N(N-1)}{2}$. We also obtain the average degree of the random graph:
+            Which is clearly a binomial distribution, therefore the mean number of edges $\langle L \rangle$ is given by $np$ which for this example is equal to $p\frac{N(N-1)}{2}$. We also obtain the average degree of the random graph:
             \begin{align*}
                 \langle k \rangle = \frac{2 \langle L \rangle}{N} = p(N-1)
             \end{align*}
             Note that $N-1$ is the maximum degree a node can have in this graph.
             \subsubsection{Degree distribution}
-            Similarly to the case of edges above we can construct a binomial distribution for the degrees of the random graph. The probability a randomly chosen node will have degree $k$ will be again a product of three terms defined as follows: The probability the node has $k$ edges is $p^k$. The probability the remaining $N-1-k$ edges are missing is $(1-p)^{N-1-k}$. And the number of ways a node can have degree $k$ from degree $N-1$ is $\binom{N-1}{k}$ thus.
+            Similarly to the case of edges above, we can construct a binomial distribution for the degrees of the random graph. The probability a randomly chosen node will have degree $k$ will be a product of three terms defined as follows: The probability the node has $k$ edges is $p^k$, the probability the remaining $N-1-k$ edges are missing is $(1-p)^{N-1-k}$. The number of ways a node can have degree $k$ from degree $N-1$ is $\binom{N-1}{k}$ thus.
             \begin{align*}
                 p_{k} = \binom{N-1}{k}p^k(1-p)^{N-1-k}
             \end{align*}  
-            Again using the properties of the binomial distribution we see that the average degree is $p(N-1)$ and the variance is $p(N-1)(1-p)$
+            Using the properties of the binomial distribution we see that the average degree is $p(N-1)$ and the variance is $p(N-1)(1-p)$
             \subsubsection{The Poisson Approximation}
             Most real networks are sparse that is $\langle k \rangle \ll N$ in these cases the degree distribution is well approximated with:
             \begin{align*}
                 p_{k} = e^{-\langle k \rangle}\frac{{\langle k \rangle}^k}{k!}
             \end{align*}
-            Using this approximation can be very useful for a number of reasons, firstly the variance and other key characteristics only depend on a single value that being $\langle k \rangle$. It also suggests an interesting detail, because it does not rely on $N$, the degree distributions of graphs of varying sizes, but the small average degree are in fact identical to each other. It also makes further calculations easier however it must be firmly stated that the approximation only holds for sparse graphs and typically small graphs (those where $N$ is less than 1000) are not sparse enough for this approximation to hold. We will use this approximation later but the requirements for it to hold must be remembered.
+            Using this approximation can be very useful for a number of reasons, firstly the variance and other key characteristics only depend on a single value, that being $\langle k \rangle$. It also suggests an interesting detail, because it does not rely on $N$, the degree distributions of graphs of varying sizes, but the small average degree are in fact identical to each other. It also makes further calculations easier. However, it must be firmly stated that the approximation only holds for sparse graphs and typically small graphs (those where $N$ is less than 1000) are not sparse enough for this approximation to hold. This approximation will be used later but the requirements for it to hold must be remembered.
         \subsection{Small World Graphs}
-            \subsubsection{Diameter}
+            \subsubsection{Diameter And Average Shortest Path}
             Considering a random network with an average degree $\langle k \rangle$, a node will have on average \parencite{barabasi2013network}:\\
             $\langle k \rangle$ nodes at distance 1 ($d=1$)\\
             $\langle k \rangle^2$ nodes at distance 2 ($d=2$)\\
             $\langle k \rangle^3$ nodes at distance 3 ($d=3$)\\
             ...\\
             $\langle k \rangle^d$ nodes at distance d ($d$)\\
-            Precisely the expected number of nodes up to distance $d$ from our starting node is $N(d) = 1+\langle k \rangle+\langle k \rangle^2+\langle k \rangle^3+...+\langle k \rangle^d$ which is equal to $\frac{\langle k \rangle^{d+1}-1}{\langle k \rangle -1}$. We have to set an upper bound on $N(d)$ as obviously cannot be greater than $N$, so we set $N(d_{\text{max}}) \approx N$. Assuming $\langle k \rangle \gg 1$ we can disregard the $(-1)$ term in the numerator and denominator to obtain: $\langle k \rangle^{d_{\text{max}}} \approx N$ therefore the diameter of the network follows $d_{\text{max}} \approx \frac{\log{N}}{\log{\langle k \rangle}}$. Here we have the definition of the small world effect, the previous equation describes the scaling of the diameter however the average shortest path length $\langle d \rangle$ is better approximated by the previous equation as the diameter is easily increased by rare extremely long shortest path lengths. Generally $\log{N} \ll N$ which suggest the average shortest path length is orders pf magnitude smaller than the size of the network which gives the definition of small: $\langle d \rangle \propto \log{N}$, with the $\frac{1}{\langle k \rangle}$ term correcting for denser networks having a smaller distance between nodes.
+            Precisely the expected number of nodes up to distance $d$ from our starting node is $N(d) = 1+\langle k \rangle+\langle k \rangle^2+\langle k \rangle^3+...+\langle k \rangle^d$ which is equal to $\frac{\langle k \rangle^{d+1}-1}{\langle k \rangle -1}$. We have to set an upper bound on $N(d)$ as cannot be greater than $N$, so we set $N(d_{\text{max}}) \approx N$. Assuming $\langle k \rangle \gg 1$ we can disregard the $(-1)$ term in the numerator and denominator to obtain: $\langle k \rangle^{d_{\text{max}}} \approx N$ therefore the diameter of the network follows $d_{\text{max}} \approx \frac{\log{N}}{\log{\langle k \rangle}}$. Here we have the definition of the small world effect, the previous equation describes the scaling of the diameter however the average shortest path length $\langle d \rangle$ is better approximated by the previous equation as the diameter is easily increased by rare extremely long shortest path lengths. Generally $\log{N} \ll N$ which suggest the average shortest path length is orders pf magnitude smaller than the size of the network which gives the definition of small: $\langle d \rangle \propto \log{N}$, with the $\frac{1}{\langle k \rangle}$ term correcting for denser networks having a smaller distance between nodes.
             \subsubsection{Clustering Coefficient}
             We define $C_i$ as the local clustering coefficient of node $i$. To calculate the local clustering coefficient we need the exppected number of edges $E_i$ between the nodes $k_i$ neighbours. In a random graph the probability that two of $i$'sneighbours link to each other is $p$.\\ There are $\frac{k_{i}(k_{i}-1)}{2}$ possible edges between $k_i$ neighbours of node $i$, the expected value of $E_i$ is:
             \begin{align*}
@@ -137,7 +137,7 @@
                 &\text{Therefore the local clustering coefficient of a random network is}\\
                 &C_i = \frac{2\langle E_i \rangle}{k_{i}(k_{i}-1)} = p = \frac{\langle k \rangle}{N}
             \end{align*} 
-            From we glean this, for a fixed average degree, the larger the network the smaller a nodes clustering is and the local clustering coefficient of a node is independent of the nodes degree.
+            From this we glean, for a fixed average degree, the larger the network the smaller a nodes clustering is and the local clustering coefficient of a node is independent of the nodes degree.
         \subsection{Scale-Free Graphs}
             \subsubsection{Degree Distribution}
             Scale-Free Graphs follow a power law, that is $p_{k} \sim k^{-\gamma}$ where $p_{k}$ is the probability of having degree $k$. We will now show the discrete formalism of the power law \parencite{barabasi2013network}.
@@ -151,7 +151,7 @@
                     &C\sum_{k=1}^{\infty}k^{-\gamma} = 1\\
                     &\text{Thus}\\
                     &C = \frac{1}{\sum_{k=1}^{\infty}k^{-\gamma}} = \frac{1}{\zeta(\gamma)}\\
-                    &\text{Where $\zeta(s)$ is the Riemann Zeta Function}\\
+                    &\text{Where $\zeta(s)$ is the Riemann Zeta Function, page 7 of Network Science}\\
                     &\therefore p_{k}=\frac{k^{-\gamma}}{\zeta(\gamma)} &(4.1)
                 \end{align*}
                 Therefore the average degree of a scale-free graph is:
@@ -159,7 +159,7 @@
                     &\overline{k} = \sum_{k=1}^{\infty}kp_{k}\\
                     &\therefore \overline{k} = \sum_{k=1}^{\infty}k\frac{k^{-\gamma}}{\zeta(\gamma)} &(4.2)\\
                 \end{align*}
-                We can also define a Continuum formalism for the power law distribution because for analytic calculations it is useful to let the degree k be any positive real number as follows \parencite{barabasi2013network}:
+                We can also define a Continuum formalism for the power law distribution because for analytic calculations it is useful to let the degree k be any positive real number as follows \parencite{barabasi2013network}. We can do this as 'the power law is a slowly varying function of $k$ for large $k$' \parencite{yang2013networks}:
                 \begin{align*}
                     &\text{Assuming: } k\in \mathbb{R}^{+}\\
                     &p(k) = Ck^{-\gamma}\\
@@ -217,7 +217,21 @@
             For $\gamma > 3$ At this point $\langle k^2 \rangle$ is finite and the average shortest path length follows the small world effect from random graphs. Hubs at this point are not sufficiently large to have an impact on the average shortest path length.
             (Note to expand on later large scale free graphs where $\gamma < 2$ do not exist as simple graphs, this may allow our assumption of $\gamma >1$)
         \subsection{Albert-Barabasi model}
-        TODO
+            \subsubsection{Description of the model}
+            TODO
+            \subsubsection{Degree Distribution}
+            The Albert-Barabási model produces scale free graphs. The degree distribution of it is: $p_{k} \sim k^{-3}$ \parencite{barabasi2013network}.
+            \subsubsection{Diameter And Average Shortest Path Length}
+            From ($3.4.3$) and because $\gamma = 3$ our diameter follows for $m>1$ and large $N$:
+            \begin{align*}
+                &\langle d \rangle \sim \frac{\log N}{\log \log N}
+            \end{align*}
+            The average shortest path length scales similarly.
+            \subsubsection{Clustering Coefficient}
+            The average clustering coefficient of the Albert-Barabási model follows \parencite{barabasi2013network}:
+            \begin{align*}
+                &\langle C \rangle \sim \frac{(\log N)^2}{N}
+            \end{align*}
         \subsection{SIRD Model}
         TODO
     \section{Analysis}
