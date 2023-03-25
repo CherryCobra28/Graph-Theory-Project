@@ -21,8 +21,11 @@
 \contentsline {subsubsection}{\numberline {3.3.1}Diameter}{9}{}%
 \contentsline {subsubsection}{\numberline {3.3.2}Clustering Coefficient}{10}{}%
 \contentsline {subsection}{\numberline {3.4}Scale-Free Graphs}{10}{}%
+\contentsline {subsubsection}{\numberline {3.4.1}Degree Distribution}{10}{}%
+\contentsline {subsubsection}{\numberline {3.4.2}Moments of the Distribution}{12}{}%
+\contentsline {subsubsection}{\numberline {3.4.3}Average Shortest Path Length}{13}{}%
 \contentsline {subsection}{\numberline {3.5}Albert-Barabasi model}{13}{}%
-\contentsline {subsection}{\numberline {3.6}SIRD Model}{13}{}%
+\contentsline {subsection}{\numberline {3.6}SIRD Model}{14}{}%
 \contentsline {section}{\numberline {4}Analysis}{14}{}%
 \contentsline {subsection}{\numberline {4.1}Theoretical difference}{14}{}%
 \contentsline {subsection}{\numberline {4.2}Physical difference}{14}{}%

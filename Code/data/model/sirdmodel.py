@@ -707,7 +707,8 @@ def main():
         result = model(*userpanel())
         output_window(result)
     else:
-        infection_data,origin_graph = model(nx.barabasi_albert_graph(100000,5),0.8,0.2)
+        t = nx.fast_gnp_random_graph(10,0.5)
+        infection_data,origin_graph = model(nx.barabasi_albert_graph(1000000,5,initial_graph = t),0.5,0.6)
         print(infection_data)
         print(origin_graph)
 

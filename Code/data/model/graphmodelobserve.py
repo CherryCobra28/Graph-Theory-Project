@@ -5,13 +5,17 @@ def dataloader():
     return pd.read_csv('graphmodel.csv')
 
 def infection_data_parser(Data: pd.DataFrame):
-    graphtypes = set(Data['Graph_Type'])
+    graphsizes = sorted(set(Data['n']))
     #print(list(Data.columns()))
-    data_sum = Data[list(Data.columns)].groupby(['Graph_Type','n']).describe()
+    for i in graphsizes:
+        data = Data[(Data['n'] == i)]
+        data.to_csv(f'graph_model_data\{i}_data.csv')
+    #data_sum = Data[list(Data.columns)].groupby(['Graph_Type','n']).describe()
+    
     #print(data_sum['Days_Taken'])
     #data_sum.to_excel('model_sum.xlsx')
-    print(data_sum)
-    data_sum.to_excel('graph_model_sum.xlsx')
+    #print(data_sum)
+    #data_sum.to_csv('model_sum.csv')
     #for graph in graphtypes:
     #    graph_data = Data[Data['Graph_Type'] == graph]
     #    #graph_sizes = sorted(set(data['n']))
