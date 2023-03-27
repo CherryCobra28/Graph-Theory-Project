@@ -21,7 +21,7 @@ SEED_GRAPHS = [nx.fast_gnp_random_graph(10,0.5) for _ in range(10)]
 def gather():
     bbara = list()
     rr = list()
-    n = [10000]#[30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,3000,4000,5000,10000]
+    n = [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500,3000,4000,5000,10000]
     for N in tqdm(n):
         print(N)
         TEST_GRAPHS = [nx.barabasi_albert_graph(N,5,initial_graph=k) for k in tqdm(SEED_GRAPHS)]

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  25 MAR 2023 18:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  27 MAR 2023 19:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -471,95 +471,95 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \tf@toc=\write4
 \openout4 = `Essay.toc'.
 
- [3] [4] [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 70--71
+ [3]
+Overfull \hbox (18.6121pt too wide) in paragraph at lines 22--28
+\OT1/cmr/m/n/10 https://www.dropbox.com/sh/ilb1vjvloguj33l/AAA2jwv5oi5SeFTtlSgjPn3Fa?dl=0 
+ []
+
+[4] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--78
+Underfull \hbox (badness 10000) in paragraph at lines 77--80
 
  []
 
 [7]
-Overfull \hbox (59.00902pt too wide) detected at line 90
+Overfull \hbox (59.00902pt too wide) detected at line 92
 []
  []
 
-[8] [9]
-Overfull \hbox (0.58298pt too wide) in paragraph at lines 134--135
-\OT1/cmr/m/n/10 nodes $\OML/cmm/m/it/10 k[]$ \OT1/cmr/m/n/10 neigh-bours. In a ran-dom graph the prob-a-bil-ity that two of $\OML/cmm/m/it/10 i$\OT1/cmr/m/n/10 'sneighbours
- []
-
-[10]
-Overfull \hbox (81.69528pt too wide) detected at line 172
+[8] [9] [10]
+Overfull \hbox (81.69528pt too wide) detected at line 175
 []
  []
 
 [11]
-Overfull \hbox (116.0331pt too wide) detected at line 181
+Overfull \hbox (116.0331pt too wide) detected at line 184
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 181--183
+Underfull \hbox (badness 10000) in paragraph at lines 184--186
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 187--189
+Underfull \hbox (badness 10000) in paragraph at lines 190--192
 
  []
 
 
-Overfull \hbox (57.75069pt too wide) detected at line 199
+Overfull \hbox (57.75069pt too wide) detected at line 202
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--202
+Underfull \hbox (badness 10000) in paragraph at lines 202--205
 
  []
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 203--204
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
 
  []
 
 [13]
-Overfull \hbox (20.9729pt too wide) in paragraph at lines 236--237
-\OT1/cmr/m/n/10 The av-er-age clus-ter-ing co-ef-fi-cient of the Albert-Barab^^Sasi model fol-lows ([]ibid.)([]Klemm
+Overfull \hbox (20.9729pt too wide) in paragraph at lines 239--240
+\OT1/cmr/m/n/10 The av-er-age clus-ter-ing co-ef-fi-cient of the Barab^^Sasi-Albert model fol-lows ([]ibid.)([]Klemm
  []
 
-[14] [15] [16] [17]
-<images/add_nodes_add_edges.png, id=76, 361.35pt x 272.51813pt>
+[14] [15] [16] [17] [18]
+<images/add_nodes_add_edges.png, id=80, 361.35pt x 272.51813pt>
 File: images/add_nodes_add_edges.png Graphic file (type png)
 <use images/add_nodes_add_edges.png>
-Package pdftex.def Info: images/add_nodes_add_edges.png  used on input line 301.
+Package pdftex.def Info: images/add_nodes_add_edges.png  used on input line 320.
 (pdftex.def)             Requested size: 227.62204pt x 171.66653pt.
- [18]
-<images/CreatingRandomGraphs.png, id=81, 321.45094pt x 178.41656pt>
+ [19]
+<images/CreatingRandomGraphs.png, id=86, 321.45094pt x 178.41656pt>
 File: images/CreatingRandomGraphs.png Graphic file (type png)
 <use images/CreatingRandomGraphs.png>
-Package pdftex.def Info: images/CreatingRandomGraphs.png  used on input line 309.
+Package pdftex.def Info: images/CreatingRandomGraphs.png  used on input line 328.
 (pdftex.def)             Requested size: 227.62204pt x 126.34177pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--312
+Underfull \hbox (badness 10000) in paragraph at lines 326--331
 
  []
 
-[19 <./images/add_nodes_add_edges.png>]
-<images/BARABASI_FUNC.png, id=88, 545.6385pt x 477.58424pt>
+[20 <./images/add_nodes_add_edges.png>]
+<images/BARABASI_FUNC.png, id=91, 545.6385pt x 477.58424pt>
 File: images/BARABASI_FUNC.png Graphic file (type png)
 <use images/BARABASI_FUNC.png>
-Package pdftex.def Info: images/BARABASI_FUNC.png  used on input line 318.
+Package pdftex.def Info: images/BARABASI_FUNC.png  used on input line 337.
 (pdftex.def)             Requested size: 341.43306pt x 298.85378pt.
- [20 <./images/CreatingRandomGraphs.png>] [21 <./images/BARABASI_FUNC.png>] [22] (Essay.aux)
+ [21 <./images/CreatingRandomGraphs.png>] [22 <./images/BARABASI_FUNC.png>] [23] (Essay.aux)
 Package logreq Info: Writing requests to 'Essay.run.xml'.
 \openout1 = `Essay.run.xml'.
 
@@ -573,9 +573,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  60i,16n,68p,1465b,1479s stack positions out of 10000i,1000n,20000p,200000b,80000s
  <C:\Users\thoma\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcti1000.pk><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Essay.pdf (22 pages, 426203 bytes).
+Output written on Essay.pdf (23 pages, 434247 bytes).
 PDF statistics:
- 200 PDF objects out of 1000 (max. 8388607)
+ 203 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

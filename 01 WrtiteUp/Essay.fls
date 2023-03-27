@@ -465,6 +465,7 @@ INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tf
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx7.tfm
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx5.tfm
 INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
+INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT .\images\add_nodes_add_edges.png
 INPUT .\images\add_nodes_add_edges.png
 INPUT images\add_nodes_add_edges.png
@@ -472,7 +473,6 @@ INPUT .\images\add_nodes_add_edges.png
 INPUT .\images\add_nodes_add_edges.png
 INPUT .\images\add_nodes_add_edges.png
 INPUT .\images\add_nodes_add_edges.png
-INPUT C:\Users\thoma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT .\images\CreatingRandomGraphs.png
 INPUT .\images\CreatingRandomGraphs.png
 INPUT images\CreatingRandomGraphs.png
