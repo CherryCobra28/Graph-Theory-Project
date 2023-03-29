@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  27 MAR 2023 19:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.12)  29 MAR 2023 21:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -536,20 +536,25 @@ Overfull \hbox (20.9729pt too wide) in paragraph at lines 239--240
 \OT1/cmr/m/n/10 The av-er-age clus-ter-ing co-ef-fi-cient of the Barab^^Sasi-Albert model fol-lows ([]ibid.)([]Klemm
  []
 
-[14] [15] [16] [17] [18]
+[14] [15] [16]
+Overfull \hbox (87.10074pt too wide) in paragraph at lines 261--285
+[] 
+ []
+
+[17] [18]
 <images/add_nodes_add_edges.png, id=80, 361.35pt x 272.51813pt>
 File: images/add_nodes_add_edges.png Graphic file (type png)
 <use images/add_nodes_add_edges.png>
-Package pdftex.def Info: images/add_nodes_add_edges.png  used on input line 320.
+Package pdftex.def Info: images/add_nodes_add_edges.png  used on input line 342.
 (pdftex.def)             Requested size: 227.62204pt x 171.66653pt.
  [19]
 <images/CreatingRandomGraphs.png, id=86, 321.45094pt x 178.41656pt>
 File: images/CreatingRandomGraphs.png Graphic file (type png)
 <use images/CreatingRandomGraphs.png>
-Package pdftex.def Info: images/CreatingRandomGraphs.png  used on input line 328.
+Package pdftex.def Info: images/CreatingRandomGraphs.png  used on input line 350.
 (pdftex.def)             Requested size: 227.62204pt x 126.34177pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--331
+Underfull \hbox (badness 10000) in paragraph at lines 348--353
 
  []
 
@@ -557,7 +562,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 326--331
 <images/BARABASI_FUNC.png, id=91, 545.6385pt x 477.58424pt>
 File: images/BARABASI_FUNC.png Graphic file (type png)
 <use images/BARABASI_FUNC.png>
-Package pdftex.def Info: images/BARABASI_FUNC.png  used on input line 337.
+Package pdftex.def Info: images/BARABASI_FUNC.png  used on input line 359.
 (pdftex.def)             Requested size: 341.43306pt x 298.85378pt.
  [21 <./images/CreatingRandomGraphs.png>] [22 <./images/BARABASI_FUNC.png>] [23] (Essay.aux)
 Package logreq Info: Writing requests to 'Essay.run.xml'.
@@ -565,15 +570,15 @@ Package logreq Info: Writing requests to 'Essay.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 11040 strings out of 475380
- 207342 string characters out of 2776771
+ 11041 strings out of 475380
+ 207360 string characters out of 2776771
  969013 words of memory out of 3000000
- 32303 multiletter control sequences out of 15000+600000
+ 32304 multiletter control sequences out of 15000+600000
  479540 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,16n,68p,1465b,1479s stack positions out of 10000i,1000n,20000p,200000b,80000s
  <C:\Users\thoma\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcti1000.pk><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Essay.pdf (23 pages, 434247 bytes).
+Output written on Essay.pdf (23 pages, 433643 bytes).
 PDF statistics:
  203 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

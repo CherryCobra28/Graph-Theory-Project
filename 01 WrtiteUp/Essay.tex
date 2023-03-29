@@ -255,15 +255,37 @@
                 For both our graphs the average shortest path length $\langle d \rangle$ is proportional to $\ln N$ however for the Barabási-Albert model  $\langle d \rangle \sim \frac{\ln N}{\ln \ln N}$ this means that $\langle d \rangle$ gorws much slower for barabsi graphs so they should on average have a smaller $\langle d \rangle$ than a equivelently sized random graph. Using a two sample  t test at 5\% we found a significant difference on average between the average shortest path length.
                 \subsubsection{Average Clustering}
                 The average clustering coefficent of a random graph is: $\langle C \rangle = \frac{\langle k \rangle}{N}$. For a Barabási-Albert graph $\langle C \rangle \sim \frac{(\ln N)^2}{N}$. We can see that on average Barabási-Albert graphs should have a higher clustering coefficent than random graphs. Using a two sample t test at 5\% we found a significant difference between the average clustering coefficents.
-
-            \subsection{SIRD Model differences}
-                \subsubsection{SIRD Model Parameters}
+            \subsection{SIRD Model Parameters}
                 For the SIRD model we used the same types of graphs. The parameters for the SIRD model go as follows: An infection rate of 0.5, a recovery rate of 0.6,1 intial infected node and 0 intial immune nodes. From the SIRD model we get two importan results '\verb|Days_Taken|' (This is how long it took for the virus to either die out or kill all the nodes) and 'Survivors' (The number of nodes left after the infection has died out). 
-                \subsubsection{Time Taken To Complete}
-                From our $N = 2500$ run of $400$ random graphs and $400$ Barabási-Albert graphs, random graphs had a average time to complete of $17.2$ with a standard deviation of $1.06$ andd barabsi graphs had a mean of $15.727$ and standrad deviation of $0.659$. A two smaple t test of these averages to see if there was a difference was done at the 5\% significance level, it foudn there was a significant difference between the two graphs in theri time to complete.
-                \subsubsection{Survivors}
-                Using the same sample we found that the average number of suvivors for the random graphs was $1499.4$ with a standard deviation of $25.2$ and for barabasi graphs they had an average of $1500.3$ with standard deviation of $25$. A two sample t test determined that thier was no significantly difference in the number of surviors of the infection hinting that the casulaty rate was independetn of graph structure and more likely correlated with the parameters of the model.
+            \subsection{Summary Analysis}
+            These are the p values from the 85 two sample t tests for each of the attributes above (Note any value less than 0.05 is considered statistically significant and any value of 0.0 is not necessarily euqal to 0 it is just less than 0.00001)
+            \begin{tabular}{rrrrrr}
+                \toprule
+                  n &  Highest Degree &  Average Shortest Path &  Average Clustering &  Days\_Taken &  survivors \\
+                \midrule
+                 30 &             0.0 &               0.003469 &                 0.0 &    0.377733 &   0.915393 \\
+                 50 &             0.0 &               0.000434 &                 0.0 &    0.685641 &   0.860232 \\
+                 70 &             0.0 &               0.000046 &                 0.0 &    0.010473 &   0.889225 \\
+                 90 &             0.0 &               0.000000 &                 0.0 &    0.000000 &   0.938562 \\
+                110 &             0.0 &               0.000000 &                 0.0 &    0.000000 &   0.520753 \\
+                130 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.251608 \\
+                150 &             0.0 &                    0.0 &                 0.0 &    0.000115 &   0.811857 \\
+                170 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.978347 \\
+                190 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.705481 \\
+                200 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.106506 \\
+                300 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.907223 \\
+                400 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.454334 \\
+                500 &             0.0 &                    0.0 &                 0.0 &    0.000000 &   0.518512 \\
+                1000 &             0.0 &                    0.0 &                 0.0 &         0.0 &   0.834069 \\
+                1500 &             0.0 &                    0.0 &                 0.0 &         0.0 &   0.993874 \\
+                2000 &             0.0 &                    0.0 &                 0.0 &         0.0 &   0.603536 \\
+                2500 &             0.0 &                    0.0 &                 0.0 &         0.0 &   0.648783 \\
+                \bottomrule
+            \end{tabular}
                 
+                
+
+                    
         
         
     \section{Evaluation}
