@@ -13,43 +13,45 @@
 \contentsline {subsubsection}{\numberline {3.1.3}$L_{\text {max}}$}{7}{}%
 \contentsline {subsubsection}{\numberline {3.1.4}Paths}{7}{}%
 \contentsline {subsubsection}{\numberline {3.1.5}Clustering Coefficient}{8}{}%
+\contentsline {subsubsection}{\numberline {3.1.6}Global Cluserting Coefficient}{8}{}%
 \contentsline {subsection}{\numberline {3.2}Random Graphs}{8}{}%
 \contentsline {subsubsection}{\numberline {3.2.1}Number of Edges}{8}{}%
 \contentsline {subsubsection}{\numberline {3.2.2}Degree distribution}{9}{}%
 \contentsline {subsubsection}{\numberline {3.2.3}The Poisson Approximation}{9}{}%
-\contentsline {subsection}{\numberline {3.3}Small World Graphs}{9}{}%
-\contentsline {subsubsection}{\numberline {3.3.1}Diameter And Average Shortest Path}{9}{}%
+\contentsline {subsection}{\numberline {3.3}Small World Graphs}{10}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}Diameter And Average Shortest Path}{10}{}%
 \contentsline {subsubsection}{\numberline {3.3.2}Clustering Coefficient}{10}{}%
-\contentsline {subsection}{\numberline {3.4}Scale-Free Graphs}{10}{}%
-\contentsline {subsubsection}{\numberline {3.4.1}Degree Distribution}{10}{}%
+\contentsline {subsection}{\numberline {3.4}Scale-Free Graphs}{11}{}%
+\contentsline {subsubsection}{\numberline {3.4.1}Degree Distribution}{11}{}%
 \contentsline {subsubsection}{\numberline {3.4.2}Moments of the Distribution}{12}{}%
 \contentsline {subsubsection}{\numberline {3.4.3}Average Shortest Path Length}{13}{}%
 \contentsline {subsection}{\numberline {3.5}Barabási-Albert model}{14}{}%
 \contentsline {subsubsection}{\numberline {3.5.1}Description of the model}{14}{}%
 \contentsline {subsubsection}{\numberline {3.5.2}Degree Distribution}{14}{}%
 \contentsline {subsubsection}{\numberline {3.5.3}Diameter And Average Shortest Path Length}{14}{}%
-\contentsline {subsubsection}{\numberline {3.5.4}Clustering Coefficient}{14}{}%
-\contentsline {subsection}{\numberline {3.6}SIRD Model}{14}{}%
-\contentsline {section}{\numberline {4}Analysis}{15}{}%
-\contentsline {subsection}{\numberline {4.1}Parameters Of Our Analysis}{15}{}%
-\contentsline {subsection}{\numberline {4.2}Theoretical difference}{16}{}%
-\contentsline {subsubsection}{\numberline {4.2.1}Highest degree}{16}{}%
-\contentsline {subsubsection}{\numberline {4.2.2}Average Shortest Path Length}{16}{}%
-\contentsline {subsubsection}{\numberline {4.2.3}Average Clustering}{16}{}%
-\contentsline {subsection}{\numberline {4.3}SIRD Model Parameters}{16}{}%
-\contentsline {subsection}{\numberline {4.4}Summary Analysis}{17}{}%
-\contentsline {section}{\numberline {5}Evaluation}{17}{}%
-\contentsline {section}{\numberline {6}Conclusion}{17}{}%
-\contentsline {section}{\numberline {7}APPENDIX}{17}{}%
-\contentsline {subsection}{\numberline {7.1}Problems With Milgram's Study}{17}{}%
-\contentsline {subsection}{\numberline {7.2}Proofs}{18}{}%
-\contentsline {subsubsection}{\numberline {7.2.1}Graph Theory}{18}{}%
-\contentsline {subsubsection}{\numberline {7.2.2}Random Graphs}{18}{}%
-\contentsline {subsubsection}{\numberline {7.2.3}Small World Graphs}{18}{}%
-\contentsline {subsubsection}{\numberline {7.2.4}Scale-Free Graphs}{18}{}%
-\contentsline {subsection}{\numberline {7.3}Python}{19}{}%
-\contentsline {subsection}{\numberline {7.4}Networkx}{19}{}%
-\contentsline {subsection}{\numberline {7.5}Creating Graphs}{20}{}%
-\contentsline {subsection}{\numberline {7.6}Creating Random Graphs}{20}{}%
-\contentsline {subsection}{\numberline {7.7}Creating Barabasi-Albert Graphs}{21}{}%
-\contentsline {subsection}{\numberline {7.8}Gaining Information From Graphs}{22}{}%
+\contentsline {subsubsection}{\numberline {3.5.4}Clustering Coefficient}{15}{}%
+\contentsline {subsection}{\numberline {3.6}SIRD Model}{15}{}%
+\contentsline {subsection}{\numberline {3.7}Two Sample t Tests}{15}{}%
+\contentsline {section}{\numberline {4}Analysis}{16}{}%
+\contentsline {subsection}{\numberline {4.1}Parameters Of Our Analysis}{16}{}%
+\contentsline {subsection}{\numberline {4.2}Theoretical difference}{17}{}%
+\contentsline {subsubsection}{\numberline {4.2.1}Highest degree}{17}{}%
+\contentsline {subsubsection}{\numberline {4.2.2}Average Shortest Path Length}{17}{}%
+\contentsline {subsubsection}{\numberline {4.2.3}Average Clustering}{17}{}%
+\contentsline {subsection}{\numberline {4.3}SIRD Model Parameters}{18}{}%
+\contentsline {subsection}{\numberline {4.4}Summary Analysis}{18}{}%
+\contentsline {section}{\numberline {5}Evaluation}{18}{}%
+\contentsline {section}{\numberline {6}Conclusion}{18}{}%
+\contentsline {section}{\numberline {7}APPENDIX}{19}{}%
+\contentsline {subsection}{\numberline {7.1}Problems With Milgram's Study}{19}{}%
+\contentsline {subsection}{\numberline {7.2}Proofs}{19}{}%
+\contentsline {subsubsection}{\numberline {7.2.1}Graph Theory}{19}{}%
+\contentsline {subsubsection}{\numberline {7.2.2}Random Graphs}{19}{}%
+\contentsline {subsubsection}{\numberline {7.2.3}Small World Graphs}{19}{}%
+\contentsline {subsubsection}{\numberline {7.2.4}Scale-Free Graphs}{20}{}%
+\contentsline {subsection}{\numberline {7.3}Python}{21}{}%
+\contentsline {subsection}{\numberline {7.4}Networkx}{21}{}%
+\contentsline {subsection}{\numberline {7.5}Creating Graphs}{22}{}%
+\contentsline {subsection}{\numberline {7.6}Creating Random Graphs}{22}{}%
+\contentsline {subsection}{\numberline {7.7}Creating Barabasi-Albert Graphs}{23}{}%
+\contentsline {subsection}{\numberline {7.8}Gaining Information From Graphs}{24}{}%
