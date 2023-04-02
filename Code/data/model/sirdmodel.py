@@ -39,7 +39,6 @@ class infection_graph:
             initial_infected (int): This determines how many people will be infected on day 0 of the infection
             intial_immune (int): This determines how many people will be natrually immune to the infection from day 0
         """        
-        #bepsi
         self.graph = network #This is the network the infection is running on
         self.vertices = list(nx.nodes(self.graph)) #this is a list of all the vertices in the network
         self.no_nodes = nx.number_of_nodes(self.graph)#the total number of nodes in the network

@@ -272,7 +272,7 @@
             For our analysis we will now compare the properties of Random graphs and the properties of Barabási-Albert graphs. Firstly from a theoretical view using the equations and formulas we have defined prior. Then, we will look at data from random graphs and Barabási-Albert graphs created by a computer to see if our theoretical formulas match to real graphs. Finally, we will use our SIRD model to see if the difference in graph structure that we have shown so far has a significant effect on the output of the SIRD model. All the random graphs and Barabási-Albert graphs we look at will have the same number of nodes and edges so the only difference between them is the underlying structure of their creation.
             \subsection{Parameters Of Our Analysis}
             For this analysis we will be looking at random graphs of the form $G(N,0.5)$ and Barabási-Albert graphs of the form $B(N,5)$ using a random seed graph of the form $G(10,0.5)$. We have chosen a $p$ value for the random graphs by way of maximizing entropy. Using a random seed graph for the Barabási-Albert model gives us a starting off point for the model to grow from which is free of structural bias. We add $5$ edges each time because it is less than the $10$ nodes of the seed graph making sure that we do not end up creating a complete graph with each iteration.\\ 
-            We will be looking at different values of $N$ which are\\ $ [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500]$\\ this will help show if the differences become more apparent as the size of the networks increases. After 2500 the computation time becomes too long for a lot of data to be collected. Sample sizes for the data will be 300 which is enough for the central limit theorem to apply so our t tests later will be valid, see dropbox link for normality tests to confirm this.
+            We will be looking at different values of $N$ which are\\ $ [30,50,70,90,110,130,150,170,190,200,300,400,500,1000,1500,2000,2500]$\\ this will help show if the differences become more apparent as the size of the networks increases. After 2500 the computation time becomes too long for a lot of data to be collected. Sample sizes for the data will be 300 which is enough for the central limit theorem to apply so our t tests later will be valid, see appendix for normality tests to confirm this.
             \subsection{Theoretical difference}
             Firstly it can be noted that the average degree of the two graphs will be equal as $\langle k \rangle = \frac{2L}{N}$ with $N$ and $L$ being equal for both graphs then $\langle k \rangle$ will also be equal.
                 \subsubsection{Highest degree}
@@ -284,7 +284,7 @@
             \subsection{SIRD Model Parameters}
                 For the SIRD model we used the same types of graphs. The parameters for the SIRD model go as follows: An infection rate of 0.5, a recovery rate of 0.6,1 initial infected node and 0 initial immune nodes. From the SIRD model we get two important results '\verb|Days_Taken|' (This is how long it took for the virus to either die out or kill all the nodes) and 'Survivors' (The number of nodes left after the infection has died out). 
             \subsection{Summary Analysis}
-            These are the p values from the 85 two sample t tests for each of the attributes above (Note any value less than 0.05 is considered statistically significant and any value of 0.0 is not necessarily equal to 0 it is just less than 0.00001.) All raw data can be found in the dropbox link in the introduction.
+            These are the $p$ values from the 85 two sample t tests for each of the attributes above (Note any value less than 0.05 is considered statistically significant and any value of 0.0 is not necessarily equal to 0 it is just less than 0.00001.) All raw data can be found in the dropbox link in the introduction.
             \begin{tabular}{rrrrrr}
                 \toprule
                   n &  Highest Degree &  Average Shortest Path &  Average Clustering &  Days\_Taken &  survivors \\
@@ -308,16 +308,11 @@
                 2500 &             0.0 &                    0.0 &                 0.0 &         0.0 &   0.648783 \\
                 \bottomrule
             \end{tabular}
-                
-                
-
-                    
-        
-        
+            From the table we can see that clearly there is a significant difference for all attributes of the graphs except for the number of survivors which is more likely to be dependent on the number of nodes in the graph rather than its underlying structure.
     \section{Evaluation}
-    TODO
+    To evaluate, there are some criticisms of this project that should be addressed if it was to be taken further. Firstly, the project was written in the python programming language, while this meant extremely fast prototyping and a huge amount of flexibility in its construction its main draw back is that is exponentially slower than other languages that could have been used instead, if I was to undertake this project again I would likely learn a language like C++ to use as it fast much faster computation time then equivalent python code. Secondly the SIRD model used for our analysis is extremely naive and focuses solely on a single potential mechanism that is a constant rate infection, however in my code there does exist room for additional mechanisms to be added, so a further project could focus much more heavily on the SIRD model and investigate the different potential mechanisms of infection. And finally a further investigation into generic scale free or small world models, such as the Watts-Strogatz model, may have proved enlightening to see which attributes rely on which structure i.e. Average Clustering is more affected by the scale free property or the small world property. However, the SIRD model did prove effective in showing a difference between the two graphs and an interesting idea could be whether it is possible to predict what type of graph was used as input from the output of the SIRD model.
     \section{Conclusion}
-    TODO
+    In conclusion, we have shown the theoretical differences between random and Barabási-Albert graphs then using an SIRD model we successfully showed that these differences had a significant effect (At a 5\% significance level) on that random process.
 
     \section{APPENDIX}
         \subsection{Problems With Milgram's Study}
@@ -358,7 +353,55 @@
                 &\langle k^n \rangle = C[\frac{1}{n-\gamma +1}k^{n-\gamma+1}]^{k_{\text{max}}}_{k_{\text{min}}}\\
                 &\langle k^n \rangle = C\frac{k_{\text{max}}^{n-\gamma+1} -k_{\text{min}}^{n-\gamma+1}}{n-\gamma +1 }
             \end{align*}
-
+        \subsection{Normality Tests}
+        Here are Shaprio-Wilk $p$ values for first random graphs then Barabási-Albert graphs:
+        \begin{tabular}{rrrrrr}
+            \toprule
+               n &  Highest Degree &  Average Shortest Path &  Average Clustering &  Days\_Taken &  survivors \\
+            \midrule
+              30 &        0.000000 &                    0.0 &            0.168563 &         0.0 &   0.000369 \\
+              50 &        0.000022 &                    0.0 &            0.004301 &         0.0 &   0.030823 \\
+              70 &        0.001205 &                    0.0 &            0.182920 &         0.0 &   0.021531 \\
+              90 &        0.000000 &                    0.0 &            0.617911 &         0.0 &   0.019819 \\
+             110 &        0.000569 &                    0.0 &            0.157740 &         0.0 &   0.108718 \\
+             130 &        0.000021 &                    0.0 &            0.069936 &         0.0 &   0.170925 \\
+             150 &        0.000000 &                    0.0 &            0.125660 &         0.0 &   0.107659 \\
+             170 &        0.000000 &                    0.0 &            0.029395 &         0.0 &   0.348010 \\
+             190 &        0.002460 &                    0.0 &            0.766267 &         0.0 &   0.353831 \\
+             200 &        0.000000 &                    0.0 &            0.003507 &         0.0 &   0.675189 \\
+             300 &        0.000090 &                    0.0 &            0.002691 &         0.0 &   0.000000 \\
+             400 &        0.000218 &                    0.0 &            0.215111 &         0.0 &   0.210440 \\
+             500 &        0.000011 &                    0.0 &            0.040442 &         0.0 &   0.010366 \\
+            1000 &        0.000176 &                    0.0 &            0.012026 &         0.0 &   0.333258 \\
+            1500 &        0.000076 &                    0.0 &            0.090985 &         0.0 &   0.615573 \\
+            2000 &        0.000013 &                    0.0 &            0.000370 &         0.0 &   0.134748 \\
+            2500 &        0.000000 &                    0.0 &            0.157920 &         0.0 &   0.813079 \\
+            \bottomrule
+            \end{tabular}
+            \begin{tabular}{rrrrrr}
+                \toprule
+                   n &  Highest Degree &  Average Shortest Path &  Average Clustering &  Days\_Taken &  survivors \\
+                \midrule
+                  30 &             0.0 &               0.071009 &            0.812125 &         0.0 &   0.000051 \\
+                  50 &             0.0 &               0.861007 &            0.521119 &         0.0 &   0.001539 \\
+                  70 &             0.0 &               0.652746 &            0.986989 &         0.0 &   0.005444 \\
+                  90 &             0.0 &               0.271781 &            0.268814 &         0.0 &   0.124502 \\
+                 110 &             0.0 &               0.002702 &            0.128650 &         0.0 &   0.011746 \\
+                 130 &             0.0 &               0.105071 &            0.000100 &         0.0 &   0.088875 \\
+                 150 &             0.0 &               0.268874 &            0.818732 &         0.0 &   0.103702 \\
+                 170 &             0.0 &               0.297079 &            0.607007 &         0.0 &   0.071503 \\
+                 190 &             0.0 &               0.829072 &            0.021850 &         0.0 &   0.179250 \\
+                 200 &             0.0 &               0.020997 &            0.810162 &         0.0 &   0.217576 \\
+                 300 &             0.0 &               0.998746 &            0.361316 &         0.0 &   0.386509 \\
+                 400 &             0.0 &               0.669806 &            0.175246 &         0.0 &   0.093892 \\
+                 500 &             0.0 &               0.397257 &            0.026119 &         0.0 &   0.928841 \\
+                1000 &             0.0 &               0.188685 &            0.087219 &         0.0 &   0.020617 \\
+                1500 &             0.0 &               0.641171 &            0.041183 &         0.0 &   0.976792 \\
+                2000 &             0.0 &               0.538786 &            0.784619 &         0.0 &   0.180491 \\
+                2500 &             0.0 &               0.902277 &            0.445436 &         0.0 &   0.442948 \\
+                \bottomrule
+                \end{tabular}
+            Note just because the $p$ values are may be greater than 0.05 that does not immediately suggest that the attributes are not normally distributed just that further analysis is needed.
         \subsection{Python}
         This project is written in the Python programming language as it is the language I am most familiar with and has very useful modules for graph analysis. All the code to create these graphs is completely doable without 3rd party libraries however as this project focuses on more complicated topics than just graph creation I will be using a 3rd party library to simplify creating graphs and manipulating them as detailed below.
         \subsection{Networkx}
@@ -390,5 +433,10 @@
         
         \subsection{Gaining Information From Graphs}
         Methods in networkx allow us to extract key information from the graph objects such as \verb|G.number_of_edges| which returns the number of edges that are contained in graph $G$ or \verb|networkx.all_neighbours(G,n)| which returns all the neighbours of node $n$ in graph $G$.
+        \subsection{SIRD Model Code}
+        The code can also be found in the dropbox link.
+
+        \subsection{Acknowledgements}
+        I would like to thank the following people for their assistance in this project: Firstly my girlfriend Jessica for ensuring I stay focused throughout and helping me proofread as well as emotional support, then I would like to thank Vince Kwasnica for being extremely helpful as my project supervisor and personal tutor given guidance and reigning in my project when I would nrealy run it off the tracks. And Finally I would like to thank the developers of Python, Networkx, Pandas and Scipy without their software the project would not have run as smoothly as it has and the maintainers of \LaTeX which proved extremely useful in the writing of this project.
 \printbibliography
 \end{document}
