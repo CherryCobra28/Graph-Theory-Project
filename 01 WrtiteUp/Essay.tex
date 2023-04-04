@@ -85,7 +85,7 @@
         \end{align*}
 
         \subsubsection{Clustering Coefficient}
-            The clustering coefficient captures the degree to which the neighbours of a given node link to each other \parencite{barabasi2013network}; For a node $i$ with degree $k_{i}$ the local clustering coefficient is defined as \parencite{Watts1998}.
+        The local clustering coefficient, as defined by \parencite{Watts1998}, measures the extent to which a node's neighbors connect with one another. \parencite{barabasi2013network} explains that this coefficient is calculated for a node $i$ based on its degree, denoted as $k_i$
             \begin{align*}
                 &C_{i} = \frac{2L_{i}}{k_{i}(k_{i}-1)}\\
                 &\text{Where $L_{i}$ is the number of links between the $k_i$ neighbours of node $i$. $C_{i}$ is between $0$ and $1$}
@@ -109,7 +109,7 @@
         For a random graph $G(N,p)$ we will define some key behaviours and values.
             \subsubsection{Number of Edges}
             We can begin by defining the probability of a random graph having exactly $L$ edges:
-            Firstly, there are $\frac{N(N-1)}{2}$ pairs of nodes to which we can draw edges between, then the probability that $L$ of the attempts to connect the $\frac{N(N-1)}{2}$ pairs of nodes have resulted in an edge is $p^L$. Then, the probability that the remaining  $\frac{N(N-1)}{2} -L$ attempts have not resulted in an edge is $(1-p)^{\frac{N(N-1)}{2} -L}$. Finally, there is $\binom{\frac{N(N-1)}{2}}{L}$ different ways to draw $L$ edges between $\frac{N(N-1)}{2}$ pairs of nodes. Taking the product of these factors we gain:
+            To begin, there are $\frac{N(N-1)}{2}$ pairs of nodes that can potentially be connected with edges. The probability that $L$ out of these pairs have successfully formed an edge is $p^L$, while the probability that the remaining $\frac{N(N-1)}{2} - L$ pairs have not formed an edge is $(1-p)^{\frac{N(N-1)}{2} - L}$. Ultimately, there are $\binom{\frac{N(N-1)}{2}}{L}$ ways to connect $L$ edges among the $\frac{N(N-1)}{2}$ pairs of nodes. Taking the product of these factors we gain:
             \begin{align*}
                 p_{L} = \binom{\frac{N(N-1)}{2}}{L}p^L(1-p)^{\frac{N(N-1)}{2} -L}
             \end{align*}
@@ -219,9 +219,9 @@
                     \frac{\ln N}{\ln\ln N}  &\gamma = 3\\
                     \ln N  &\gamma>3
                 \end{cases}
-            \end{align*}
+            \end{align*}+
             Let us discuss the implication of the behaviours described above \parencite{barabasi2013network}:\\
-            For $\gamma$ the degree of the largest hub $k_{\text{max}}$ grows linearly with network size $N$. Which forces the network into a 'hub and spoke' configuration where all the nodes are close together because they all connect to a central hub. The average shortest path length does not depend on $N$. This is known as an Anomalous regime\\
+            For $\gamma$ the degree of the largest hub $k_{\text{max}}$ grows linearly with network size $N$. The average shortest path length does not depend on $N$. This is known as an Anomalous regime\\
             For $2<\gamma<3$ the average shortest path length grows much slower than the $\ln N$ derived for random networks, this is referred to an ultra-small world regime \parencite{cohen2003scale}. The hubs massively reduce the average path length.\\
             For $\gamma =3$ Here the 2nd moment of the degree distribution now longer diverges, we regain the $\ln N$ dependence from the random networks but the $\ln\ln N$ shrinks the average path length under that of a similarly sized random networks.\\
             For $\gamma > 3$ At this point $\langle k^2 \rangle$ is finite and the average shortest path length follows the small world effect from random graphs. Hubs at this point are not sufficiently large to have an impact on the average shortest path length.
