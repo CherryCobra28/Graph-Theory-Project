@@ -688,7 +688,7 @@ def output_window(results):
     lay_infect = [[sg.Text(f'{x[0]}:{x[1]}')] for x in layout_infect]
     sg.theme('Green')
     layout = [lay_origin, lay_infect]
-    window = sg.Window('test', layout)
+    window = sg.Window('Output', layout)
     while True:
 
         event, values = window.read()
@@ -701,7 +701,6 @@ def output_window(results):
     
     
 def main():
-    NOGUI = True
     if NOGUI is False:
         result = model(*userpanel())
         output_window(result)
