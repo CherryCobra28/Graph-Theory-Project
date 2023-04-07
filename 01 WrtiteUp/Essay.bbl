@@ -364,6 +364,30 @@
       \field{pages}{057102}
       \range{pages}{1}
     \endentry
+    \entry{mandelbrot1953informational}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=83ced72c407b4739f234545c111ae19f}{%
+           family={Mandelbrot},
+           familyi={M\bibinitperiod},
+           given={Benoit},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fd46ee6c536b5cc3b73d5e5b67dcc45f}
+      \strng{fullhash}{fd46ee6c536b5cc3b73d5e5b67dcc45f}
+      \strng{bibnamehash}{fd46ee6c536b5cc3b73d5e5b67dcc45f}
+      \strng{authorbibnamehash}{fd46ee6c536b5cc3b73d5e5b67dcc45f}
+      \strng{authornamehash}{fd46ee6c536b5cc3b73d5e5b67dcc45f}
+      \strng{authorfullhash}{fd46ee6c536b5cc3b73d5e5b67dcc45f}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labeldatesource}{nodate}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{An informational theory of the statistical structure of language}
+    \endentry
     \entry{milgram1967small}{article}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=647e77469dede3f1d7ed99198d6e59e9}{%
@@ -499,6 +523,38 @@
       \field{labeltitlesource}{title}
       \field{title}{Probability, random variables and stochastic processes}
       \field{year}{2002}
+    \endentry
+    \entry{simon1955class}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=09c462602325128c408aa39c70c6ae62}{%
+           family={Simon},
+           familyi={S\bibinitperiod},
+           given={Herbert\bibnamedelima A},
+           giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{09c462602325128c408aa39c70c6ae62}
+      \strng{fullhash}{09c462602325128c408aa39c70c6ae62}
+      \strng{bibnamehash}{09c462602325128c408aa39c70c6ae62}
+      \strng{authorbibnamehash}{09c462602325128c408aa39c70c6ae62}
+      \strng{authornamehash}{09c462602325128c408aa39c70c6ae62}
+      \strng{authorfullhash}{09c462602325128c408aa39c70c6ae62}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Biometrika}
+      \field{number}{3/4}
+      \field{title}{On a class of skew distribution functions}
+      \field{volume}{42}
+      \field{year}{1955}
+      \field{pages}{425\bibrangedash 440}
+      \range{pages}{16}
     \endentry
     \entry{Watts1998}{article}{}
       \name{author}{2}{}{%
