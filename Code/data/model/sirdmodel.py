@@ -65,7 +65,7 @@ class infection_graph:
         ########################################################################
         self.no_of_intitial_infected  = initial_infected
         self.no_of_intitial_immune  = intial_immune
-        self.infected = set() #We store each infected node here. We intialize self.infected as a set as in python a set can only have unique values so if node 3 was added twice then only one would be saved
+        self.infected: set = set() #We store each infected node here. We intialize self.infected as a set as in python a set can only have unique values so if node 3 was added twice then only one would be saved
         zeros = [0]*self.no_nodes #a list of 0s for each node in the graph
         self.daysinfected = dict(zip(self.vertices,zeros))#A dictionary mapping each node to how long they have been infected
         self.timesrecovered = dict(zip(self.vertices,zeros))#A dictionary mapping each node to the number of times they recoverd (Currenly if the times recoverd is greater than 0 then the node is immune)
